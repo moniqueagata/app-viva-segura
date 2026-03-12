@@ -2,9 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import { Text, View, Image, Pressable, Modal } from 'react-native';
 import styles from './styles';
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Welcome() {
-
+  const navigation = useNavigation();
   const [ modalStatus, setModalStatus ] = useState(false);
 
   return (
@@ -51,12 +52,12 @@ export default function Welcome() {
           <View style={styles.btnModal}>
 
             <Text style={styles.txDesc}>Compartilho minha localização 👩</Text>
-            <Pressable style={styles.btnPurple}>
+            <Pressable style={styles.btnPurple} onPress={() => navigation.navigate('Login')}>
               <Text style={styles.txWhite}>Protegida</Text>
             </Pressable>
 
             <Text style={styles.txDesc2}>Acompanho o trajeto 😇</Text>
-            <Pressable style={styles.btnWhite}>
+            <Pressable style={styles.btnWhite} onPress={() => navigation.navigate('Login')}>
               <Text style={styles.txPurple}>Guardião</Text>
             </Pressable>
           </View>

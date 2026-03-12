@@ -58,7 +58,7 @@ export default StyleSheet.create({
   btnPurple: {
     backgroundColor: '#550fa4', 
     width: '80%',
-    height: 59,
+    height: 55,
     borderRadius: 30, 
     justifyContent: 'center',
     alignItems: 'center',
@@ -72,7 +72,7 @@ export default StyleSheet.create({
 
   btnWhite: { 
     width: '80%',
-    height: 59,
+    height: 55,
     borderRadius: 30,
     borderWidth: 1,
     borderColor: '#550fa4', 

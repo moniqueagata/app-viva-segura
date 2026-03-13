@@ -1,8 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { Image, View, Text, Pressable } from 'react-native';
+import { Image, View, Text, Pressable, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
-import { TextInput } from 'react-native-web';
 
 export default function Login() {
     const navigation = useNavigation();
@@ -12,15 +11,24 @@ export default function Login() {
         
         <Image source={require('../../../assets/img/isotipo1.png')} style={styles.isotipo} />
 
-        <Text style={styles.titulo}>Login</Text>
+        <Text style={styles.titulo}>Bem-vinda de volta</Text>
 
         <View style={styles.inputView}>
             <Text style={styles.label}>CPF</Text>
-            <TextInput style={styles.input} />
-        
+            <TextInput 
+              style={styles.inputCpf}
+              keyboardType='numeric'
+              placeholder='000.000.000-00'
+            />
+
             <Text style={styles.label}>Senha</Text>
-            <TextInput style={styles.input} />
-            <Text style={styles.desc}t>Esqueceu sua senha?</Text>
+            <View style={styles.inputContainer}>
+              <TextInput 
+              style={styles.inputSenha}
+            />
+            <Image source={require('../../../assets/img/vision.png')} style={styles.icone}/>
+            </View>
+            <Text style={styles.desc}>Esqueceu senha?</Text>
         </View>
 
         <Pressable style={styles.btnPurple}>
@@ -28,7 +36,7 @@ export default function Login() {
         </Pressable>
 
         <View style={styles.linkView}>
-            <Text style={styles.txLink}>Ainda não possui uma conta?</Text><Pressable><Text style={styles.link}>Crie uma</Text></Pressable>
+            <Text style={styles.txLink}>Ainda não possui conta?</Text><Pressable><Text style={styles.link}>Criar conta</Text></Pressable>
         </View>
 
       <StatusBar style="auto" />

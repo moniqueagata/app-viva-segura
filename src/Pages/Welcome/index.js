@@ -19,8 +19,8 @@ export default function Welcome() {
       </View>
 
       <View style={styles.textView}>
-        <Text style={styles.titulo}>Sua segurança começa aqui</Text>
-        <Text style={styles.subtitulo}>Compartilhe sua localização e viaje com mais segurança</Text>
+        <Text style={styles.titulo}>Bem-Vinda</Text>
+        <Text style={styles.subtitulo}>Mais segurança nos seus trajetos do dia a dia</Text>
       </View>
 
       <View style={styles.btnView}>
@@ -38,31 +38,7 @@ export default function Welcome() {
         transparent={true}
         visible={modalStatus}
       >
-        <View style={styles.modalContainer}>
-          <View style={styles.navModal}>
-            <Pressable onPress={() => setModalStatus(false) } >
-              <Image source={require('../../../assets/img/exit2.png')} style={styles.iconExit} />
-            </Pressable>
-          </View>
-
-          <Image source={require('../../../assets/img/isotipo2.png')} style={styles.isotipo} />
-
-          <Text style={styles.subtituloModal}>Selecione seu perfil</Text>
-
-          <View style={styles.btnModal}>
-
-            <Text style={styles.txDesc}>Compartilho minha localização 👩</Text>
-            <Pressable style={styles.btnPurple} onPress={() => navigation.navigate('Login')}>
-              <Text style={styles.txWhite}>Protegida</Text>
-            </Pressable>
-
-            <Text style={styles.txDesc2}>Acompanho o trajeto 😇</Text>
-            <Pressable style={styles.btnWhite} onPress={() => navigation.navigate('Login')}>
-              <Text style={styles.txPurple}>Guardião</Text>
-            </Pressable>
-          </View>
-
-        </View>
+        
       </Modal>
 
       <StatusBar style="auto" />

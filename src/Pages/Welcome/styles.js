@@ -34,18 +34,18 @@ export default StyleSheet.create({
   },
 
   titulo: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: '500',
     color: '#550fa4', 
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 13,
   },
 
   subtitulo: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#545454',
     textAlign: 'center',
-    marginBottom: 30,
+    marginBottom: 40,
   },
 
   btnView: {
@@ -66,7 +66,7 @@ export default StyleSheet.create({
 
   txWhite: {
     color: '#FFFFFF',
-    fontSize: 19,
+    fontSize: 20,
     fontWeight: '400',
   },
 
@@ -82,64 +82,8 @@ export default StyleSheet.create({
 
   txPurple: {
     color: '#550fa4',
-    fontSize: 19,
+    fontSize: 20,
     fontWeight: '400',
-  },
-
-
-  // Modal 
-  modalContainer: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  },
-
-  navModal: {
-    width: '100%',
-    height: 60,
-    justifyContent: 'center',
-  },
-
-  iconExit: {
-    width: 35,
-    height: 35,
-  },
-
-  isotipo: {
-    width: 280,
-    height: 280,
-    resizeMode: 'contain',
-  },
-
-  subtituloModal: {
-    fontSize: 29,
-    fontWeight: '500',
-    color: '#550fa4',
-    textAlign: 'center',
-  },
-
-  btnModal: {
-    flex: 0.6,
-    width: '100%',
-    alignItems: 'center',
-    gap: 5,
-  },
-
-  txDesc: {
-    fontSize: 16,
-    color: '#220049',
-    fontWeight: '400',
-    marginBottom: 5,
-  },
-
-  txDesc2: {
-    fontSize: 16,
-    color: '#220049',
-    fontWeight: '400',
-    marginBottom: 5,
-    marginTop: 17,
   },
 
 

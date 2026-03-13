@@ -1,12 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, Image, Pressable, Modal } from 'react-native';
+import { Text, View, Image, Pressable } from 'react-native';
 import styles from './styles';
-import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Welcome() {
   const navigation = useNavigation();
-  const [ modalStatus, setModalStatus ] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -24,22 +22,14 @@ export default function Welcome() {
       </View>
 
       <View style={styles.btnView}>
-        <Pressable style={styles.btnPurple} onPress={() => setModalStatus(true)}>
+        <Pressable style={styles.btnPurple} onPress={() => navigation.navigate('TipoPerfil')}>
         <Text style={styles.txWhite}>Criar conta</Text>
       </Pressable>
 
-      <Pressable style={styles.btnWhite} onPress={() => setModalStatus(true)}>
+      <Pressable style={styles.btnWhite} onPress={() => navigation.navigate('TipoPerfil')}>
         <Text style={styles.txPurple}>Entrar</Text>
       </Pressable>
       </View>
-
-      <Modal 
-        animationType="slide"
-        transparent={true}
-        visible={modalStatus}
-      >
-        
-      </Modal>
 
       <StatusBar style="auto" />
     </View>

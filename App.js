@@ -13,11 +13,6 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="TipoPerfil" component={TipoPerfil} 
-          options={{
-            headerShown: false
-          }}
-        />
         <Stack.Screen name="Splash" component={Splash} 
           options={{
             headerShown: false
@@ -29,6 +24,11 @@ export default function App() {
           }}
         />
         <Stack.Screen name="Login" component={Login}
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen name="TipoPerfil" component={TipoPerfil} 
           options={{
             headerShown: false
           }}

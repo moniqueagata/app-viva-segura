@@ -5,6 +5,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Splash from "./src/Pages/Splash";
 import Welcome from "./src/Pages/Welcome";
 import TipoPerfil from "./src/Pages/TipoPerfil";
+import CadastroUsuaria1 from "./src/Pages/CadastroUsuaria1";
+import CadastroUsuaria2 from "./src/Pages/CadastroUsuaria2";
+import ConfirmacaoCadastro from "./src/Pages/ConfirmacaoCadastro";
 import Login from "./src/Pages/Login";
 
 const Stack = createNativeStackNavigator ();
@@ -23,12 +26,27 @@ export default function App() {
             headerShown: false
           }}
         />
+        <Stack.Screen name="TipoPerfil" component={TipoPerfil} 
+          options={{
+            headerShown: false
+          }}
+        />
         <Stack.Screen name="Login" component={Login}
           options={{
             headerShown: false
           }}
         />
-        <Stack.Screen name="TipoPerfil" component={TipoPerfil} 
+        <Stack.Screen name="CadastroUsuaria1" component={CadastroUsuaria1} 
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen name="CadastroUsuaria2" component={CadastroUsuaria2} 
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen name="ConfirmacaoCadastro" component={ConfirmacaoCadastro} 
           options={{
             headerShown: false
           }}

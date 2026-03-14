@@ -25,6 +25,7 @@ export default function Login() {
             <View style={styles.inputContainer}>
               <TextInput 
               style={styles.inputSenha}
+              secureTextEntry
             />
             <Image source={require('../../../assets/img/vision.png')} style={styles.icone}/>
             </View>
@@ -36,7 +37,7 @@ export default function Login() {
         </Pressable>
 
         <View style={styles.linkView}>
-            <Text style={styles.txLink}>Ainda não possui conta?</Text><Pressable><Text style={styles.link}>Criar conta</Text></Pressable>
+            <Text style={styles.txLink}>Ainda não possui conta?</Text><Pressable onPress={() => navigation.navigate('CadastroUsuaria1')}><Text style={styles.link}>Criar conta</Text></Pressable>
         </View>
 
       <StatusBar style="auto" />

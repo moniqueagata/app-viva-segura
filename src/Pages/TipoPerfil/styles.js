@@ -28,7 +28,7 @@ export default StyleSheet.create({
   },
 
   subtitulo: {
-    fontSize: 24,
+    fontSize: 25,
     fontWeight: '500',
     color: '#550fa4',
     textAlign: 'center',

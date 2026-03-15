@@ -10,22 +10,32 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
   },
 
+  navbar: {
+    width: '100%',
+    height: 10,
+  },
+
+  exitIcon: {
+    width: 39,
+    height: 39,
+  },
+
   isotipo: {
     width: 180,
     height: 180,
     resizeMode: 'contain',
-    marginTop: 50,
   },
 
   titulo: {
     color: '#220049',
-    fontSize: 24,
+    fontSize: 27,
     fontWeight: '700',
+    letterSpacing: 0.4,
   },
 
-  inputView: {
+  container2: {
     width: '100%',
-    alignItems: 'center'
+    gap: 22,
   },
 
   label: {
@@ -40,37 +50,42 @@ export default StyleSheet.create({
   inputCpf: {
     backgroundColor: '#f5f5f5',
     width: '90%',
-    height: 50,
+    height: 55,
     borderRadius: 30,
     padding: 25,
     color: '#858585',
     fontSize: 17,
-    marginBottom: 22,
   },
 
   inputSenha: {
     backgroundColor: '#f5f5f5',
     width: '90%',
-    height: 50,
+    height: 55,
     borderRadius: 30,
     padding: 25,
     color: '#858585',
     fontSize: 17,
-    marginBottom: 7,
+    marginBottom: 15,
+  },
+
+  inputView: {
+    width: '100%',
+    alignItems: 'center',
   },
 
   inputContainer: {
     position: "relative",
-    width: "100%",
-    alignItems: 'center'
+  },
+
+  botaoOlho:{
+    position: 'absolute',
+    right: 45,
+    top: 52,
   },
 
   icone: {
     width: 22,
     height: 22,
-    position: "absolute",
-    right: '12%',
-    top: 15,
   },
 
   desc: {
@@ -114,6 +129,7 @@ export default StyleSheet.create({
     paddingLeft: 4,
     fontSize: 16,
     fontWeight: '500',
+    textDecorationLine: 'underline',
   }
   
 });

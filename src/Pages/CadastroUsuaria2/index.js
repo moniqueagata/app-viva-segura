@@ -13,6 +13,7 @@ export default function CadastroUsuaria2() {
     const temMinuscula = /[a-z]/.test(senha);
     const temNumero = /[0-9]/.test(senha);
     const [checked, setChecked] = useState(false);
+    const [mostrarSenha, setMostrarSenha] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -35,10 +36,18 @@ export default function CadastroUsuaria2() {
     </View>
       <TextInput 
         style={styles.input}
-        secureTextEntry
+        secureTextEntry={!mostrarSenha}
         onChangeText={setSenha}
       />
-      <Image source={require('../../../assets/img/vision.png')} style={styles.icone}/>
+      <Pressable style={styles.botaoOlho} onPress={() => setMostrarSenha(!mostrarSenha)}>
+        <Image 
+        source={ 
+          mostrarSenha
+            ? require('../../../assets/img/vision-off.png')
+            : require('../../../assets/img/vision.png')
+        } 
+        style={styles.icone}/>
+      </Pressable>
     </View>
     </View>
 
@@ -74,9 +83,16 @@ export default function CadastroUsuaria2() {
         <Text style={styles.textoInput}>Confirmar senha</Text>
         <TextInput 
           style={styles.input}
-          secureTextEntry
+          secureTextEntry={!mostrarSenha}
         />
-        <Image source={require('../../../assets/img/vision.png')} style={styles.icone}/>
+        <Pressable style={styles.botaoOlho} onPress={() => setMostrarSenha(!mostrarSenha)}>
+          <Image source={ 
+            mostrarSenha
+              ? require('../../../assets/img/vision-off.png')
+              : require('../../../assets/img/vision.png')
+          } 
+        style={styles.icone}/>
+        </Pressable>
     </View>
 
         <View style={styles.viewTermos}>

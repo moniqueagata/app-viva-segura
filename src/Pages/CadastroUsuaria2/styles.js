@@ -47,15 +47,17 @@ export default StyleSheet.create({
 
   inputContainer: {
     position: "relative",
-    width: "100%",
-    alignItems: 'center'
   },
+
+  botaoOlho:{
+    position: 'absolute',
+    right: 40,
+    top: 50
+  },
+
   icone: {
     width: 22,
     height: 22,
-    position: "absolute",
-    right: '12%',
-    top: 50,
   },
 
   inputView: {
@@ -207,6 +209,7 @@ export default StyleSheet.create({
     paddingLeft: 4,
     fontSize: 16,
     fontWeight: '500',
+    textDecorationLine: 'underline',
   }
 
 });

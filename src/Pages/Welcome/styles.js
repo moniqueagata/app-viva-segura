@@ -34,11 +34,12 @@ export default StyleSheet.create({
   },
 
   titulo: {
-    fontSize: 24,
-    fontWeight: '500',
-    color: '#550fa4', 
+    fontSize: 27,
+    fontWeight: '700',
+    color: '#7632c5', 
     textAlign: 'center',
     marginBottom: 13,
+    letterSpacing: 0.7,
   },
 
   subtitulo: {

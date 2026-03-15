@@ -17,16 +17,16 @@ export default function Welcome() {
       </View>
 
       <View style={styles.textView}>
-        <Text style={styles.titulo}>Bem-Vinda</Text>
-        <Text style={styles.subtitulo}>Mais segurança nos seus trajetos do dia a dia</Text>
+        <Text style={styles.titulo}>Viva segura</Text>
+        <Text style={styles.subtitulo}>Mais segurança nos trajetos do seu dia a dia</Text>
       </View>
 
       <View style={styles.btnView}>
-        <Pressable style={styles.btnPurple} onPress={() => navigation.navigate('TipoPerfil')}>
+        <Pressable style={styles.btnPurple} onPress={() => navigation.navigate('CadastroPerfil')}>
         <Text style={styles.txWhite}>Criar conta</Text>
       </Pressable>
 
-      <Pressable style={styles.btnWhite} onPress={() => navigation.navigate('TipoPerfil')}>
+      <Pressable style={styles.btnWhite} onPress={() => navigation.navigate('Login')}>
         <Text style={styles.txPurple}>Entrar</Text>
       </Pressable>
       </View>

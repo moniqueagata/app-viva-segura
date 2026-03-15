@@ -14,7 +14,7 @@ export default function CadastroUsuaria1() {
         </View>
         </View>
 
-      <Text style={styles.titulo}>Crie a sua conta agora mesmo</Text>
+      <Text style={styles.titulo}>Preencha as informações abaixo</Text>
 
       <View style={styles.inputView}>
       <Text style={styles.textoInput}>Nome Completo</Text>

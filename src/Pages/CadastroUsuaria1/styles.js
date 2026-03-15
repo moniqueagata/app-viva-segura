@@ -37,13 +37,15 @@ export default StyleSheet.create({
     color: '#220049',
     fontSize: 22,
     fontWeight: '700',
-    marginTop: 30,
+    marginTop: 35,
+    textAlign: 'center',
+    lineHeight: 25,
   },
 
   inputView: {
     width: '100%',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 30,
   },
 
   textoInput:{
@@ -83,7 +85,7 @@ export default StyleSheet.create({
 
   botaoContinuar:{
     backgroundColor: '#550fa4', 
-    width: '80%',
+    width: '70%',
     height: 55,
     borderRadius: 30, 
     justifyContent: 'center',
@@ -113,6 +115,7 @@ export default StyleSheet.create({
     paddingLeft: 4,
     fontSize: 16,
     fontWeight: '500',
+    textDecorationLine: 'underline',
   }
 
 });

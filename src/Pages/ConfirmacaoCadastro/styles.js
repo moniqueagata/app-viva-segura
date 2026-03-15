@@ -14,7 +14,6 @@ export default StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     marginTop: 20,
-
   },
 
   barraLoading: {

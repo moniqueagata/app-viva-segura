@@ -27,7 +27,7 @@ export default StyleSheet.create({
 
   loadingPurple: {
     width: '80%',
-    height: 8,
+    height: 10,
     borderRadius: 20,
     backgroundColor: '#550fa4',
     position: "absolute",
@@ -102,7 +102,7 @@ export default StyleSheet.create({
     width: '90%',
     height: 50,
     borderRadius: 30,
-    padding: 25,
+    paddingLeft: 25,
     color: '#858585',
     fontSize: 17,
     marginBottom: 15,

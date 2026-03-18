@@ -22,11 +22,11 @@ export default function Welcome() {
       </View>
 
       <View style={styles.btnView}>
-        <Pressable style={styles.btnPurple} onPress={() => navigation.navigate('CadastroPerfil')}>
+        <Pressable style={styles.btnPurple} onPress={() => navigation.navigate('LoadingCadastro')}>
         <Text style={styles.txWhite}>Criar conta</Text>
       </Pressable>
 
-      <Pressable style={styles.btnWhite} onPress={() => navigation.navigate('Login')}>
+      <Pressable style={styles.btnWhite} onPress={() => navigation.navigate('LoadingLogin')}>
         <Text style={styles.txPurple}>Entrar</Text>
       </Pressable>
       </View>

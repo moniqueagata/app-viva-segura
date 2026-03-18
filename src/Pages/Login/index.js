@@ -10,9 +10,6 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.navbar}>
-        <Pressable onPress={() => navigation.navigate('Welcome')}><Image source={require('../../../assets/img/seta.png')} style={styles.exitIcon} /></Pressable>
-      </View> 
         <Image source={require('../../../assets/img/isotipo1.png')} style={styles.isotipo} />
 
         <Text style={styles.titulo}>Login</Text>
@@ -50,7 +47,7 @@ export default function Login() {
         </Pressable>
 
         <View style={styles.linkView}>
-            <Text style={styles.txLink}>Ainda não possui conta?</Text><Pressable onPress={() => navigation.navigate('CadastroPerfil')}><Text style={styles.link}>Criar conta</Text></Pressable>
+            <Text style={styles.txLink}>Ainda não possui conta?</Text><Pressable onPress={() => navigation.navigate('LoadingCadastro')}><Text style={styles.link}>Criar conta</Text></Pressable>
         </View>
 
       <StatusBar style="auto" />

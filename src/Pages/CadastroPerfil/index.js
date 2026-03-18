@@ -39,7 +39,7 @@ export default function CadastroPerfil() {
         </View>
 
           <View style={styles.linkView}>
-            <Text style={styles.txLink}>Já possui uma Conta?</Text><Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.link}>Entrar</Text></Pressable>
+            <Text style={styles.txLink}>Já possui uma Conta?</Text><Pressable onPress={() => navigation.navigate('LoadingLogin')}><Text style={styles.link}>Entrar</Text></Pressable>
           </View>
       <StatusBar style="auto" />
     </View>

@@ -32,14 +32,14 @@ export default function CadastroUsuaria1() {
         <Text style={styles.textoInput}>Data de Nascimento</Text>
         <TextInput 
             style={styles.input}
-            placeholder='10/10/10'
+            keyboardType='numeric'
         />
 
         <View style={styles.telContainer}>
             <Text style={styles.textoInput}>Telefone</Text>
             <TextInput 
-            style={styles.input}
-            keyboardType='phone'
+            style={styles.inputTel}
+            keyboardType='number-pad'
             />
             <Text style={styles.ddTelefone}>55+</Text>
         </View>
@@ -47,8 +47,7 @@ export default function CadastroUsuaria1() {
         <Text style={styles.textoInput}>E-mail</Text>
         <TextInput 
             style={styles.input}
-            keyboardType='emailAddress'
-            placeholder='nome@email.com'
+            keyboardType='email-address'
         />
       </View>
 
@@ -57,7 +56,7 @@ export default function CadastroUsuaria1() {
       </Pressable>
         
         <View style={styles.linkView}>
-        <Text style={styles.txLink}>Já possui uma Conta?</Text><Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.link}>Entrar</Text></Pressable>
+        <Text style={styles.txLink}>Já possui uma Conta?</Text><Pressable onPress={() => navigation.navigate('LoadingLogin')}><Text style={styles.link}>Entrar</Text></Pressable>
         </View>
 
       <StatusBar style="auto" />

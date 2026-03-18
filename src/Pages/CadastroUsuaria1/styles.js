@@ -26,8 +26,8 @@ export default StyleSheet.create({
   },
 
   loadingPurple: {
-    width: '30%',
-    height: 8,
+    width: '50%',
+    height: 10,
     borderRadius: 20,
     backgroundColor: '#550fa4',
     position: "absolute",
@@ -62,7 +62,7 @@ export default StyleSheet.create({
     width: '90%',
     height: 50,
     borderRadius: 30,
-    padding: 25,
+    paddingLeft: 25,
     color: '#858585',
     fontSize: 17,
     marginBottom: 22,
@@ -72,6 +72,17 @@ export default StyleSheet.create({
     position: "relative",
     width: "100%",
     alignItems: 'center'
+  },
+
+  inputTel:{
+    backgroundColor: '#f5f5f5',
+    width: '90%',
+    height: 50,
+    borderRadius: 30,
+    paddingLeft: 66,
+    color: '#858585',
+    fontSize: 17,
+    marginBottom: 22,
   },
 
   ddTelefone: {

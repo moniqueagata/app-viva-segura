@@ -110,7 +110,7 @@ export default function CadastroUsuaria2() {
         <Text style={styles.textoConcluir}>Concluir</Text>
       </Pressable>
        <View style={styles.linkView}>
-        <Text style={styles.txLink}>Já possui uma Conta?<Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.link}>Entrar</Text></Pressable></Text>
+        <Text style={styles.txLink}>Já possui uma Conta?<Pressable onPress={() => navigation.navigate('LoadingLogin')}><Text style={styles.link}>Entrar</Text></Pressable></Text>
        </View>
       <StatusBar style="auto" />
     </View>

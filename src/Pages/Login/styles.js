@@ -10,20 +10,11 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
   },
 
-  navbar: {
-    width: '100%',
-    height: 10,
-  },
-
-  exitIcon: {
-    width: 39,
-    height: 39,
-  },
-
   isotipo: {
     width: 180,
     height: 180,
     resizeMode: 'contain',
+    marginTop: '15%',
   },
 
   titulo: {
@@ -52,7 +43,7 @@ export default StyleSheet.create({
     width: '90%',
     height: 55,
     borderRadius: 30,
-    padding: 25,
+    paddingLeft: 25,
     color: '#858585',
     fontSize: 17,
   },
@@ -62,7 +53,7 @@ export default StyleSheet.create({
     width: '90%',
     height: 55,
     borderRadius: 30,
-    padding: 25,
+    paddingLeft: 25,
     color: '#858585',
     fontSize: 17,
     marginBottom: 15,

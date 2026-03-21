@@ -66,7 +66,13 @@ export default function Login() {
               />
         </View>
         <View style={styles.inputView}>
-          <Text style={styles.label}>Senha</Text>
+          <View style={styles.cadeadoSenha}>
+            <Image
+              source={require('../../../assets/img/block.png')}
+              style={styles.cadeado}
+            />
+            <Text style={styles.textoSenha}>Senha</Text>
+          </View>
               <TextInput 
               style={styles.inputSenha}
               onChangeText={setSenha}

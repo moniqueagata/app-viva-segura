@@ -18,34 +18,55 @@ export default StyleSheet.create({
 
   barraLoading: {
     width: '90%',
-    height: 10,
+    height: 12,
     borderWidth: 1,
     borderRadius: 20,
     borderColor: '#550fa4',
     position: "relative",
+    justifyContent: 'center',
+    overflow: 'hidden',
   },
 
   loadingPurple: {
-    width: '50%',
-    height: 10,
+    width: '55%',
+    height: '100%',
     borderRadius: 20,
     backgroundColor: '#550fa4',
     position: "absolute",
+    left: 0
+  },
+
+  viewLogo: {
+    width: '100%',
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '3%'
+  },
+
+  logo: {
+    width: 95,
+    height: 95,
+    resizeMode: 'contain',
+  },
+
+  viewText: {
+    width: '100%',
+    height: '8%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   titulo:{
-    color: '#220049',
-    fontSize: 22,
-    fontWeight: '700',
-    marginTop: 35,
-    textAlign: 'center',
-    lineHeight: 25,
+    color: '#313131',
+    fontSize: 20,
+    fontWeight: '400',
   },
 
   inputView: {
     width: '100%',
     alignItems: 'center',
-    marginTop: 30,
+    marginBottom: 10,
   },
 
   textoInput:{
@@ -71,7 +92,7 @@ export default StyleSheet.create({
   telContainer: {
     position: "relative",
     width: "100%",
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   inputTel:{
@@ -79,7 +100,7 @@ export default StyleSheet.create({
     width: '90%',
     height: 50,
     borderRadius: 30,
-    paddingLeft: 66,
+    paddingLeft: 70,
     color: '#858585',
     fontSize: 17,
     marginBottom: 22,
@@ -87,11 +108,12 @@ export default StyleSheet.create({
 
   ddTelefone: {
     position: "absolute",
-    fontSize: 17,
-    fontWeight: '700',
-    color: '#b4b4b4',
-    left: '11%',
-    top: 49,
+    fontSize: 18,
+    letterSpacing: 1,
+    fontWeight: '800',
+    color: '#7632c5',
+    left: '12%',
+    top: 47,
   },
 
   botaoContinuar:{

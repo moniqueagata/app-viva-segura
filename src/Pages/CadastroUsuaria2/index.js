@@ -24,6 +24,11 @@ export default function CadastroUsuaria2() {
           <View style={styles.loadingPurple}></View>
         </View>
       </View>
+
+      <View style={styles.viewLogo}>
+        <Image source={require('../../../assets/img/isotipo1.png')} style={styles.logo} />
+      </View>
+
       <Text style={styles.titulo}>Crie uma senha segura</Text>
 
       <View style={styles.container2}>

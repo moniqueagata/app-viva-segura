@@ -14,13 +14,15 @@ export default function CadastroUsuaria1() {
 
   return (
     <View style={styles.container}>
-        <View style={styles.barraView}>
+      <View style={styles.barraView}>
         <View style={styles.barraLoading}>
             <View style={styles.loadingPurple}></View>
         </View>
-        </View>
+      </View>
 
-      <Text style={styles.titulo}>Preencha as informações abaixo</Text>
+      <View style={styles.viewText}>
+        <Text style={styles.titulo}>Preencha as informações abaixo</Text>
+      </View>
 
       <View style={styles.inputView}>
       <Text style={styles.textoInput}>Nome Completo</Text>
@@ -66,7 +68,7 @@ export default function CadastroUsuaria1() {
             <TextInput 
               style={styles.inputTel}
               keyboardType='number-pad'
-              placeholder='(11)99999-9999'
+              placeholder='(11) 99999-9999'
               value={telefone} 
               maxLength={15}
               onChangeText={(text) => {

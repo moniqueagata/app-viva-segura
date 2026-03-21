@@ -14,28 +14,30 @@ export default function CadastroPerfil() {
         </View>
       </View>
 
-          <Text style={styles.titulo}>Escolha seu perfil</Text>
+      <Text style={styles.txContexto}>Escolha seu perfil</Text>
+        
+        <View style={styles.viewLogo}>
+          <Image source={require('../../../assets/img/isotipo1.png')} style={styles.logo} />
+        </View>
+
+        <Text style={styles.titulo}>Como você vai usar o aplicativo?</Text>
 
         <View style={styles.viewCard}>
-
-          <Text style={styles.subtitulo}>Selecione o seu papel no aplicativo</Text>
-
             <Pressable style={styles.card} onPress={() => navigation.navigate('CadastroUsuaria1')}>
               <Image source={require('../../../assets/img/usuaria.png')} style={styles.icone} />
               <View style={styles.viewDesc}>
-                <Text style={styles.tituloCard}>Sou Usuária</Text>
-                <Text style={styles.desc}>Compartilhe sua localização com pessoas de confiança</Text>
+                <Text style={styles.tituloCard}>Usuária</Text>
+                <Text style={styles.desc}>Permita que pessoas de confiança acompanhem você</Text>
               </View>
             </Pressable>
 
             <Pressable style={styles.card}>
                 <Image source={require('../../../assets/img/guardiao.png')} style={styles.icone} />
               <View style={styles.viewDesc}>
-                <Text style={styles.tituloCard}>Sou Guardião</Text>
-                <Text style={styles.desc}>Acompanhe trajetos e receba alertas</Text>
+                <Text style={styles.tituloCard}>Guardião</Text>
+                <Text style={styles.desc}>Veja trajetos em tempo real e receba alertas</Text>
               </View>
             </Pressable>
-            
         </View>
 
           <View style={styles.linkView}>

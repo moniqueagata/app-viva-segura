@@ -18,19 +18,22 @@ export default StyleSheet.create({
 
   barraLoading: {
     width: '90%',
-    height: 10,
+    height: 12,
     borderWidth: 1,
     borderRadius: 20,
     borderColor: '#550fa4',
     position: "relative",
+    justifyContent: 'center',
+    overflow: 'hidden',
   },
 
   loadingPurple: {
     width: '100%',
-    height: 10,
+    height: '100%',
     borderRadius: 20,
     backgroundColor: '#550fa4',
     position: "absolute",
+    left: 0
   },
 
   viewCheck: {
@@ -45,7 +48,7 @@ export default StyleSheet.create({
     width: '80%',
     height: '80%',
     borderRadius: '100%',
-    backgroundColor: '#45dd7f',
+    backgroundColor: '#63fc9d',
     alignItems: 'center',
     justifyContent: 'center'
   },

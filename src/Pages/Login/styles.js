@@ -18,8 +18,8 @@ export default StyleSheet.create({
   },
 
   titulo: {
-    color: '#220049',
-    fontSize: 27,
+    color: '#8630e9',
+    fontSize: 29,
     fontWeight: '700',
     letterSpacing: 0.4,
   },
@@ -46,6 +46,28 @@ export default StyleSheet.create({
     paddingLeft: 25,
     color: '#858585',
     fontSize: 17,
+  },
+
+    cadeadoSenha:{
+    width: '100%',
+    flexDirection:'row',
+    alignItems: 'center',
+  },
+
+  cadeado:{
+    width:20,
+    height:20,
+    marginLeft:'10%',
+    marginBottom: 8,
+  },
+
+  textoSenha:{
+    alignSelf: 'flex-start',
+    color: '#550fa4',
+    fontSize: 20,
+    fontWeight: '700',
+    marginBottom: 8,
+    marginLeft: '1%'
   },
 
   inputSenha: {

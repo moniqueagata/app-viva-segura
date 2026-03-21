@@ -18,25 +18,49 @@ export default StyleSheet.create({
 
   barraLoading: {
     width: '90%',
-    height: 10,
+    height: 12,
     borderWidth: 1,
     borderRadius: 20,
     borderColor: '#550fa4',
     position: "relative",
+    justifyContent: 'center',
+    overflow: 'hidden',
   },
 
   loadingPurple: {
     width: '80%',
-    height: 10,
+    height: '100%',
     borderRadius: 20,
     backgroundColor: '#550fa4',
     position: "absolute",
+    left: 0
+  },
+
+  txContexto: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#550fa4',
+    marginTop: '6%',
+  },
+
+  viewLogo: {
+    width: '100%',
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 30
+  },
+
+  logo: {
+    width: 130,
+    height: 130,
+    resizeMode: 'contain',
   },
 
   titulo:{
-    color: '#220049',
-    fontSize: 22,
-    fontWeight: '700',
+    color: '#313131',
+    fontSize: 20,
+    fontWeight: '400',
     marginTop: 40,
   },
 
@@ -105,7 +129,7 @@ export default StyleSheet.create({
     paddingLeft: 25,
     color: '#858585',
     fontSize: 17,
-    marginBottom: 15,
+    marginBottom: 18,
   },
 
   viewVerificacao: {

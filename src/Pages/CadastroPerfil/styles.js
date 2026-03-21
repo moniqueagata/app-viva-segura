@@ -18,55 +18,73 @@ export default StyleSheet.create({
 
   barraLoading: {
     width: '90%',
-    height: 10,
+    height: 12,
     borderWidth: 1,
     borderRadius: 20,
     borderColor: '#550fa4',
     position: "relative",
+    justifyContent: 'center',
+    overflow: 'hidden',
   },
 
   loadingPurple: {
-    width: '10%',
-    height: 10,
+    width: '20%',
+    height: '100%',
     borderRadius: 20,
     backgroundColor: '#550fa4',
     position: "absolute",
+    left: 0
   },
 
-  titulo: {
-    fontSize: 29,
+  txContexto: {
+    fontSize: 22,
     fontWeight: '700',
-    color: '#220049', 
-    textAlign: 'center',
+    color: '#550fa4',
     letterSpacing: 0.7,
-    marginBottom: 30,
   },
 
-  viewCard: {
+  viewLogo: {
     width: '100%',
-    height: 240,
-    paddingHorizontal: 5,
+    height: 100,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  subtitulo: {
-    fontSize: 17,
+  logo: {
+    width: 150,
+    height: 150,
+    resizeMode: 'contain',
+  },
+
+  titulo:{
+    color: '#313131',
+    fontSize: 20,
     fontWeight: '400',
-    color: '#545454',
-    textAlign: 'center',
-    marginBottom: 30,
+  },
+
+  viewCard: {
+    width: '100%',
+    height: 300,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    gap: 50
   },
 
   card: {
     width: '100%',
     height: 120,
-    backgroundColor: '#f7f7f7',
+    backgroundColor: '#f9f9f9',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 10,
-    marginBottom: 33,
+    elevation: 4,
+    shadowColor: '#ebdafd',
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    borderWidth: 1,
+    borderColor: '#eee',
   },
 
   icone: {
@@ -82,9 +100,15 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
 
+  cardText: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+
   tituloCard: {
     fontSize: 21,
     fontWeight: '700',
+    letterSpacing: 0.7,
     color: '#550fa4', 
   },
 

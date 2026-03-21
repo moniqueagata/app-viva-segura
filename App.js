@@ -11,6 +11,7 @@ import CadastroUsuaria2 from "./src/Pages/CadastroUsuaria2";
 import ConfirmacaoCadastro from "./src/Pages/ConfirmacaoCadastro";
 import LoadingLogin from "./src/Pages/LoadingLogin";
 import Login from "./src/Pages/Login";
+import Home from "./src/Pages/Home";
 
 const Stack = createNativeStackNavigator ();
 
@@ -63,6 +64,13 @@ export default function App() {
             headerShown: false
           }}
         />
+        <Stack.Screen name="Home" component={Home}
+          options={{
+            headerShown: false
+          }}
+        />
+        
+        
       </Stack.Navigator>
     </NavigationContainer>
 

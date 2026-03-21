@@ -3,9 +3,9 @@ import { View, Text, Pressable, TextInput, Image } from "react-native";
 import { useState } from "react"
 import styles from "./styles";
 import { useNavigation } from '@react-navigation/native';
+import { useRoute } from "@react-navigation/native";
 
 export default function CadastroUsuaria2() {
-
     const navigation = useNavigation();
     const [senha, setSenha] = useState("");
     const tem8 = senha.length >= 8;
@@ -14,6 +14,8 @@ export default function CadastroUsuaria2() {
     const temNumero = /[0-9]/.test(senha);
     const [checked, setChecked] = useState(false);
     const [mostrarSenha, setMostrarSenha] = useState(false);
+    const route = useRoute();
+    const { nome, cpf, dataNasc, telefone, email } = route.params;
 
   return (
     <View style={styles.container}>
@@ -106,7 +108,13 @@ export default function CadastroUsuaria2() {
       </View>
       </View>
 
-     <Pressable style={styles.botaoConcluir} onPress={() => navigation.navigate('ConfirmacaoCadastro')}>
+      <Pressable style={styles.botaoConcluir} onPress={() => {
+        if(senha.length < 8) {
+          alert("A senha deve ter pelo menos 8 caracteres");
+          return;
+        }
+        navigation.navigate('ConfirmacaoCadastro', { nome, cpf, dataNasc, telefone, email, senha })
+      }}>
         <Text style={styles.textoConcluir}>Concluir</Text>
       </Pressable>
        <View style={styles.linkView}>

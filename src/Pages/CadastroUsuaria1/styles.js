@@ -91,7 +91,7 @@ export default StyleSheet.create({
     fontWeight: '700',
     color: '#b4b4b4',
     left: '11%',
-    top: 48,
+    top: 49,
   },
 
   botaoContinuar:{

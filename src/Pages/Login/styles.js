@@ -18,9 +18,9 @@ export default StyleSheet.create({
   },
 
   titulo: {
-    color: '#8630e9',
-    fontSize: 29,
-    fontWeight: '700',
+    color: '#545454',
+    fontSize: 25,
+    fontWeight: '400',
     letterSpacing: 0.4,
   },
 

@@ -59,7 +59,7 @@ export default StyleSheet.create({
     resizeMode: 'contain'
   },
 
-   titulo:{
+  titulo:{
     fontSize: 22,
     fontWeight: 'bold',
     marginTop: '10%',

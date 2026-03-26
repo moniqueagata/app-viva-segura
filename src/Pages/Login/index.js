@@ -45,7 +45,7 @@ export default function Login() {
     <View style={styles.container}>
         <Image source={require('../../../assets/img/isotipo1.png')} style={styles.isotipo} />
 
-        <Text style={styles.titulo}>Login</Text>
+        <Text style={styles.titulo}>Bem vinda(o) de volta!</Text>
 
         <View style={styles.container2}>
           <View style={styles.inputView}>

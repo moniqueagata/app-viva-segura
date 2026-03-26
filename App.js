@@ -12,6 +12,7 @@ import ConfirmacaoCadastro from "./src/Pages/ConfirmacaoCadastro";
 import LoadingLogin from "./src/Pages/LoadingLogin";
 import Login from "./src/Pages/Login";
 import Home from "./src/Pages/Home";
+import PerfilUsuaria from "./src/Pages/PerfilUsuaria";
 
 const Stack = createNativeStackNavigator ();
 
@@ -19,6 +20,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="PerfilUsuaria" component={PerfilUsuaria} 
+          options={{
+            headerShown: false
+          }}
+        />
         <Stack.Screen name="Splash" component={Splash} 
           options={{
             headerShown: false

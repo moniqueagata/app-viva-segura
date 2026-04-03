@@ -1,12 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { View, Text, Image, Pressable } from 'react-native';
-import styles from'./styles';
-import { useNavigation } from '@react-navigation/native';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
+import styles from'./styles/styles_confirmacao';
 
-export default function ConfirmacaoCadastro() {
+export default function Confirmacao() {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -14,7 +13,7 @@ export default function ConfirmacaoCadastro() {
     const confirmaCadastro = async () => {
       try {
         const usuario = route.params;
-        console.log("Dados que estão sendo salvos:", usuario); // Verifique se a senha aparece no terminal!
+        console.log("Dados que estão sendo salvos:", usuario);
 
         if (usuario) {
           await AsyncStorage.setItem('usuario', JSON.stringify(usuario));

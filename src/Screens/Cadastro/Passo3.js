@@ -1,19 +1,22 @@
 import { StatusBar } from "expo-status-bar";
 import { View, Text, Pressable, TextInput, Image } from "react-native";
 import { useState } from "react"
-import styles from "./styles";
-import { useNavigation } from '@react-navigation/native';
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from '@react-navigation/native';
+import styles from "./styles/styles_passo3";
 
-export default function CadastroUsuaria2() {
+export default function Passo3() {
     const navigation = useNavigation();
+
+    // Senha
     const [senha, setSenha] = useState("");
-    const tem8 = senha.length >= 8;
-    const temMaiuscula = /[A-Z]/.test(senha);
-    const temMinuscula = /[a-z]/.test(senha);
-    const temNumero = /[0-9]/.test(senha);
-    const [checked, setChecked] = useState(false);
+    const quantidade = senha.length >= 8;
+    const maiuscula = /[A-Z]/.test(senha);
+    const minuscula = /[a-z]/.test(senha);
+    const numero = /[0-9]/.test(senha);
     const [mostrarSenha, setMostrarSenha] = useState(false);
+
+    const [checked, setChecked] = useState(false);
+
     const route = useRoute();
     const { nome, cpf, dataNasc, telefone, email } = route.params;
 
@@ -61,7 +64,7 @@ export default function CadastroUsuaria2() {
     <View style={styles.viewVerificacao}>
       <View style={styles.txVerificacao}>
         <Text style={styles.descSenha}>Mínimo de 8 caracteres</Text>
-        {tem8 ? (
+        {quantidade ? (
         <Text style={{ color: "green", fontWeight: "bold" }}> ✓ </Text>
         ) : (
         <Text style={{ color: "red", fontWeight: "bold" }}> ✕ </Text>
@@ -69,7 +72,7 @@ export default function CadastroUsuaria2() {
       </View>
       <View style={styles.txVerificacao}>
         <Text style={styles.descSenha}>Incluir letras maiúsculas e minúsculas</Text>
-        {temMaiuscula && temMinuscula ? (
+        {maiuscula && minuscula ? (
         <Text style={{ color: "green", fontWeight: "bold" }}> ✓ </Text>
         ) : (
         <Text style={{ color: "red", fontWeight: "bold" }}> ✕ </Text>
@@ -77,7 +80,7 @@ export default function CadastroUsuaria2() {
       </View>
       <View style={styles.txVerificacao}>
         <Text  style={styles.descSenha}>Números ou caracteres especiais</Text>
-        {temNumero ? (
+        {numero ? (
         <Text style={{ color: "green", fontWeight: "bold" }}> ✓ </Text>
         ) : (
         <Text style={{ color: "red", fontWeight: "bold" }}> ✕ </Text>
@@ -118,12 +121,12 @@ export default function CadastroUsuaria2() {
           alert("A senha deve ter pelo menos 8 caracteres");
           return;
         }
-        navigation.navigate('ConfirmacaoCadastro', { nome, cpf, dataNasc, telefone, email, senha })
+        navigation.navigate('Confirmacao', { nome, cpf, dataNasc, telefone, email, senha })
       }}>
         <Text style={styles.textoConcluir}>Concluir</Text>
       </Pressable>
        <View style={styles.linkView}>
-        <Text style={styles.txLink}>Já possui uma Conta?<Pressable onPress={() => navigation.navigate('LoadingLogin')}><Text style={styles.link}>Entrar</Text></Pressable></Text>
+        <Text style={styles.txLink}>Já possui uma Conta?<Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.link}>Entrar</Text></Pressable></Text>
        </View>
       <StatusBar style="auto" />
     </View>

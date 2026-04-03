@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { Image, View, Text, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import styles from './styles';
+import styles from './styles/styles_passo1';
 
-export default function CadastroPerfil() {
+export default function Passo1() {
     const navigation = useNavigation();
 
   return (
@@ -23,7 +23,7 @@ export default function CadastroPerfil() {
         <Text style={styles.titulo}>Como você vai usar o aplicativo?</Text>
 
         <View style={styles.viewCard}>
-            <Pressable style={styles.card} onPress={() => navigation.navigate('CadastroUsuaria1')}>
+            <Pressable style={styles.card} onPress={() => navigation.navigate('Passo2')}>
               <Image source={require('../../../assets/img/usuaria.png')} style={styles.icone} />
               <View style={styles.viewDesc}>
                 <Text style={styles.tituloCard}>Usuária</Text>
@@ -41,7 +41,7 @@ export default function CadastroPerfil() {
         </View>
 
           <View style={styles.linkView}>
-            <Text style={styles.txLink}>Já possui uma Conta?</Text><Pressable onPress={() => navigation.navigate('LoadingLogin')}><Text style={styles.link}>Entrar</Text></Pressable>
+            <Text style={styles.txLink}>Já possui uma Conta?</Text><Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.link}>Entrar</Text></Pressable>
           </View>
       <StatusBar style="auto" />
     </View>

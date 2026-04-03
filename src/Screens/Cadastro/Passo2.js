@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, Text, View , Image, TextInput} from 'react-native';
-import styles from'./styles';
+import { Pressable, Text, View , TextInput} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
+import styles from'./styles/styles_passo2';
 
-export default function CadastroUsuaria1() {
+export default function Passo2() {
   const navigation = useNavigation();
+
   const [nome, setNome] = useState('');
   const [cpf, setCpf] = useState('');
   const [dataNasc, setdataNasc] = useState('');
@@ -93,13 +94,13 @@ export default function CadastroUsuaria1() {
 
       <Pressable style={styles.botaoContinuar} onPress={() => {
         const cpfLimpo = cpf.replace(/\D/g, ''); 
-        navigation.navigate('CadastroUsuaria2', { nome, cpf: cpfLimpo, dataNasc, telefone, email });
+        navigation.navigate('Passo3', { nome, cpf: cpfLimpo, dataNasc, telefone, email });
       }}>
         <Text style={styles.textoContinuar}>Continuar</Text>
       </Pressable>
         
         <View style={styles.linkView}>
-        <Text style={styles.txLink}>Já possui uma Conta?</Text><Pressable onPress={() => navigation.navigate('LoadingLogin')}><Text style={styles.link}>Entrar</Text></Pressable>
+        <Text style={styles.txLink}>Já possui uma Conta?</Text><Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.link}>Entrar</Text></Pressable>
         </View>
 
       <StatusBar style="auto" />

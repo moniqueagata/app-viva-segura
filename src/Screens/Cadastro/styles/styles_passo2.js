@@ -10,145 +10,88 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
   },
   
-  barraView: {
+  header: {
     width: '100%',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-
-  barraLoading: {
-    width: '90%',
-    height: 12,
-    borderWidth: 1,
-    borderRadius: 20,
-    borderColor: '#550fa4',
-    position: "relative",
-    justifyContent: 'center',
-    overflow: 'hidden',
-  },
-
-  loadingPurple: {
-    width: '55%',
-    height: '100%',
-    borderRadius: 20,
-    backgroundColor: '#550fa4',
-    position: "absolute",
-    left: 0
-  },
-
-  viewLogo: {
-    width: '100%',
-    height: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: '3%'
-  },
-
-  logo: {
-    width: 95,
-    height: 95,
-    resizeMode: 'contain',
-  },
-
-  viewText: {
-    width: '100%',
-    height: '8%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  titulo:{
-    color: '#313131',
-    fontSize: 20,
-    fontWeight: '400',
-  },
-
-  inputView: {
-    width: '100%',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-
-  textoInput:{
-    alignSelf: 'flex-start',
-    color: '#550fa4',
-    fontSize: 20,
-    fontWeight: '700',
-    marginBottom: 8,
-    marginLeft: '10%',
-  },
-
-  input:{
-    backgroundColor: '#f5f5f5',
-    width: '90%',
-    height: 50,
-    borderRadius: 30,
-    paddingLeft: 25,
-    color: '#858585',
-    fontSize: 17,
-    marginBottom: 22,
-  },
-
-  telContainer: {
-    position: "relative",
-    width: "100%",
-    alignItems: 'center',
-  },
-
-  inputTel:{
-    backgroundColor: '#f5f5f5',
-    width: '90%',
-    height: 50,
-    borderRadius: 30,
-    paddingLeft: 70,
-    color: '#858585',
-    fontSize: 17,
-    marginBottom: 22,
-  },
-
-  ddTelefone: {
-    position: "absolute",
-    fontSize: 18,
-    letterSpacing: 1,
-    fontWeight: '800',
-    color: '#7632c5',
-    left: '12%',
-    top: 47,
-  },
-
-  botaoContinuar:{
-    backgroundColor: '#550fa4', 
-    width: '70%',
-    height: 55,
-    borderRadius: 30, 
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-
-  textoContinuar:{
-    color: '#FFFFFF',
-    fontSize: 20,
-    fontWeight: '400',
-  },
-
-  linkView: {
     alignItems: 'center',
     flexDirection: 'row',
   },
 
-  txLink: {
-    color: '#ad99c3',
-    fontSize: 16,
-    fontWeight: '400',
+  barra: {
+    flex: 1,
+    height: 8,
+    backgroundColor: '#e7e7e7',
+    borderRadius: 10,
+    overflow: 'hidden',
+    marginHorizontal: '16%'
   },
 
-  link: {
-    color: '#ef8fa6',
-    paddingLeft: 4,
-    fontSize: 16,
+  barraPurple: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: '#6925b8',
+    borderRadius: 4
+  },
+
+  btnExit: {
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  logo: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 22
+  },
+
+  texts: {
+    width: '100%',
+    gap: 12,
+    marginBottom: 33
+  },
+
+  titulo: {
+    fontSize: 28,
     fontWeight: '500',
-    textDecorationLine: 'underline',
-  }
+    color: '#6925b8', 
+    textAlign: 'center',
+    letterSpacing: 0.7,
+  },
+
+  subtitulo: {
+    fontSize: 16,
+    color: '#545454',
+    textAlign: 'center',
+  },
+
+  inputsContainer: {
+    gap: 22,
+    alignItems: 'center',
+    width: '100%'
+  },
+
+  buttonContainer: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 170,  
+  },
+
+  btnPurple: {
+    backgroundColor: '#6925b8', 
+    width: '80%',
+    height: 60,
+    borderRadius: 35, 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  txWhite: {
+    color: '#FFFFFF',
+    fontSize: 22,
+    fontWeight: '500',
+  },
 
 });

@@ -10,230 +10,172 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
   },
 
-  barraView: {
+  header: {
     width: '100%',
     alignItems: 'center',
-    marginTop: 20,
+    flexDirection: 'row',
   },
 
-  barraLoading: {
-    width: '90%',
-    height: 12,
-    borderWidth: 1,
-    borderRadius: 20,
-    borderColor: '#550fa4',
-    position: "relative",
-    justifyContent: 'center',
+  barra: {
+    flex: 1,
+    height: 8,
+    backgroundColor: '#e7e7e7',
+    borderRadius: 10,
     overflow: 'hidden',
+    marginHorizontal: '16%'
   },
 
-  loadingPurple: {
-    width: '80%',
+  barraPurple: {
     height: '100%',
-    borderRadius: 20,
-    backgroundColor: '#550fa4',
-    position: "absolute",
-    left: 0
-  },
-
-  txContexto: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#550fa4',
-    marginTop: '6%',
-  },
-
-  viewLogo: {
     width: '100%',
-    height: 100,
+    backgroundColor: '#6925b8',
+    borderRadius: 4
+  },
+
+  btnExit: {
+    width: 30,
+    height: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 30
   },
 
   logo: {
-    width: 130,
-    height: 130,
-    resizeMode: 'contain',
-  },
-
-  titulo:{
-    color: '#313131',
-    fontSize: 20,
-    fontWeight: '400',
-    marginTop: 40,
-  },
-
-  container2: {
-    width: '100%',
-    marginBottom: 60,
-  },
-
-  inputContainer: {
-    position: "relative",
-  },
-
-  botaoOlho:{
-    position: 'absolute',
-    right: 40,
-    top: 50
-  },
-
-  icone: {
-    width: 22,
-    height: 22,
-  },
-
-  inputView: {
     width: '100%',
     alignItems: 'center',
-    marginTop: 40,
+    justifyContent: 'center',
+    paddingVertical: 22
   },
 
-  cadeadoSenha:{
-    width: '100%',
-    flexDirection:'row',
+  titulo: {
+    fontSize: 28,
+    fontWeight: '500',
+    color: '#6925b8', 
+    textAlign: 'center',
+    letterSpacing: 0.7,
+  },
+
+  inputsContainer: {
+    gap: 33,
     alignItems: 'center',
+    width: '95%',
+    marginTop: 9
   },
 
-  cadeado:{
-    width:20,
-    height:20,
-    marginLeft:'10%',
-    marginBottom: 8,
+  validacoesContainer: {
+    width: '85%',
+    gap: 5
   },
 
-  textoSenha:{
-    alignSelf: 'flex-start',
-    color: '#550fa4',
-    fontSize: 20,
-    fontWeight: '700',
-    marginBottom: 8,
-    marginLeft: '1%'
-  },
-
-  textoInput:{
-    alignSelf: 'flex-start',
-    color: '#550fa4',
-    fontSize: 20,
-    fontWeight: '700',
-    marginBottom: 8,
-    marginLeft: '10%',
-  },
-
-  input:{
-    backgroundColor: '#f5f5f5',
-    width: '90%',
-    height: 50,
-    borderRadius: 30,
-    paddingLeft: 25,
-    color: '#858585',
-    fontSize: 17,
-    marginBottom: 18,
-  },
-
-  viewVerificacao: {
-    width: '100%',
-  },
-
-  txVerificacao:    {
-    flexDirection:'row'
-  },
-
-  descSenha: {
-    marginLeft:'10%',
-    color:'#653f8f',
-    fontSize:13,
-    marginRight:'2%',
+  textValidar: {
+    fontSize: 15,
     fontWeight: '400',
-    marginBottom: 5,
+    color: '#515151',
+  },
+
+  termosContainer: {
+    width: '95%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 12
   },
 
   boxContainer: {
-    paddingRight: 3,
+    paddingRight: 8
   },
 
   checkbox: {
-    width: 20,
-    height: 20,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#550fa4',
+    width: 25,
+    height: 25,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: '#bbb',
     justifyContent: 'center',
     alignItems: 'center',
-    },
+  },
 
-   boxChecked: {
+  boxChecked: {
     backgroundColor: '#550fa4',
-    alignItems: 'center',
-    justifyContent: 'center'
-   },
+    borderColor: '#550fa4',
+  },
 
-  iconeChecked: {
-    width: 15,
-    height: 15,
-    resizeMode: 'contain'
-   },
+  textBox: {
+    fontSize: 14,
+    color: '#6d4c92',
+    fontWeight: '500',
+  },
 
-  viewTermos:{
+  buttonContainer: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row',
-    marginBottom: 30,
+    height: 180,  
   },
 
-  textPurple: {
-    fontSize: 12,
-    color:'#653f8f',
-    marginLeft: 4,
-    marginRight: 4,
-  },
-
-  textPink: {
-    fontSize: 12,
-    color:'#f66e91',
-    textDecorationLine: 'underline',
-  }, 
-
-  botaoConcluir:{
-    backgroundColor: '#550fa4', 
+  btnPurple: {
+    backgroundColor: '#6925b8', 
     width: '80%',
-    height: 55,
-    borderRadius: 30, 
+    height: 60,
+    borderRadius: 35, 
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 70,
   },
 
-  textoConcluir:{
-    color: '#FFFFFF',
-    fontSize: 20,
-    fontWeight: '400',
-  },
-
-  quadradoTexto:{
-    textAlign:'center',
-    color:'#550FA4',
-  },
-
-  linkView: {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-
-  txLink: {
-    color: '#ad99c3',
-    fontSize: 16,
-    fontWeight: '400',
-  },
-
-  link: {
-    color: '#ef8fa6',
-    paddingLeft: 4,
-    fontSize: 16,
+  txWhite: {
+    color: '#fff',
+    fontSize: 22,
     fontWeight: '500',
-    textDecorationLine: 'underline',
-  }
+  },
+
+  modalContainer: {
+    width: '100%',
+    height: 500,
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    position: 'absolute',
+    bottom: 0,
+    margin: 0,
+  },
+
+  modal: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  circleCheck: {
+    width: 150,
+    height: 150,
+    backgroundColor: '#8e3deb',
+    borderRadius: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 25,
+  },
+
+  tituloModal: {
+    fontSize: 30,
+    fontWeight: '500',
+    color: '#515151',
+    letterSpacing: 0.5,
+    marginBottom: 11
+  },
+
+  subtitulo: {
+    fontSize: 18,
+    fontWeight: '400',
+    color: '#717171',
+    marginBottom: 60
+  },
+
+  buttonModal: {
+    backgroundColor: '#6925b8', 
+    width: '70%',
+    height: 54,
+    borderRadius: 35, 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
 });

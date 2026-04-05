@@ -15,8 +15,8 @@ export default function Splash() {
 
   return (
     <View style={styles.container}>
-        <View style={styles.logoContainer}>
-            <Image source={require('../../../assets/img/logotipo.png')} style={styles.logo} />
+        <View style={styles.logo}>
+            <Image source={require('../../../assets/img/logo.png')} style={{width: 240, height: 240}} />
         </View>
             <ActivityIndicator size="large" color="#550fa4" style={styles.loading} />
       <StatusBar style="auto" />

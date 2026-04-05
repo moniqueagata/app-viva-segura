@@ -10,106 +10,84 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
   },
 
-  barraView: {
+  header: {
     width: '100%',
     alignItems: 'center',
-    marginTop: 20,
+    flexDirection: 'row',
   },
 
-  barraLoading: {
-    width: '90%',
-    height: 12,
-    borderWidth: 1,
-    borderRadius: 20,
-    borderColor: '#550fa4',
-    position: "relative",
-    justifyContent: 'center',
+  barra: {
+    flex: 1,
+    height: 8,
+    backgroundColor: '#e7e7e7',
+    borderRadius: 10,
     overflow: 'hidden',
+    marginHorizontal: '16%'
   },
 
-  loadingPurple: {
-    width: '20%',
+  barraPurple: {
     height: '100%',
-    borderRadius: 20,
-    backgroundColor: '#550fa4',
-    position: "absolute",
-    left: 0
-  },
-
-  txContexto: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: '#550fa4',
-    letterSpacing: 0.7,
-  },
-
-  viewLogo: {
     width: '100%',
-    height: 100,
+    backgroundColor: '#6925b8',
+    borderRadius: 4
+  },
+
+  btnExit: {
+    width: 30,
+    height: 30,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   logo: {
-    width: 150,
-    height: 150,
-    resizeMode: 'contain',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   titulo:{
-    color: '#313131',
-    fontSize: 20,
-    fontWeight: '400',
+    color: '#6925b8',
+    fontSize: 28,
+    fontWeight: '500',
   },
 
-  viewCard: {
+  cardContainer: {
     width: '100%',
     height: 300,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 12,
-    gap: 50
+    gap: 33
   },
 
-  card: {
+  cardPerfil: {
     width: '100%',
     height: 120,
-    backgroundColor: '#f9f9f9',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    borderRadius: 10,
-    elevation: 4,
-    shadowColor: '#ebdafd',
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
+    marginHorizontal: 10,
+    borderRadius: 15,
     borderWidth: 1,
-    borderColor: '#eee',
+    borderColor: 'transparent'
   },
 
-  icone: {
-    width: 70,
-    height: 70,
-    marginRight: 14,
-    marginLeft: 14,
+  cardSelecionado: {
+    backgroundColor: '#f2e3ff',
+    borderColor: '#c28ffd'
   },
 
-  viewDesc: {
+  texts: {
     width: '70%',
-    paddingLeft: 10,
-    justifyContent: 'center'
+    paddingLeft: 22,
+    justifyContent: 'center',
   },
 
-  cardText: {
-    flexDirection: 'row',
-    gap: 10,
-  },
-
-  tituloCard: {
-    fontSize: 21,
-    fontWeight: '700',
-    letterSpacing: 0.7,
-    color: '#550fa4', 
+  tipo: {
+    fontSize: 22,
+    fontWeight: '500',
+    letterSpacing: 0.5,
+    color: '#7f27e4', 
   },
 
   desc: {
@@ -121,24 +99,26 @@ export default StyleSheet.create({
     fontWeight: '400'
   },
 
-  linkView: {
+  button: {
+    width: '100%',
     alignItems: 'center',
-    flexDirection: 'row',
-    marginTop: 90,
+    justifyContent: 'center',
+    height: 200,  
   },
 
-  txLink: {
-    color: '#ad99c3',
-    fontSize: 16,
-    fontWeight: '400',
+  btnPurple: {
+    backgroundColor: '#6925b8', 
+    width: '80%',
+    height: 55,
+    borderRadius: 35, 
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
-  link: {
-    color: '#ef8fa6',
-    paddingLeft: 4,
-    fontSize: 16,
+  txWhite: {
+    color: '#FFFFFF',
+    fontSize: 22,
     fontWeight: '500',
-    textDecorationLine: 'underline',
-  }
+  },
   
 });

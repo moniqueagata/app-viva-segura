@@ -9,16 +9,12 @@ export default StyleSheet.create({
     paddingVertical: 90,
   },
 
-  logoContainer: {
+  logo: {
     flex: 1,
     width: "100%",
     justifyContent: 'center',
     alignItems: 'center',
   },
 
-  logo: {
-    width: 230,
-    height: 230,
-  },
   
 });

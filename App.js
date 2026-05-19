@@ -12,6 +12,7 @@ import Login from "./src/Screens/Login";
 import Passo1 from "./src/Screens/Cadastro/Passo1";
 import Passo2 from "./src/Screens/Cadastro/Passo2";
 import Passo3 from "./src/Screens/Cadastro/Passo3";
+import Passo4 from "./src/Screens/Cadastro/Passo4";
 
 // Main principal do app
 import Home from "./src/Screens/Home";
@@ -38,6 +39,11 @@ export default function App() {
     <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name="Passo4" component={Passo4}
+            options={{
+              headerShown: false
+            }}
+          />
           <Stack.Screen name="Welcome" component={Welcome} 
             options={{
               headerShown: false
@@ -48,7 +54,7 @@ export default function App() {
               headerShown: false
             }}
           />
-           <Stack.Screen name="Passo1" component={Passo1}
+          <Stack.Screen name="Passo1" component={Passo1}
             options={{
               headerShown: false
             }}

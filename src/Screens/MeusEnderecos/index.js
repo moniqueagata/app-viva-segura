@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import {View ,Image,Text,Pressable,FlatList ,Alert} from 'react-native';
+import { View ,Image ,Text ,Pressable ,FlatList ,Alert } from 'react-native';
 import styles from'./styles';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import api from "../../services/api";
 import { useNavigation } from '@react-navigation/native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+
 export default function MeusEnderecos() {
    const [exibir, setExibir] = useState([]);
     const navigation = useNavigation();
@@ -29,7 +30,7 @@ const exibirEndereco = async () => {
     <View style={styles.container}>
   <View style={styles.fundoEncima}>
         <Pressable onPress={() => navigation.navigate('Home')}>
-           <Image source={require('../../../assets/img/Telefone/seta.jpeg')} style={styles.imagem} />
+           <Image source={require('../../../assets/img/arrow.png')} style={{ width: 22, height: 22 }} />
         </Pressable>
         <Text style={styles.titulo}>Meus endereços</Text>    
       </View>

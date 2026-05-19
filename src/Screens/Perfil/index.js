@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Image, ScrollView, View, Text, Pressable, Animated, Easing, useWindowDimensions } from 'react-native';
+import { Image, ScrollView, View, Text, Pressable, Animated, Easing, useWindowDimensions, Switch } from 'react-native';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect, useRef } from 'react';
@@ -8,6 +8,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Perfil() {
     const navigation = useNavigation();
+
+    const [toggle, setToggle] = useState(true);
 
     // Animação na navegação
     const { width } = useWindowDimensions();
@@ -53,16 +55,14 @@ export default function Perfil() {
     const [usuario, setUsuario] = useState(null);
 
     useEffect(() => {
-  const carregarUsuario = async () => {
-    const dados = await AsyncStorage.getItem("user");
-
-    if (dados) {
-      setUsuario(JSON.parse(dados));
-    }
-  };
-
-  carregarUsuario();
-}, []);
+        const carregarUsuario = async () => {
+        const dados = await AsyncStorage.getItem("user");
+            if (dados) {
+            setUsuario(JSON.parse(dados));
+            }
+        };
+    carregarUsuario();
+    }, []);
 
   return (
     <View style={styles.container}>
@@ -71,17 +71,23 @@ export default function Perfil() {
                 <View style={styles.profile}>
                     <View style={styles.photoUpload}>
                         <View style={styles.upload}>
-                            {/* Campo de upload da imagem */}
+                            {usuario?.foto ? (
+                                <Image 
+                                source={{ uri: usuario.foto }} 
+                                style={{ width: 120, height: 120, borderRadius: 60 }} 
+                                />
+                            ) : (
+                                <View style={styles.placeholder} />
+                            )}
                         </View>           
                     </View>
 
-                    <Text style={styles.nome}>
-  {usuario?.nome || "Nome"}
-</Text>
-
-<Text style={styles.id}>
-  ID: {usuario?.id_usuaria || usuario?.id || "----"}
-</Text>
+                    <Text style={styles.textNome}>
+                        {usuario?.nome || "Nome"}
+                    </Text>
+                    <Text style={styles.id}>
+                    ID: {usuario?.id_usuaria || usuario?.id || "----"}
+                    </Text>
 
                     <Pressable style={styles.buttonEdit} onPress={() => navigation.navigate('EditarPerfil')}>
                         <Text style={styles.textWhite}>Editar perfil</Text>
@@ -94,7 +100,7 @@ export default function Perfil() {
                     <Pressable style={styles.button} onPress={() => navigation.navigate('Notificacoes')}>
                         <View style={styles.grid}>
                             <View style={styles.circle}>
-                                <Image source={require('../../../assets/img/sino.png')}
+                                <Image source={require('../../../assets/img/sino_2.png')}
                                     style={{ width: 23, height: 23 }}
                                     tintColor='#616161'  
                                     resizeMode='contain'
@@ -138,9 +144,12 @@ export default function Perfil() {
                                 </View>
                                 <Text style={styles.textButton}>Compartilhar localização</Text>
                             </View>
-                            <Pressable style={styles.toggle}>
-                                <View style={styles.circleToggle}></View>
-                            </Pressable>
+                            <Switch
+                                value={toggle}
+                                onValueChange={setToggle}
+                                trackColor={{ false: "#ccc", true: "#cbb4f6" }}
+                                thumbColor={toggle ? "#6925b8" : "#fff"}
+                            />
                         </Pressable>
                     </View>
 
@@ -212,28 +221,27 @@ export default function Perfil() {
                     { width: larguraAba, transform: [{ translateX: posicaoX }]}
                 ]}
             />
-
-        {abas.map((aba) => (
-            <Pressable 
-                key={aba.index}
-                style={styles.buttonNav}
-                onPress={() => {
-                    setAbaAtiva(aba.index);
-                  
-                    if (aba.rota) {
-                      navigation.navigate(aba.rota);
-                    }
-                  }}               
-                onLayout={(event) => abaLayout(aba.index, event)}
-            >
-                <Image source={aba.imagem}
-                    style={{ width: 24, height: 24 }}
-                    tintColor={abaAtiva === aba.index ? '#6925b8' : '#ddd'}
-                    resizeMode='contain'
-                />
-                <Text style={[styles.textNav, abaAtiva === aba.index && { color: '#6925b8'}]}>{aba.label}</Text>
-            </Pressable>
-        ))}
+            {abas.map((aba) => (
+                <Pressable 
+                    key={aba.index}
+                    style={styles.buttonNav}
+                    onPress={() => {
+                        setAbaAtiva(aba.index);
+                    
+                        if (aba.rota) {
+                        navigation.navigate(aba.rota);
+                        }
+                    }}               
+                    onLayout={(event) => abaLayout(aba.index, event)}
+                >
+                    <Image source={aba.imagem}
+                        style={{ width: 24, height: 24 }}
+                        tintColor={abaAtiva === aba.index ? '#ff80aa' : '#fff'}
+                        resizeMode='contain'
+                    />
+                    <Text style={[styles.textNav, abaAtiva === aba.index && { color: '#ff80aa'}]}>{aba.label}</Text>
+                </Pressable>
+            ))}
         </View>
       <StatusBar style="auto" />
     </View>

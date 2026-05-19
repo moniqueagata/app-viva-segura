@@ -59,12 +59,10 @@ marginTop:15,
     marginTop:17,
   },
 
-card: {
-
+  card: {
     flexDirection: "row",
     backgroundColor: "#FAFAFA",
     borderRadius: 12,
-   
     width:'90%',
     height:190,
     marginLeft:'5%',

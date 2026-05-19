@@ -51,7 +51,6 @@ export default function MeusGuardioes() {
 
   return (
     <View style={styles.container}>
-
       <View style={styles.cabecalho}>
             <Text style={styles.titulo}>Meus guardiões</Text>
 
@@ -61,45 +60,43 @@ export default function MeusGuardioes() {
                 resizeMode="contain"
             />
         </View>
+        <View style={styles.content}>
+            <Text style={styles.subtitulo}>
+                Adicione os guardiões à sua lista
+            </Text>
 
+            <Pressable style={styles.botao} onPress={() => navigation.navigate("AddGuardiao")}>
+                <Text style={styles.buttonText}>Novo Guardião +</Text>
+            </Pressable>
 
-      <Text style={styles.subtitulo}>
-        Adicione os guardiões à sua lista
-      </Text>
-
-      <Pressable style={styles.botao} onPress={() => navigation.navigate("AddGuardiao")}>
-        <Text style={styles.buttonText}>Novo Guardião +</Text>
-      </Pressable>
-
-
-<View style={styles.navegacao}>
+        </View>
+        <View style={styles.navegacao}>
             <Animated.View 
                 style={[styles.line, 
                     { width: larguraAba, transform: [{ translateX: posicaoX }]}
                 ]}
             />
-
-        {abas.map((aba) => (
-            <Pressable 
-                key={aba.index}
-                style={styles.buttonNav}
-                onPress={() => {
-                    setAbaAtiva(aba.index);
-                  
-                    if (aba.rota) {
-                      navigation.navigate(aba.rota);
-                    }
-                  }}               
-                onLayout={(event) => abaLayout(aba.index, event)}
-            >
-                <Image source={aba.imagem}
-                    style={{ width: 24, height: 24 }}
-                    tintColor={abaAtiva === aba.index ? '#6925b8' : '#ddd'}
-                    resizeMode='contain'
-                />
-                <Text style={[styles.textNav, abaAtiva === aba.index && { color: '#6925b8'}]}>{aba.label}</Text>
-            </Pressable>
-        ))}
+            {abas.map((aba) => (
+                <Pressable 
+                    key={aba.index}
+                    style={styles.buttonNav}
+                    onPress={() => {
+                        setAbaAtiva(aba.index);
+                    
+                        if (aba.rota) {
+                        navigation.navigate(aba.rota);
+                        }
+                    }}               
+                    onLayout={(event) => abaLayout(aba.index, event)}
+                >
+                    <Image source={aba.imagem}
+                        style={{ width: 24, height: 24 }}
+                        tintColor={abaAtiva === aba.index ? '#ff80aa' : '#fff'}
+                        resizeMode='contain'
+                    />
+                    <Text style={[styles.textNav, abaAtiva === aba.index && { color: '#ff80aa'}]}>{aba.label}</Text>
+                </Pressable>
+            ))}
         </View>
       <StatusBar style="auto" />
     </View>

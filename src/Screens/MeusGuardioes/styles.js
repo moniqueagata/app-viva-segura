@@ -1,11 +1,17 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-      container: {
+    container: {
       flex: 1,
-      backgroundColor: "#f5f5f5",
+      backgroundColor: "#fff",
       paddingTop: 60,
-       paddingBottom: 100,
+    },
+
+    content: {
+      flex: 1,
+      width: '100%',
+      paddingHorizontal: 20,
+      alignItems: 'center',
     },
   
     titulo: {
@@ -50,43 +56,39 @@ export default StyleSheet.create({
       fontWeight: "400",
     },
 
-      // Navegação
-navegacao: {
-  position: 'absolute', // 👈 ESSENCIAL
-  bottom: 0,            // 👈 COLA NO FINAL
-  left: 0,
-  width: '100%',
-  height: 88,
-  alignItems: 'center',
-justifyContent: 'space-between',
-  flexDirection: 'row',
-  backgroundColor: '#fff',
-  borderTopWidth: 1,
-  borderTopColor: '#ddd',
-  paddingBottom: 3,
-},
+     // Navegação
+  navegacao: {
+    width: '100%',
+    height: 80,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    backgroundColor: '#6925b8',
+    paddingBottom: 3,
+    paddingHorizontal: 10
+  },
 
   line: {
     height: 4,
-    backgroundColor: '#6925b8',
+    backgroundColor: '#ff80aa',
     borderRadius: 2,
     top: 0,
     left: 0,
     position: 'absolute',
   },
 
-buttonNav: {
-  flex: 1,
-  height: 66,
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: 5,
-},
+  buttonNav: {
+    width: 66,
+    height: 66,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 5,
+  },
 
   textNav: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#ccc'
+    color: '#fff'
   },
 
 

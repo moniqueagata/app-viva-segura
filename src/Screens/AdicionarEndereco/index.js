@@ -14,116 +14,112 @@ export default function AdicionarEndereco() {
     const navigation = useNavigation();
    const [exibir, setExibir] = useState([]);
 
-useEffect(() => {
-  buscarEnderecosPesquisas();
-}, []);
+  useEffect(() => {
+    buscarEnderecosPesquisas();
+  }, []);
 
-const buscarEnderecosPesquisas = async () => {
-  try {
-    const response = await api.get("/exibirPesquisaEndereco");
+  const buscarEnderecosPesquisas = async () => {
+    try {
+      const response = await api.get("/exibirPesquisaEndereco");
 
-    setExibir(response.data.data);
+      setExibir(response.data.data);
 
-  } catch (error) {
-    console.log(error);
-  }
-};
-
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
    const salvarPesquisa = async () => {
-  try {
-    const dados = {
-      enderecoPesquisa,
-    };
+    try {
+      const dados = {
+        enderecoPesquisa,
+      };
 
-    const response = await api.post("/salvarPesquisaEndereco", dados);
+      const response = await api.post("/salvarPesquisaEndereco", dados);
 
-    console.log(response.data);
+      console.log(response.data);
 
 
-  } catch (error) {
-  console.log("STATUS:", error.response?.status);
-  console.log("DATA:", error.response?.data);
-}
-};
+    } catch (error) {
+      console.log("STATUS:", error.response?.status);
+      console.log("DATA:", error.response?.data);
+    }
+  };
+
   const salvarEnderecoSelecionado = async (endereco) => {
-  try {
-    const response = await api.post("/salvarEndereco", {
-      enderecoUsuaria: endereco
-    });
+    try {
+      const response = await api.post("/salvarEndereco", {
+        enderecoUsuaria: endereco
+      });
 
-    console.log("SALVOU:", response.data);
+      console.log("SALVOU:", response.data);
 
-    Alert.alert("Salvo", "Endereço adicionado!");
+      Alert.alert("Salvo", "Endereço adicionado!");
 
-  } catch (error) {
-    console.log("ERRO COMPLETO:", error.response?.data || error);
+    } catch (error) {
+      console.log("ERRO COMPLETO:", error.response?.data || error);
 
-    Alert.alert(
-      "Erro",
-      error.response?.data?.error || "Erro ao salvar"
-    );
-  }
-};
+      Alert.alert(
+        "Erro",
+        error.response?.data?.error || "Erro ao salvar"
+      );
+    }
+  };
     
   return (
     <View style={styles.container}>
   <View style={styles.fundoEncima}>
         <Pressable onPress={() => navigation.navigate('MeusEnderecos')}>
-           <Image source={require('../../../assets/img/Telefone/seta.jpeg')} style={styles.imagem} />
+           <Image source={require('../../../assets/img/arrow_2.png')} style={{ width: 22, height: 22 }} />
         </Pressable>
         <Text style={styles.titulo}>Adicionar novo endereços</Text>    
       </View>
       <MapView
-              
-              style={styles.mapa}
-              initialRegion={{
-                latitude: -23.5505,
-                longitude: -46.6333,
-                latitudeDelta: 0.05,
-                longitudeDelta: 0.05,
-              }}
-            />
+        style={styles.mapa}
+        initialRegion={{
+          latitude: -23.5505,
+          longitude: -46.6333,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05,
+        }}
+      />
    
-
       <View  style={styles.viewBordaRedonda}></View>
     <View  style={styles.viewMapaEmbaixo}>
     
       <View style={styles.lupaView} >
         <Pressable onPress={salvarPesquisa}>
-          <Image source={require('../../../assets/img/AdiconarEndereco/lupa.png')} style={styles.lupa} />
+          <Image source={require('../../../assets/img/lupa.png')} style={{width: 22, height: 22 }} />
         </Pressable>
-        <TextInput
-        style={styles.input}
-        onChangeText={setEnderecoPesquisa}
-        value={enderecoPesquisa}
-      />
-    </View>
-
-     
-    
+          <TextInput
+          style={styles.input}
+          onChangeText={setEnderecoPesquisa}
+          value={enderecoPesquisa}
+        />
       </View>
-<FlatList
-  style={{ flex: 1}}
-  data={[...exibir].reverse()}
-  keyExtractor={(item) => item.idEnderecoPesquisa.toString()}
-  renderItem={({ item }) => (
-    <View style={styles.cardAdiconarEndereco}>
-      <Text style={styles.endereco}>
-        {item.enderecoPesquisa}
-      </Text>
-
-      <Pressable style={styles.botaoAdicionar}onPress={() => {
-  console.log("clicou", item);
-  salvarEnderecoSelecionado(item.enderecoPesquisa);
-}}>
-        <Text style={styles.botaoTexto}>
-          Adicionar Endereço
-        </Text>
-      </Pressable>
     </View>
-  )}
-/>
+
+    <FlatList
+      style={{ flex: 1}}
+      data={[...exibir].reverse()}
+      keyExtractor={(item) => item.idEnderecoPesquisa.toString()}
+      renderItem={({ item }) => (
+        <View style={styles.cardAdiconarEndereco}>
+          <Text style={styles.endereco}>
+            {item.enderecoPesquisa}
+          </Text>
+
+          <Pressable style={styles.botaoAdicionar}onPress={() => {
+            console.log("clicou", item);
+            salvarEnderecoSelecionado(item.enderecoPesquisa);
+          }}>
+            <Text style={styles.botaoTexto}>
+              Adicionar Endereço
+            </Text>
+          </Pressable>
+        </View>
+      )}
+    />
       <StatusBar style="auto" />
     </View>
   );

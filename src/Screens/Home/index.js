@@ -7,112 +7,126 @@ export default function Home() {
     const navigation = useNavigation();
      const { width } = useWindowDimensions();
     
-        const [medidas, setMedidas] = useState({});
-        const [abaAtiva, setAbaAtiva] = useState(2);
-    
-        const larguraAba = 60;
-        const posicaoX = useRef(new Animated.Value(0)).current;
-    
-        useEffect(() => {
-            const medidaAtual = medidas[abaAtiva];
-    
-            if (medidaAtual) {
-                const { x, width } = medidaAtual;
-    
-                const destinoX = x + (width / 2) - (larguraAba / 2);
-    
-                Animated.spring(posicaoX, {
-                    toValue: destinoX,
-                    useNativeDriver: true,
-                    bounciness: 4,
-                }).start();
-            }
-        }, [abaAtiva, medidas]);
-    
-        const abaLayout = (index, event) => {
-            const { x, width } = event.nativeEvent.layout;
-            setMedidas(prev => ({
-                ...prev, [index]: { x, width }
-            }));
-        };
-    
-        const abas = [
-            {  rota: "Home", imagem: require('../../../assets/img/home.png'), index: 0 },
-            {  rota: null,  imagem: require('../../../assets/img/map.png'), index: 1 },
-            {rota: "MeusGuardioes", imagem: require('../../../assets/img/angel.png'), index: 2 },
-            {  rota: "Perfil",  imagem: require('../../../assets/img/profile.png'), index: 3 }
-        ];
-  return (
+    const [medidas, setMedidas] = useState({});
+    const [abaAtiva, setAbaAtiva] = useState(0);
+
+    const larguraAba = 60;
+    const posicaoX = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        const medidaAtual = medidas[abaAtiva];
+
+        if (medidaAtual) {
+            const { x, width } = medidaAtual;
+
+            const destinoX = x + (width / 2) - (larguraAba / 2);
+
+            Animated.spring(posicaoX, {
+                toValue: destinoX,
+                useNativeDriver: true,
+                bounciness: 4,
+            }).start();
+        }
+    }, [abaAtiva, medidas]);
+
+    const abaLayout = (index, event) => {
+        const { x, width } = event.nativeEvent.layout;
+        setMedidas(prev => ({
+            ...prev, [index]: { x, width }
+        }));
+    };
+
+    const abas = [
+        { label: 'Home', rota: "Home", imagem: require('../../../assets/img/home.png'), index: 0 },
+        { label: 'Mapa', rota: null,  imagem: require('../../../assets/img/map.png'), index: 1 },
+        { label: 'Guardião', rota: "MeusGuardioes", imagem: require('../../../assets/img/angel.png'), index: 2 },
+        { label: 'Você', rota: "Perfil",  imagem: require('../../../assets/img/profile.png'), index: 3 }
+    ];
+
+    return (
     <View style={styles.container}>
+        <View style={styles.header}>
+           <View style={styles.userContent}>
+             <View style={styles.upload}>
+                {/* Campo de upload da imagem */}
+            </View>           
+                <Text style={styles.text}>Ola,</Text>
+           </View>
+            <Pressable onPress={() => navigation.navigate('Notificacoes')}>
+                <Image source={require('../../../assets/img/sino.png')}
+                    style={{ width: 22, height: 22 }} 
+                    tintColor='#550FA4' 
+                />
+            </Pressable>
+        </View>
+        <View style={styles.content}>
+            <Text style={styles.subtitulo}>Precisando de ajuda? Use o SOS</Text>
+            <View style={styles.borda}>
+                <Pressable style={styles.buttonSos}>
+                    <Image source={require('../../../assets/img/sos.png')} style={{ width: '80%', height: '80%' }} />
+                </Pressable>
+            </View>
 
-<View style={styles.viewFlex}>
-  <Image source={require('../../../assets/img/Home/iconi.jpeg')}  style={styles.iconiUsario}/>
-<Text style={styles.ola}>Ola,</Text>
-<Pressable onPress={() => navigation.navigate('Notificacoes')}>
-<Image source={require('../../../assets/img/Home/i (2).jpeg')} style={styles.notificacao}  />
-</Pressable>
-</View>
+            <Text style={styles.titulo}>EMERGÊNCIA</Text>
 
- <Text style={styles.textoAjuda}>Precisando de ajuda? Use o SOS</Text>
+            <Text style={styles.descricao}>Pressione o botão por 3 segundos para mandar sua geolocalização ao seu guardião</Text>
+                
+            <View style={styles.buttons}>
+                <Pressable style={styles.button} onPress={() => navigation.navigate('MeusEnderecos')}>
+                    <Image source={require('../../../assets/img/endereco.png')} 
+                        style={{ width: 28, height: 28 }}
+                        tintColor='#550FA4' 
+                    />
+                        <Text style={styles.texto}>Meus endereços</Text>
+                </Pressable>
 
-      <Pressable style={styles.sos}>
-         <Image source={require('../../../assets/img/Home/sos.jpeg')} style={styles.imagemSos} />
-      
-      </Pressable>
+                <Pressable style={styles.button} onPress={() => navigation.navigate('Telefones')}>
+                    <Image source={require('../../../assets/img/tel.png')} 
+                        style={{ width: 28, height: 28 }}
+                        tintColor='#550FA4' 
+                    />
+                    <Text style={styles.texto}>Telefones públicos</Text>
+                </Pressable>
 
- <Text style={styles.textoEmergencia}>EMERGÊNCIA</Text>
-
-<Text style={styles.textoSosPequeno}>Pressione o botão por 3 segundos para </Text>
-<Text style={styles.textoSosPequeno2}>mandar sua geolocalização ao seu guardião</Text>
-      
-<Pressable style={styles.botao} onPress={() => navigation.navigate('MeusEnderecos')}>
-   <Image source={require('../../../assets/img/Home/iconeBotao(1).jpeg')} style={styles.imagem} />
-        <Text style={styles.texto}>Meus endereços</Text>
-      </Pressable>
-
-      <Pressable style={styles.botao} onPress={() => navigation.navigate('Telefones')}>
-         <Image source={require('../../../assets/img/Home/iconeBotao(2).jpeg')} style={styles.imagem} />
-        <Text style={styles.texto}>Telefones públicos</Text>
-      </Pressable>
-
-      <Pressable style={styles.botao}>
-         <Image source={require('../../../assets/img/Home/iconeBotao(3).jpeg')} style={styles.imagem} />
-        <Text style={styles.texto}>Pontos Seguros</Text>
-      </Pressable>
-
-
-
-        <View style={styles.fundoEmbaixo}>
-              <Animated.View 
-                      style={[styles.line, 
-                          { width: larguraAba, transform: [{ translateX: posicaoX }]}
-                      ]}
-                  />
-      
-              {abas.map((aba) => (
-                  <Pressable 
-                      key={aba.index}
-                      style={styles.buttonNav}
-                      onPress={() => {
-                          setAbaAtiva(aba.index);
-                        
-                          if (aba.rota) {
-                            navigation.navigate(aba.rota);
-                          }
-                        }}               
-                      onLayout={(event) => abaLayout(aba.index, event)}
-                  >
-                      <Image source={aba.imagem}
-                          style={{ width: 30, height: 30}}
-                          tintColor={abaAtiva === aba.index ? '#FF88A7' : '#FFF'}
-                          resizeMode='contain'
-                      />
-                      <Text style={[styles.textNav, abaAtiva === aba.index && { color: '#FF88A7'}]}>{aba.label}</Text>
-                  </Pressable>
-              ))}
-         
-      </View>
-      <StatusBar style="auto" />
+                <Pressable style={styles.button}>
+                    <Image source={require('../../../assets/img/pontos.png')} 
+                        style={{ width: 28, height: 28 }}
+                        tintColor='#550FA4' 
+                    />
+                    <Text style={styles.texto}>Pontos Seguros</Text>
+                </Pressable>
+            </View>
+        </View>
+        <View style={styles.navegacao}>
+                    <Animated.View 
+                        style={[styles.line, 
+                            { width: larguraAba, transform: [{ translateX: posicaoX }]}
+                        ]}
+                    />
+        
+                {abas.map((aba) => (
+                    <Pressable 
+                        key={aba.index}
+                        style={styles.buttonNav}
+                        onPress={() => {
+                            setAbaAtiva(aba.index);
+                          
+                            if (aba.rota) {
+                              navigation.navigate(aba.rota);
+                            }
+                          }}               
+                        onLayout={(event) => abaLayout(aba.index, event)}
+                    >
+                        <Image source={aba.imagem}
+                            style={{ width: 24, height: 24 }}
+                            tintColor={abaAtiva === aba.index ? '#ff80aa' : '#fff'}
+                            resizeMode='contain'
+                        />
+                        <Text style={[styles.textNav, abaAtiva === aba.index && { color: '#ff80aa'}]}>{aba.label}</Text>
+                    </Pressable>
+                ))}
+            </View>
+        <StatusBar style="auto" />
     </View>
-  );
+    );
 }

@@ -3,114 +3,132 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flex: 1,
-   backgroundColor:'#ffffff'
+    backgroundColor: '#ffffff',
   },
- fundoEmbaixo: {
- 
- width: '100%',
+
+  header: {
+    width: '100%',
     height: 88,
-    position:'absolute',
-    bottom:0,
+    flexDirection:'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    paddingHorizontal: 18,
+    paddingTop: 33,
+  },
+
+  userContent: {
+    maxWidth: 300,
     flexDirection: 'row',
-    backgroundColor: '#550FA4',
-    borderTopWidth: 1,
-    borderTopColor: '#ddd',
-    paddingBottom: 3,
-    paddingHorizontal: 10
-},
-botao: {
-    backgroundColor: "#FAFAFA",
-    width: '70%',
+    alignItems: 'center',
+    gap: 15,
+  },
+
+  upload: {
+    width: 43,
+    height: 43,
+    backgroundColor: '#e7e7e7',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '100%',
+  },
+
+  text: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: "#1b1b1b",
+  },
+
+  content: {
+    flex: 1,
+    width: '100%',
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    alignItems: 'center',
+  },
+
+  subtitulo: {
+    color: "#653F8F",
+    fontSize: 17,
+    fontWeight: '600',
+  },
+
+  buttonSos: {
+    width: 150,
+    height: 150,
+    backgroundColor: '#ff88a6',
+    borderRadius: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  borda: {
+    width: 160,
+    height: 160,
+    borderRadius: '100%',
+    borderWidth: 2,
+    borderColor: '#ff88a6',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 25,
+  },
+
+  descricao:{
+    color: '#bbb',
+    fontSize: 14,
+    fontWeight:200,
+    textAlign:'center',
+    lineHeight: 20,
+    marginBottom: 20,
+    paddingHorizontal: 30
+  },
+
+  titulo: {
+    color: "#ff81a0",
+    fontSize: 20,
+    fontWeight: '600',
+    marginBottom: 8,
+  },
+
+  buttons: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    gap: 30
+  },
+  
+  button: {
+    backgroundColor: "#fafafa",
+    width: '90%',
+    height: 60,
     borderRadius: 10,
-    marginBottom: 27,
-      height: 53,
-     marginLeft: '15%',
-     alignItems: "center",
-   flexDirection:'row',
+    alignItems: 'center',
+    paddingLeft: '15%',
+    flexDirection:'row',
+    gap: 20
   },
 
   texto: {
     color: "#550FA4",
-    fontSize: 20,
-    fontWeight: "500",
-    marginTop:2,
-      marginLeft: '10%',
-  },
-  imagem:{
-      height: 33,
-       width: 33,
-         marginLeft: '5%',
-  },
-  textoSosPequeno2:{
-    color: "#918F8F",
-    fontSize: 16,
-        fontWeight:200,
-  
-     textAlign:'center',
-        marginBottom: 40,
-  },
-    textoSosPequeno:{
-    color: "#918F8F",
-    fontSize: 16,
-        fontWeight:200,
-     marginTop:1,
-     textAlign:'center',
-  },
-  textoEmergencia:{
-    color: "#F66E91",
     fontSize: 18,
-        fontWeight:600,
-     marginTop:1,
-          marginBottom: 2,
-     textAlign:'center',
+    fontWeight: '700',
   },
-  imagemSos:{
-     height: 178,
-       width: 178,
-        marginBottom: 15,
-         marginLeft: '26.5%',
-         marginTop:20,
-  },
-  textoAjuda:{
-     color: "#653F8F",
-    fontSize: 16,
-        fontWeight:700,
-     marginTop:1,
-          marginBottom: 25,
-     textAlign:'center',
-  },
-  viewFlex:{
-  flexDirection:'row',
-  marginTop:30,
-  },
-  notificacao:{
-    width:23,
-    height:23,
-    marginBottom:50,
-    marginTop:25,
-    marginLeft:240,
-  },
- 
-  ola:{
-    fontSize:16,
-    fontWeight:'bold',
-    color: "rgb(85, 15, 164)",
-    marginTop:35,
-    marginLeft:10
-  },
-  iconiUsario:{
-    width:36,
-    height:36,
-   borderRadius:'100%',
-   marginLeft:15,
-   marginTop:25,
+
+  // Navegação
+  navegacao: {
+    width: '100%',
+    height: 80,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    backgroundColor: '#6925b8',
+    paddingBottom: 3,
+    paddingHorizontal: 10
   },
 
   line: {
     height: 4,
-    backgroundColor: '#FF88A7',
+    backgroundColor: '#ff80aa',
     borderRadius: 2,
     top: 0,
     left: 0,
@@ -128,6 +146,6 @@ botao: {
   textNav: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#ccc'
+    color: '#fff'
   },
 });

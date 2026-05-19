@@ -23,7 +23,7 @@ export default StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     minHeight: 200,
-    paddingTop: 25
+    paddingTop: 33
   },
 
   // Foto de perfil
@@ -31,14 +31,14 @@ export default StyleSheet.create({
   photoUpload: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 16,
+    marginVertical: 20,
     position:  'relative',
   },
 
   upload: {
-    width: 133,
-    height: 133,
-    backgroundColor: '#e7e7e7',
+    width: 120,
+    height: 120,
+    backgroundColor: '#f1f1f1',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: '100%',
@@ -47,13 +47,13 @@ export default StyleSheet.create({
   // ----
 
   textNome: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: '500',
     color: '#414141',
     marginBottom: 4
   },
 
-  status: {
+  id: {
     fontSize: 18,
     fontWeight: '400',
     color: '#909090',
@@ -70,7 +70,7 @@ export default StyleSheet.create({
   },
 
   textWhite: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '400',
     color: '#fff'
   },
@@ -81,9 +81,9 @@ export default StyleSheet.create({
   },
 
   sessions:{
-    fontSize: 18,
+    fontSize: 16,
     color: '#606060',
-    marginVertical: 7
+    marginVertical: 10
   },
 
   gridButtons: {
@@ -110,7 +110,7 @@ export default StyleSheet.create({
   },
 
   textButton: {
-    fontSize: 19,
+    fontSize: 17,
     fontWeight: '500',
     color: '#454545',
   },
@@ -124,27 +124,6 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
 
-  // Toggle ON/OFF
-
-  toggle: {
-    width: 50,
-    height: 22,
-    borderRadius: 20,
-    backgroundColor: '#27e456',
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-    paddingHorizontal: 2,
-  },
-
-  circleToggle: {
-    width: 18,
-    height: 18,
-    borderRadius: '100%',
-    backgroundColor: '#fff',
-  },
-
-  // -----
-
   logout: {
     width: '100%',
     alignItems: 'center',
@@ -154,36 +133,33 @@ export default StyleSheet.create({
 
   buttonLogout: {
     width: 130,
-    height: 40,
+    height: 30,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   textRed: {
-    fontSize: 20,
-    fontWeight: '500',
+    fontSize: 18,
+    fontWeight: '400',
     letterSpacing: 0.5,
-    color: '#ad2424',
+    color: '#909090',
   },
 
   // Navegação
-
   navegacao: {
     width: '100%',
-    height: 88,
+    height: 80,
     alignItems: 'center',
     justifyContent: 'space-around',
     flexDirection: 'row',
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#ddd',
+    backgroundColor: '#6925b8',
     paddingBottom: 3,
     paddingHorizontal: 10
   },
 
   line: {
     height: 4,
-    backgroundColor: '#6925b8',
+    backgroundColor: '#ff80aa',
     borderRadius: 2,
     top: 0,
     left: 0,
@@ -201,7 +177,7 @@ export default StyleSheet.create({
   textNav: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#ccc'
+    color: '#fff'
   },
   
 });

@@ -15,6 +15,10 @@ import Passo3 from "./src/Screens/Cadastro/Passo3";
 
 // Main principal do app
 import Home from "./src/Screens/Home";
+import Telefones from "./src/Screens/Telefones";
+import MeusEnderecos from "./src/Screens/MeusEnderecos";
+import AdicionarEndereco from "./src/Screens/AdicionarEndereco";
+import AdicionarPontoSeguro from "./src/Screens/AdicionarPontoSeguro";
 
 // Perfil Usuária
 import Perfil from "./src/Screens/Perfil";
@@ -22,10 +26,6 @@ import EditarPerfil from "./src/Screens/EditarPerfil";
 import Notificacoes from "./src/Screens/Notificacoes";
 import Central from "./src/Screens/Central";
 import HelpChat from "./src/Screens/HelpChat";
-import Telefones from "./src/Screens/Telefones";
-import MeusEnderecos from "./src/Screens/MeusEnderecos";
-import AdicionarEndereco from "./src/Screens/AdicionarEndereco";
-import AdicionarPontoSeguro from "./src/Screens/AdicionarPontoSeguro";
 
 //Tela meus guardiões
 import MeusGuardioes from "./src/Screens/MeusGuardioes";
@@ -38,33 +38,16 @@ export default function App() {
     <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator>
-
-      
-          
           <Stack.Screen name="Welcome" component={Welcome} 
             options={{
               headerShown: false
             }}
           />
-
-          <Stack.Screen name="Perfil" component={Perfil} 
-            options={{
-              headerShown: false
-            }}
-          />
-
-          <Stack.Screen name="AddGuardiao" component={AddGuardiao} 
-            options={{
-              headerShown: false
-            }}
-          />
-        
           <Stack.Screen name="Splash" component={Splash} 
             options={{
               headerShown: false
             }}
           />
-
            <Stack.Screen name="Passo1" component={Passo1}
             options={{
               headerShown: false
@@ -85,17 +68,46 @@ export default function App() {
               headerShown: false
             }}
           />
-             <Stack.Screen name="Home" component={Home}
+          <Stack.Screen name="Home" component={Home}
             options={{
               headerShown: false
             }}
           />
-           <Stack.Screen name="MeusGuardioes" component={MeusGuardioes} 
+          <Stack.Screen name="Telefones" component={Telefones}
+          options={{ 
+            headerShown: false
+           }}
+          />
+          <Stack.Screen name="MeusEnderecos" component={MeusEnderecos}
+            options={{ 
+              headerShown: false 
+            }}
+          />
+          <Stack.Screen name="AdicionarEndereco" component={AdicionarEndereco}
+            options={{
+              headerShown: false 
+            }}
+          />
+            <Stack.Screen  name="AdicionarPontoSeguro" component={AdicionarPontoSeguro}
+            options={{ 
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="MeusGuardioes" component={MeusGuardioes} 
             options={{
               headerShown: false
             }}
           />
-          
+          <Stack.Screen name="Perfil" component={Perfil} 
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="AddGuardiao" component={AddGuardiao} 
+            options={{
+              headerShown: false
+            }}
+          />
           <Stack.Screen name="EditarPerfil" component={EditarPerfil} 
             options={{
               headerShown: false
@@ -106,37 +118,16 @@ export default function App() {
               headerShown: false
             }}
           />
-        
           <Stack.Screen name="HelpChat" component={HelpChat} 
             options={{
               headerShown: false
             }}
           />
-  <Stack.Screen name="Central" component={Central} 
+          <Stack.Screen name="Central" component={Central} 
             options={{
               headerShown: false
             }}
           />
-          <Stack.Screen name="Telefones"  component={Telefones}
-          options={{ 
-            headerShown: false
-           }}
-        />
-         <Stack.Screen  name="MeusEnderecos"   component={MeusEnderecos}
-          options={{ 
-            headerShown: false 
-          }}
-        />
-        <Stack.Screen name="AdicionarEndereco" component={AdicionarEndereco}
-          options={{
-            headerShown: false 
-          }}
-        />
-           <Stack.Screen  name="AdicionarPontoSeguro" component={AdicionarPontoSeguro}
-          options={{ 
-            headerShown: false
-           }}
-        />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

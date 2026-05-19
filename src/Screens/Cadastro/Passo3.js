@@ -18,9 +18,7 @@ export default function Passo3() {
       email,
       perfilSelecionado
     } = route.params || {};
-    
-    
-    
+      
     const [checked, setChecked] = useState(false);
     const [modal, setModal] = useState(false);
 
@@ -37,9 +35,9 @@ export default function Passo3() {
     const numero = /[0-9]/.test(senha);
 
     const formatarData = (data) => {
-  const [dia, mes, ano] = data.split('/');
-  return `${ano}-${mes}-${dia}`;
-};
+      const [dia, mes, ano] = data.split('/');
+      return `${ano}-${mes}-${dia}`;
+    };
 
     // Verificação 
     const finalizarCadastro = async () => {
@@ -97,24 +95,25 @@ export default function Passo3() {
 
   return (
 <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-  <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">      <Portal>
-        <Modal visible={modal} dismissable={false} contentContainerStyle={styles.modalContainer}>
-          <View style={styles.modal}>
-            <View style={styles.circleCheck}>
-              <Image source={require('../../../assets/img/check.png')}
-                style={{ width: 90, height: 90 }}
-                resizeMode='contain'
-              />
-            </View>
-            <Text style={styles.tituloModal}>Cadastro concluído</Text>
-            <Text style={styles.subtitulo}>Faça login para começar!</Text>
-            <Pressable style={styles.buttonModal}
-              onPress={() => { setModal(false); navigation.replace('Login'); }}
-            >
-              <Text style={styles.txWhite}>Continuar</Text>
-            </Pressable>
+  <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">      
+    <Portal>
+      <Modal visible={modal} dismissable={false} contentContainerStyle={styles.modalContainer}>
+        <View style={styles.modal}>
+          <View style={styles.circleCheck}>
+            <Image source={require('../../../assets/img/check.png')}
+              style={{ width: 90, height: 90 }}
+              resizeMode='contain'
+            />
           </View>
-        </Modal>
+          <Text style={styles.tituloModal}>Cadastro concluído</Text>
+          <Text style={styles.subtitulo}>Faça login para começar!</Text>
+          <Pressable style={styles.buttonModal}
+            onPress={() => { setModal(false); navigation.replace('Login'); }}
+          >
+            <Text style={styles.txWhite}>Continuar</Text>
+          </Pressable>
+        </View>
+      </Modal>
       </Portal>
       <View style={styles.header}>
         <Pressable style={styles.btnExit} onPress={() => navigation.navigate('Passo1')}>

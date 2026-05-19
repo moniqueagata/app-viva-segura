@@ -8,30 +8,32 @@ export default function Welcome() {
 
   return (
     <View style={styles.container}>
-        <View style={styles.logo}>
+        <View style={styles.header}>
           <Image source={require('../../../assets/img/logo.png')} 
-            style={{ width: 90, height: 90 }}
+            style={{ width: 60, height: 60 }}
             resizeMode='contain'
           />
         </View>
-
-        <View style={styles.session}>
-          <Image source={require('../../../assets/img/welcome.png')} 
-            style={{ width: 300, height: 300, marginBottom: 22 }}
-            resizeMode='contain'
-          />
-          <Text style={styles.titulo}>Viva segura</Text>
-          <Text style={styles.subtitulo}>Mais segurança nos trajetos do seu dia a dia</Text>
-        </View>
-
+        <View style={styles.content}>
+          <View style={styles.texts}>
+            <Text style={styles.titulo}>Bem-vinda(o)</Text>
+            <Text style={styles.descricao}>Acompanhe trajetos, compartilhe localização ao vivo e acione ajuda com um toque</Text>
+          </View>
+          <View style={styles.imagem}>
+            <Image source={require('../../../assets/img/welcome.png')}
+              style={{ width: 266, height: 266 }}
+            />
+          </View>
+          
         <View style={styles.buttonContainer}>
           <Pressable style={styles.btnPurple} onPress={() => navigation.navigate('Passo1')}>
             <Text style={styles.txWhite}>Criar conta</Text>
           </Pressable>
 
-          <Pressable style={styles.btnWhite} onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.txPurple}>Entrar</Text>
-          </Pressable>
+          <View style={styles.linkView}>
+            <Text style={styles.txLink}>Já possui conta?</Text><Pressable onPress={() => navigation.navigate('Login')}><Text style={styles.link}>Entrar</Text></Pressable>
+          </View>
+        </View>
         </View>
       <StatusBar style="auto" />
     </View>

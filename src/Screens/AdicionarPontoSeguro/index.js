@@ -15,34 +15,31 @@ export default function AdicionarPontoSeguro() {
     <View style={styles.container}>
   <View style={styles.fundoEncima}>
         <Pressable onPress={() => navigation.navigate('Home')}>
-           <Image source={require('../../../assets/img/Telefone/seta.jpeg')} style={styles.imagem} />
+           <Image source={require('../../../assets/img/arrow.png')} style={{ width: 22, height: 22 }} />
         </Pressable>
         <Text style={styles.titulo}>Adicionar ponto seguros</Text>    
       </View>
 
-   <MapView
-          
-          style={styles.mapa}
-          initialRegion={{
-            latitude: -23.5505,
-            longitude: -46.6333,
-            latitudeDelta: 0.05,
-            longitudeDelta: 0.05,
-          }}
-        />
-
+   <MapView  
+      style={styles.mapa}
+      initialRegion={{
+        latitude: -23.5505,
+        longitude: -46.6333,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+      }}
+    />
       <View  style={styles.viewBordaRedonda}></View>
     <View  style={styles.viewMapaEmbaixo}>
 
       <View style={styles.lupaView}>
         <Pressable onPress={() => salvarEnderecoPesquisa()}>
-          <Image source={require('../../../assets/img/AdiconarEndereco/lupa.png')} style={styles.lupa} />
+          <Image source={require('../../../assets/img/lupa.png')} style={{ width: 22, height: 22 }} />
         </Pressable>
         <TextInput
         style={styles.input}
         onChangeText={setEnderecoPesquisa}
         value={enderecoPesquisa}
-    
       />
     </View>
 

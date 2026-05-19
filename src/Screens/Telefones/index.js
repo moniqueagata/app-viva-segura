@@ -16,12 +16,10 @@ const ligar = (numero) => {
       
       <View style={styles.fundoEncima}>
         <Pressable onPress={() => navigation.navigate('Home')}>
-           <Image source={require('../../../assets/img/Telefone/seta.jpeg')} style={styles.imagem} />
+           <Image source={require('../../../assets/img/arrow_2.png')} style={{ width: 22, height: 22 }} />
         </Pressable>
 
         <Text style={styles.titulo}>Telefones públicos</Text>
-
-      
       </View>
 
      
@@ -30,8 +28,8 @@ const ligar = (numero) => {
        
          <View style={styles.viewNumero}>
     <Image
-      source={require('../../../assets/img/Telefone/telefone.jpeg')} 
-      style={styles.imagemTelefone}
+      source={require('../../../assets/img/phone.png')} 
+      style={{ width: 30, height: 30 }}
     />
     <Text style={styles.telefone} onPress={() => Linking.openURL('tel:180')}>180</Text>
   </View>
@@ -41,8 +39,8 @@ const ligar = (numero) => {
         <Text style={styles.tituloCard}>Polícia Civil</Text>
           <View style={styles.viewNumero}>
     <Image
-      source={require('../../../assets/img/Telefone/telefone.jpeg')} 
-      style={styles.imagemTelefone}
+      source={require('../../../assets/img/phone.png')} 
+      style={{ width: 30, height: 30 }}
     />
     <Text style={styles.telefone} onPress={() => Linking.openURL('tel:197')}>197</Text>
   </View>
@@ -54,8 +52,8 @@ const ligar = (numero) => {
       
         <View style={styles.viewNumero}>
     <Image
-      source={require('../../../assets/img/Telefone/telefone.jpeg')} 
-      style={styles.imagemTelefone}
+      source={require('../../../assets/img/phone.png')} 
+      style={{ width: 30, height: 30 }}
     />
      <Text onPress={() => Linking.openURL('tel:190')} style={styles.telefone}>190</Text>
   </View>
@@ -65,8 +63,8 @@ const ligar = (numero) => {
         <Text style={styles.tituloCard}>Delegacia da Mulher</Text>
         <View style={styles.viewNumero}>
     <Image
-      source={require('../../../assets/img/Telefone/telefoneW.jpeg')} 
-      style={styles.imagemTelefoneW}
+      source={require('../../../assets/img/phone.png')} 
+      style={{ width: 30, height: 30 }}
     />
     <Text style={styles.telefone}  onPress={() => ligar('61996109180')}>(61) 99610-0180</Text>
   </View>

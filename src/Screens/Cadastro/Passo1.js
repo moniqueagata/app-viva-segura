@@ -15,7 +15,7 @@ export default function Passo1() {
     const animatedValue = useRef(new Animated.Value(-1000)).current;
     const [reactiveValue, setReactiveValue] = useState(-1000);
     const step = 1;
-    const steps = 3;
+    const steps = 4;
 
     useEffect(() => {
       Animated.timing(animatedValue, {
@@ -32,10 +32,10 @@ export default function Passo1() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Pressable style={styles.btnExit} onPress={() => navigation.navigate('Welcome')}>
-          <Image source={require('../../../assets/img/arrow.png')} 
-            style={{ width: 25, height: 25 }}
-            tintColor='#aaa'
+        <Pressable onPress={() => navigation.navigate('Welcome')}>
+          <Image source={require('../../../assets/img/arrow_2.png')} 
+            style={{ width: 20, height: 20 }}
+            tintColor='#ccc'
             resizeMode='contain' 
           />
         </Pressable>
@@ -49,7 +49,7 @@ export default function Passo1() {
           />
         </View>
       </View>
-
+      <View style={styles.content}>
         <View style={styles.logo}>
           <Image source={require('../../../assets/img/logo.png')} 
             style={{ width: 130, height: 130 }} 
@@ -64,7 +64,7 @@ export default function Passo1() {
               style={[styles.cardPerfil, perfil === 'usuaria' && styles.cardSelecionado]}
             >
               <Image source={require('../../../assets/img/woman.png')} 
-                style={{ width: 88, height: 88 }}
+                style={{ width: 80, height: 80 }}
                 resizeMode='contain' 
               />
               <View style={styles.texts}>
@@ -77,7 +77,7 @@ export default function Passo1() {
               style={[styles.cardPerfil, perfil === 'guardiao' && styles.cardSelecionado]}  
             >
                 <Image source={require('../../../assets/img/men.png')} 
-                  style={{ width: 88, height: 88 }}
+                  style={{ width: 80, height: 80 }}
                   resizeMode='contain'                
                 />
               <View style={styles.texts}>
@@ -95,6 +95,7 @@ export default function Passo1() {
               <Text style={styles.txWhite}>Continuar</Text>
             </Pressable>
           </View>
+      </View>
       <StatusBar style="auto" />
     </View>
   );

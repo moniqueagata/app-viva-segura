@@ -6,7 +6,7 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 20,
+    paddingVertical: 30,
     paddingHorizontal: 20,
   },
 
@@ -22,30 +22,37 @@ export default StyleSheet.create({
     width: '100%',
     paddingHorizontal: 20,
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'space-between'
+  },
+
+  txIcon: {
+    width: '100%',
+    alignItems: 'center',
+    marginTop: '22%',
+    gap: 30
   },
 
   texts: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
-    gap: 9
+    gap: 10
   },
 
   titulo: {
     fontSize: 30,
-    fontWeight: '700',
+    fontWeight: '500',
     color: '#6925b8', 
     letterSpacing: 0.5,
     textAlign: 'center',
   },
 
   descricao: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '300',
     color: '#505050',
-    textAlign: 'center'
+    textAlign: 'center',
+    lineHeight: 22
   },
 
   imagem: {

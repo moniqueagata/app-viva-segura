@@ -5,13 +5,13 @@ export default StyleSheet.create({
     flexGrow: 1,
     backgroundColor: '#ffffff',
     alignItems: 'center',
-    justifyContent: 'flex-start',
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
   
   header: {
     width: '100%',
+    height: 80,
     alignItems: 'center',
     flexDirection: 'row',
   },
@@ -19,7 +19,7 @@ export default StyleSheet.create({
   barra: {
     flex: 1,
     height: 8,
-    backgroundColor: '#e7e7e7',
+    backgroundColor: '#ececec',
     borderRadius: 10,
     overflow: 'hidden',
     marginHorizontal: '16%'
@@ -32,11 +32,11 @@ export default StyleSheet.create({
     borderRadius: 4
   },
 
-  btnExit: {
-    width: 30,
-    height: 30,
+  content: {
+    flex: 1,
+    width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
 
   logo: {
@@ -46,43 +46,31 @@ export default StyleSheet.create({
     paddingVertical: 22
   },
 
-  texts: {
-    width: '100%',
-    gap: 12,
-    marginBottom: 33
-  },
-
-  titulo: {
-    fontSize: 28,
-    fontWeight: '500',
-    color: '#6925b8', 
-    textAlign: 'center',
-    letterSpacing: 0.7,
-  },
-
   subtitulo: {
     fontSize: 16,
-    color: '#545454',
+    color: '#808080',
     textAlign: 'center',
+    marginBottom: 10,
   },
 
   inputsContainer: {
-    gap: 22,
+    gap: 15,
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
+    marginVertical: 8,
   },
 
   buttonContainer: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 170,  
+    marginVertical: '10%' 
   },
 
   btnPurple: {
     backgroundColor: '#6925b8', 
-    width: '80%',
-    height: 60,
+    width: '90%',
+    height: 50,
     borderRadius: 35, 
     justifyContent: 'center',
     alignItems: 'center',
@@ -90,8 +78,8 @@ export default StyleSheet.create({
 
   txWhite: {
     color: '#FFFFFF',
-    fontSize: 22,
-    fontWeight: '500',
+    fontSize: 18,
+    fontWeight: '400',
   },
 
 });

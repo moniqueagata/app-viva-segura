@@ -5,25 +5,22 @@ export default StyleSheet.create({
     flexGrow: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
 
   logo: {
     width: '100%',
-    height: 200,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '10%'
+    paddingTop: '20%'
   },
 
-  titulo: {
-    fontSize: 28,
+  titulo:{
+    color: '#3f0088',
+    fontSize: 22,
     fontWeight: '500',
-    color: '#6925b8', 
-    textAlign: 'center',
-    letterSpacing: 0.7,
   },
 
   inputsContainer: {
@@ -38,24 +35,24 @@ export default StyleSheet.create({
   },
 
   textEsqueciSenha: {
-    fontSize: 16,
-    fontWeight: '400',
-    color: '#a052fa',
+    fontSize: 14,
+    fontWeight: '300',
+    color: '#6925b8',
     marginTop: 5,
-    paddingLeft: '55%'
+    paddingLeft: '59%'
   },
 
   buttonContainer: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 100,  
+    marginVertical: '10%' 
   },
 
   btnPurple: {
     backgroundColor: '#6925b8', 
-    width: '80%',
-    height: 60,
+    width: '90%',
+    height: 50,
     borderRadius: 35, 
     justifyContent: 'center',
     alignItems: 'center',
@@ -63,27 +60,29 @@ export default StyleSheet.create({
 
   txWhite: {
     color: '#FFFFFF',
-    fontSize: 22,
-    fontWeight: '500',
-    marginTop: '5%'
+    fontSize: 18,
+    fontWeight: '400',
   },
 
   linkView: {
+    width: '100%',
+    justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
   },
 
   txLink: {
-    color: '#947faa',
-    fontSize: 16,
+    color: '#919191',
+    fontSize: 15,
     fontWeight: '400',
   },
 
   link: {
-    color: '#f833a6',
+    color: '#9131ff',
     paddingLeft: 4,
-    fontSize: 16,
-    fontWeight: '500',
-  }
+    fontSize: 15,
+    fontWeight: '400',
+    textDecorationLine: 'underline'
+  },
   
 });

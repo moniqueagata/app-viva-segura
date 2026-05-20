@@ -71,15 +71,18 @@ export default function Perfil() {
                 <View style={styles.profile}>
                     <View style={styles.photoUpload}>
                         <View style={styles.upload}>
-                            {usuario?.foto ? (
-                                <Image 
-                                source={{ uri: usuario.foto }} 
-                                style={{ width: 120, height: 120, borderRadius: 60 }} 
-                                />
+                            {/* {image ? (
+                            <Image 
+                                source={{ uri: image }} 
+                                style={{ width: '100%', height: '100%', borderRadius: 75 }} 
+                            />
                             ) : (
-                                <View style={styles.placeholder} />
-                            )}
-                        </View>           
+                            <Image source={require('../../../assets/img/icon.png')} 
+                                style={{ width: '100%', height: '100%' }}
+                                resizeMode='contain'
+                            />
+                            )} */}
+                        </View>          
                     </View>
 
                     <Text style={styles.textNome}>

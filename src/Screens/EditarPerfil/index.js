@@ -12,62 +12,72 @@ export default function EditarPerfil() {
   const navigation = useNavigation();
   const [focus, setFocus] = useState(false);
   const [modal, setModal] = useState(false);
-
-  // Foto de perfil
   const [image, setImage] = useState(null);
 
-  const solicitarPermissoes = async () => {
-    const camera = await ImagePicker.requestCameraPermissionsAsync();
-    const galeria = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (camera.status !== 'granted' || galeria.status !== 'granted') {
-        Alert.alert(
-          'Permissão negada',
-          'É necessário permitir acesso à câmera e galeria.'
-        );
-        return false;
-      }
-      return true;
-    };
-
-  const tirarFoto = async () => {
-    const permissoes = await solicitarPermissoes();
-    if (!permissoes) return;
-
-    const resultado = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-
-    if (!resultado.canceled) {
-      setImage(resultado.assets[0].uri);
-      setModal(false);
-    }
-    console.log(resultado.assets);
-  };
-
-  const escolherDaGaleria = async () => {
-    const permissoes = await solicitarPermissoes();
-    if (!permissoes) return;
-
-    const resultado = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!resultado.canceled) {
-      setImage(resultado.assets[0].uri);
-      setModal(false);
-    }
-  };
-
-  const exluirFoto = () => {
-    setImage(null);
-    setModal(false);
-  };
-  //----------
+  // Foto de perfil  
+      const solicitarPermissoes = async () => {
+        const camera = await ImagePicker.requestCameraPermissionsAsync();
+        const galeria = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (camera.status !== 'granted' || galeria.status !== 'granted') {
+            Alert.alert(
+              'Permissão negada',
+              'É necessário permitir o acesso à câmera e galeria.'
+            );
+            return false;
+          }
+          return true;
+        };
+    
+      const tirarFoto = async () => {
+        const permissoes = await solicitarPermissoes();
+        if (!permissoes) return;
+    
+        try{
+          const resultado = await ImagePicker.launchCameraAsync({
+            mediaTypes: 'images',
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 0.8,
+          });
+    
+          if (!resultado.canceled) {
+            setImage(resultado.assets[0].uri);
+            setModal(false);
+          }
+          console.log(resultado.assets);
+        } catch (error) {
+          console.log("Erro ao abrir a câmera:", error);
+          Alert.alert("Erro","Não foi possível abrir a câmera.")
+        }
+      };
+    
+      const escolherDaGaleria = async () => {
+        const permissoes = await solicitarPermissoes();
+        if (!permissoes) return;
+    
+        try {
+          const resultado = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: 'images',
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 0.8,
+          });
+      
+          if (!resultado.canceled && resultado.assets.length > 0) {
+            setImage(resultado.assets[0].uri);
+            setModal(false);
+          }
+        } catch (error) {
+          console.log("Erro ao abrir a galeria:", error);
+          Alert.alert("Erro", "Não foi possível abrir a galeria.");
+        }
+      };
+  
+      const exluirFoto = () => {
+        setImage(null);
+        setModal(false);
+      };
+      //----------
 
   //atualizar dados
 const [usuario, setUsuario] = useState({});
@@ -158,17 +168,20 @@ const salvar = async () => {
           <View style={styles.photoUpload}>
             <View style={styles.upload}>
               {image ? (
-              <Image 
-                source={{ uri: image }} 
-                style={{ width: '100%', height: '100%', borderRadius: 75 }} 
-              />
+                <Image 
+                  source={{ uri: image }} 
+                  style={{ width: '100%', height: '100%', borderRadius: 75 }} 
+                />
               ) : (
-                <View style={{ backgroundColor: '#f0f0f0', flex: 1 }} />
+                <Image source={require('../../../assets/img/icon.png')} 
+                    style={{ width: '100%', height: '100%' }}
+                    resizeMode='contain'
+                />
               )}
             </View>
             <Pressable style={styles.edit} onPress={() => setModal(true)}>
                 <Image source={require('../../../assets/img/pen.png')}
-                  style={{ width: 17, height: 17 }}
+                  style={{ width: 20, height: 20 }}
                   tintColor='#fff'
                   resizeMode='cover'
                 />

@@ -69,6 +69,11 @@ export default function App() {
               headerShown: false
             }}
           />
+          <Stack.Screen name="Passo4" component={Passo4}
+            options={{
+              headerShown: false
+            }}
+          />
           <Stack.Screen name="Login" component={Login}
             options={{
               headerShown: false
@@ -89,6 +94,11 @@ export default function App() {
               headerShown: false 
             }}
           />
+          <Stack.Screen name="AddGuardiao" component={AddGuardiao} 
+            options={{
+              headerShown: false
+            }}
+          />
           <Stack.Screen name="AdicionarEndereco" component={AdicionarEndereco}
             options={{
               headerShown: false 
@@ -105,11 +115,6 @@ export default function App() {
             }}
           />
           <Stack.Screen name="Perfil" component={Perfil} 
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="AddGuardiao" component={AddGuardiao} 
             options={{
               headerShown: false
             }}

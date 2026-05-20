@@ -15,14 +15,16 @@ export default function Welcome() {
           />
         </View>
         <View style={styles.content}>
-          <View style={styles.texts}>
-            <Text style={styles.titulo}>Bem-vinda(o)</Text>
-            <Text style={styles.descricao}>Acompanhe trajetos, compartilhe localização ao vivo e acione ajuda com um toque</Text>
-          </View>
-          <View style={styles.imagem}>
-            <Image source={require('../../../assets/img/welcome.png')}
-              style={{ width: 266, height: 266 }}
-            />
+          <View style={styles.txIcon}>
+            <View style={styles.imagem}>
+              <Image source={require('../../../assets/img/welcome.png')}
+                style={{ width: 266, height: 266 }}
+              />
+            </View>
+            <View style={styles.texts}>
+              <Text style={styles.titulo}>Bem-vinda(o)</Text>
+              <Text style={styles.descricao}>Acompanhe trajetos, compartilhe localização e peça ajuda com um toque</Text>
+            </View>
           </View>
           
         <View style={styles.buttonContainer}>

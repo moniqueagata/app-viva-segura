@@ -37,12 +37,11 @@ export default StyleSheet.create({
     width: '100%',
     paddingHorizontal: 20,
     paddingVertical: 20,
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
   },
 
   // Foto de Perfil
-
   photoUpload: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -51,19 +50,20 @@ export default StyleSheet.create({
   },
 
   upload: {
-    width: 130,
-    height: 130,
+    width: 160,
+    height: 160,
     backgroundColor: '#f1f1f1',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: '100%',
     borderWidth: 1,
-    borderColor: '#6925b8'
+    borderColor: '#a460f1',
+    overflow: 'hidden',
   },
 
   edit: {
-    width: 40,
-    height: 40,
+    width: 45,
+    height: 45,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#6925b8',
@@ -72,13 +72,12 @@ export default StyleSheet.create({
     bottom: 0,
     right: 0
   },
-
   // ----
 
   gridInputs: {
     width: '95%',
     minHeight: 400,
-    marginTop: 30,
+    marginVertical: '10%'
   },
 
   label: {
@@ -91,7 +90,7 @@ export default StyleSheet.create({
 
   inputContainer: {
     width: '100%',
-    height: 55,
+    height: 50,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 10,
@@ -110,7 +109,7 @@ export default StyleSheet.create({
   },
 
   buttonPurple: {
-    width: '60%',
+    width: '90%',
     height: 50,
     backgroundColor: '#6925b8',
     alignItems: 'center',

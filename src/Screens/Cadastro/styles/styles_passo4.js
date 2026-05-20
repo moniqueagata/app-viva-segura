@@ -37,79 +37,49 @@ export default StyleSheet.create({
     flex: 1,
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-
-  logo: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 22
+    justifyContent: 'space-between',
   },
 
   titulo:{
     color: '#3f0088',
     fontSize: 22,
     fontWeight: '500',
+    marginTop: '10%',
   },
 
-  inputsContainer: {
-    gap: 22,
+
+  // Foto de Perfil
+  photoUpload: {
     alignItems: 'center',
-    width: '100%',
-    marginVertical: 5,
+    justifyContent: 'center',
+    position:  'relative',
+    marginVertical: 30
   },
 
-  validacoesContainer: {
-    width: '100%',
-    paddingHorizontal: 15,
-    gap: 5
+  upload: {
+    width: 200,
+    height: 200,
+    backgroundColor: '#f1f1f1',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '100%',
+    borderWidth: 1,
+    borderColor: '#a460f1',
+    overflow: 'hidden',
   },
 
-  textValidar: {
-    fontSize: 14,
-    fontWeight: '300',
+  subtitulo: {
+    fontSize: 16,
     color: '#808080',
+    textAlign: 'center',
+    marginBottom: 10,
   },
-
-  termosContainer: {
-    width: '95%',
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginVertical: 12
-  },
-
-  boxContainer: {
-    paddingRight: 8
-  },
-
-  checkbox: {
-    width: 25,
-    height: 25,
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: '#bbb',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  boxChecked: {
-    backgroundColor: '#550fa4',
-    borderColor: '#550fa4',
-  },
-
-  textBox: {
-    fontSize: 14,
-    color: '#6d4c92',
-    fontWeight: '500',
-  },
-
-  buttonContainer: {
+ 
+  button: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: '10%'
+    marginVertical: '10%',
   },
 
   btnPurple: {
@@ -122,14 +92,29 @@ export default StyleSheet.create({
   },
 
   txWhite: {
-    color: '#fff',
+    color: '#FFFFFF',
     fontSize: 18,
     fontWeight: '400',
   },
 
+  link: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginVertical: 20
+  },
+
+  txGrey: {
+    color: '#808080',
+    fontSize: 16,
+    fontWeight: '400',
+  },
+
+  // Modal
   modalContainer: {
     width: '100%',
-    height: 500,
+    height: 220,
     backgroundColor: '#fff',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
@@ -142,40 +127,29 @@ export default StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-
-  circleCheck: {
-    width: 150,
-    height: 150,
-    backgroundColor: '#8e3deb',
-    borderRadius: '50%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 25,
-  },
-
-  tituloModal: {
-    fontSize: 30,
-    fontWeight: '500',
-    color: '#515151',
-    letterSpacing: 0.5,
-    marginBottom: 11
-  },
-
-  subtitulo: {
-    fontSize: 18,
-    fontWeight: '400',
-    color: '#717171',
-    marginBottom: 60
+    paddingHorizontal: 20,
+    gap: 20,
   },
 
   buttonModal: {
-    backgroundColor: '#6925b8', 
-    width: '70%',
-    height: 54,
-    borderRadius: 35, 
-    justifyContent: 'center',
+    width: '90%',
+    height: 40,
     alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    gap: 15
+  },
+
+  txRed: {
+    color: '#c04b4b',
+    fontSize: 17,
+    fontWeight: '400',
+  },
+
+  txButton: {
+    color: '#717171',
+    fontSize: 17,
+    fontWeight: '400',
   },
 
 });

@@ -2,6 +2,7 @@ import React from "react";
 import { PaperProvider } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Telas
 import Splash from "./src/Screens/Splash";
@@ -36,107 +37,109 @@ const Stack = createNativeStackNavigator ();
 
 export default function App() {
   return (
-    <PaperProvider>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Splash" component={Splash} 
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="Welcome" component={Welcome} 
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="Passo1" component={Passo1}
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="Passo2" component={Passo2}
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="Passo3" component={Passo3}
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="Passo4" component={Passo4}
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="Login" component={Login}
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="Home" component={Home}
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="Telefones" component={Telefones}
-          options={{ 
-            headerShown: false
-           }}
-          />
-          <Stack.Screen name="MeusEnderecos" component={MeusEnderecos}
-            options={{ 
-              headerShown: false 
-            }}
-          />
-          <Stack.Screen name="AddGuardiao" component={AddGuardiao} 
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="AdicionarEndereco" component={AdicionarEndereco}
-            options={{
-              headerShown: false 
-            }}
-          />
-            <Stack.Screen  name="AdicionarPontoSeguro" component={AdicionarPontoSeguro}
+    <SafeAreaProvider>
+      <PaperProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Splash" component={Splash} 
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="Welcome" component={Welcome} 
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="Passo1" component={Passo1}
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="Passo2" component={Passo2}
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="Passo3" component={Passo3}
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="Passo4" component={Passo4}
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="Login" component={Login}
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="Home" component={Home}
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="Telefones" component={Telefones}
             options={{ 
               headerShown: false
             }}
-          />
-          <Stack.Screen name="MeusGuardioes" component={MeusGuardioes} 
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="Perfil" component={Perfil} 
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="EditarPerfil" component={EditarPerfil} 
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="Notificacoes" component={Notificacoes} 
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="HelpChat" component={HelpChat} 
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="Central" component={Central} 
-            options={{
-              headerShown: false
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+            />
+            <Stack.Screen name="MeusEnderecos" component={MeusEnderecos}
+              options={{ 
+                headerShown: false 
+              }}
+            />
+            <Stack.Screen name="AddGuardiao" component={AddGuardiao} 
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="AdicionarEndereco" component={AdicionarEndereco}
+              options={{
+                headerShown: false 
+              }}
+            />
+              <Stack.Screen  name="AdicionarPontoSeguro" component={AdicionarPontoSeguro}
+              options={{ 
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="MeusGuardioes" component={MeusGuardioes} 
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="Perfil" component={Perfil} 
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="EditarPerfil" component={EditarPerfil} 
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="Notificacoes" component={Notificacoes} 
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="HelpChat" component={HelpChat} 
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="Central" component={Central} 
+              options={{
+                headerShown: false
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    </SafeAreaProvider>
   );
 }
 

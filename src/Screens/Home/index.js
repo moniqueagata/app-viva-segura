@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import {View ,Image,Text,Pressable,useWindowDimensions, Animated} from 'react-native';
+import {View ,Image, Text, Pressable, useWindowDimensions, Animated} from 'react-native';
 import styles from'./styles';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';

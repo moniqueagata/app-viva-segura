@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { View, Text, Pressable, Image, Animated, KeyboardAvoidingView, ScrollView, Platform, Alert } from "react-native";
+import { View, Text, Pressable, Image, Animated, Alert } from "react-native";
 import { Modal, Portal } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
 import { useState, useRef, useEffect } from "react"
@@ -43,12 +43,11 @@ export default function Passo4() {
           id_role: perfilSelecionado === "guardiao" ? 2 : 1,
           foto: fotoPerfil || null
         };
-    
+        
+        setModalSucesso(true);
         console.log("Enviando dados completos para a API:", usuario);
         const response = await api.post("/cadastrar", usuario);
         console.log("Sucesso:", response.data);
-    
-        setModalSucesso(true);
 
       } catch (error) {
         console.log("ERRO NO CADASTRO:", error);
@@ -237,7 +236,7 @@ export default function Passo4() {
         </View>
 
         <View style={styles.button}>
-            <Pressable style={styles.btnPurple} onPress={() => setModalSucesso(true)}>
+            <Pressable style={styles.btnPurple} onPress={() => finalizarCadastro(image)}>
                 <Text style={styles.txWhite}>Concluir</Text>
             </Pressable>
             <View style={styles.link}>

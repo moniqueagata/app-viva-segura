@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, Text, View, Animated, Image, Platform, KeyboardAvoidingView, ScrollView, SafeAreaView } from 'react-native';
+import { Pressable, Text, View, Animated, Image, Platform, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput as PaperInput } from 'react-native-paper';
 import { TextInputMask } from 'react-native-masked-text';
 import { useNavigation, useRoute } from '@react-navigation/native';

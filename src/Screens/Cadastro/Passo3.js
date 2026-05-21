@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import { View, Text, Pressable, Image, Animated, KeyboardAvoidingView, ScrollView, Platform, SafeAreaView } from "react-native";
-import { TextInput as PaperInput, Modal, Portal } from "react-native-paper";
+import { View, Text, Pressable, Image, Animated, KeyboardAvoidingView, ScrollView, Platform } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { TextInput as PaperInput } from "react-native-paper";
 import { useState, useRef, useEffect } from "react"
 import { useNavigation, useRoute } from '@react-navigation/native';
 import styles from "./styles/styles_passo3";

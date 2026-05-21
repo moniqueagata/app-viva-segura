@@ -131,6 +131,25 @@ export default StyleSheet.create({
     gap: 20,
   },
 
+  modalSucesso: {
+    width: '100%',
+    height: 800,
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    position: 'absolute',
+    bottom: 0,
+    margin: 0,
+  },
+
+  textsModal: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    marginVertical: '20%'
+  },
+
   buttonModal: {
     width: '90%',
     height: 40,

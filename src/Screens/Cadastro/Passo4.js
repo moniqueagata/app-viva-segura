@@ -4,12 +4,14 @@ import { Modal, Portal } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
 import { useState, useRef, useEffect } from "react"
 import { useNavigation, useRoute } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
 import styles from "./styles/styles_passo4";
 import api from "../../services/api";
 
 export default function Passo4() {
     const navigation = useNavigation();
     const [modal, setModal] = useState(false);
+    const [modalSucesso, setModalSucesso] = useState(false); // Modal de confirmação de cadastro
     const [image, setImage] = useState(null);
     const route = useRoute();
     
@@ -46,19 +48,23 @@ export default function Passo4() {
         const response = await api.post("/cadastrar", usuario);
         console.log("Sucesso:", response.data);
     
-        Alert.alert("Sucesso", "Cadastro realizado com sucesso!", [
-          { text: "OK", onPress: () => navigation.navigate('Home') } // Mude 'Home' para o nome da sua tela inicial pós-login
-        ]);
-      } catch (error) {
-      console.log("ERRO NO CADASTRO:", error);
+        setModalSucesso(true);
 
-      if (error.response) {
-        console.log("BACKEND:", error.response.data);
-        alert(JSON.stringify(error.response.data));
-      } else {
-        alert(error.message);
+      } catch (error) {
+        console.log("ERRO NO CADASTRO:", error);
+
+        if (error.response) {
+          console.log("BACKEND:", error.response.data);
+          alert(JSON.stringify(error.response.data));
+        } else {
+          alert(error.message);
+        }
       }
-    }
+    };
+
+    const irParaLogin = () => {
+      setModalSucesso(false);
+      navigation.navigate('Login');
     };
 
     // Foto de perfil  
@@ -148,28 +154,48 @@ export default function Passo4() {
   return (
     <View style={styles.container}>
      <Portal>
-        <Modal visible={modal} dismissable={false} contentContainerStyle={styles.modalContainer}>
-            <View style={styles.modal}>
+        <Modal visible={modal} dismissable={true} onDismiss={() => setModal(false)} contentContainerStyle={styles.modalContainer}>
+          <View style={styles.modal}>
             <Pressable style={styles.buttonModal} onPress={tirarFoto}>
-                <Image source={require('../../../assets/img/image.png')} 
+              <Image source={require('../../../assets/img/image.png')} 
                 style={{ width: 22, height: 22 }} 
                 tintColor='#717171'
-                />
-                <Text style={styles.txButton}>Tirar foto da câmera</Text>
+              />
+              <Text style={styles.txButton}>Tirar foto da câmera</Text>
             </Pressable>
             <Pressable style={styles.buttonModal} onPress={escolherDaGaleria}>
-                <Image source={require('../../../assets/img/upload.png')} 
-                    style={{ width: 22, height: 22 }} 
-                    tintColor='#717171'
-                />
-                <Text style={styles.txButton}>Selecionar da galeria</Text>
+              <Image source={require('../../../assets/img/upload.png')} 
+                style={{ width: 22, height: 22 }} 
+                tintColor='#717171'
+              />
+              <Text style={styles.txButton}>Selecionar da galeria</Text>
             </Pressable>
             <Pressable style={styles.buttonModal} onPress={exluirFoto}>
               <Text style={styles.txRed}>Excluir foto</Text>
             </Pressable>
-            </View>
+          </View>
         </Modal>
+
+      <Modal visible={modalSucesso} dismissable={false} contentContainerStyle={styles.modalSucesso}>
+        <View style={styles.modal}>
+          <LottieView
+            source={require('../../../assets/img/sucesso.json')} 
+            autoPlay
+            loop={false}
+            style={{ width: 220, height: 220 }}
+          />
+          <View style={styles.textsModal}>
+            <Text style={[styles.titulo, { fontSize: 25 }]}>Cadastro Realizado</Text>
+            <Text style={[styles.subtitulo, { paddingHorizontal: 20 }]}>Sua conta foi criada com sucesso!</Text>
+          </View>
+
+          <Pressable style={styles.btnPurple} onPress={irParaLogin}>
+            <Text style={styles.txWhite}>Ir para o Login</Text>
+          </Pressable>
+        </View>
+      </Modal>
     </Portal>
+
       <View style={styles.header}>
         <Pressable onPress={() => navigation.navigate('Passo3')}>
           <Image source={require('../../../assets/img/arrow_2.png')} 
@@ -210,12 +236,12 @@ export default function Passo4() {
         <Text style={styles.subtitulo}>Toque para adicionar uma foto</Text>
         </View>
 
-        <View style={styles.button} onPress={() => finalizarCadastro(image)}>
-            <Pressable style={styles.btnPurple}>
-                <Text style={styles.txWhite}>Continuar</Text>
+        <View style={styles.button}>
+            <Pressable style={styles.btnPurple} onPress={() => setModalSucesso(true)}>
+                <Text style={styles.txWhite}>Concluir</Text>
             </Pressable>
-            <View style={styles.link} onPress={() => finalizarCadastro(null)}>
-            <Pressable>
+            <View style={styles.link}>
+            <Pressable onPress={() => finalizarCadastro(null)}>
                 <Text style={styles.txGrey}>Pular por agora</Text>
             </Pressable>
         </View>

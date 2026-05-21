@@ -39,17 +39,12 @@ export default function App() {
     <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Passo4" component={Passo4}
+          <Stack.Screen name="Splash" component={Splash} 
             options={{
               headerShown: false
             }}
           />
           <Stack.Screen name="Welcome" component={Welcome} 
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="Splash" component={Splash} 
             options={{
               headerShown: false
             }}

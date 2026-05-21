@@ -10,7 +10,7 @@ export default function Welcome() {
     <View style={styles.container}>
         <View style={styles.header}>
           <Image source={require('../../../assets/img/logo.png')} 
-            style={{ width: 60, height: 60 }}
+            style={{ width: 77, height: 77 }}
             resizeMode='contain'
           />
         </View>

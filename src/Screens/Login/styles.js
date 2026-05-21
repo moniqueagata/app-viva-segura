@@ -6,27 +6,29 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 20,
     paddingHorizontal: 20,
+    paddingVertical: 20,
   },
 
   logo: {
     width: '100%',
+    height: 200,
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: '20%'
+    justifyContent: 'flex-end',
+    marginVertical: '8%'
   },
 
   titulo:{
     color: '#3f0088',
     fontSize: 22,
     fontWeight: '500',
+    marginVertical: '10%'
   },
 
   inputsContainer: {
     gap: 25,
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
   },
 
   senhaContainer: {
@@ -46,7 +48,7 @@ export default StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: '10%' 
+    marginVertical: '20%' 
   },
 
   btnPurple: {
@@ -69,18 +71,19 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+    marginVertical: 10
   },
 
   txLink: {
     color: '#919191',
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '400',
   },
 
   link: {
     color: '#9131ff',
     paddingLeft: 4,
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '400',
     textDecorationLine: 'underline'
   },

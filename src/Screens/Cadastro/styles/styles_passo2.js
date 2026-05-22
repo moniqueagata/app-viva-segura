@@ -5,13 +5,13 @@ export default StyleSheet.create({
     flexGrow: 1,
     backgroundColor: '#ffffff',
     alignItems: 'center',
-    paddingVertical: 20,
+    justifyContent: 'space-between',
+    paddingVertical: 10,
     paddingHorizontal: 20,
   },
   
   header: {
     width: '100%',
-    height: 80,
     alignItems: 'center',
     flexDirection: 'row',
   },
@@ -57,7 +57,7 @@ export default StyleSheet.create({
     gap: 15,
     alignItems: 'center',
     width: '100%',
-    marginVertical: 8,
+    marginVertical: 20,
   },
 
   buttonContainer: {

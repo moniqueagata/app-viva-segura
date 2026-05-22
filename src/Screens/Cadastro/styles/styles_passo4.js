@@ -68,6 +68,12 @@ export default StyleSheet.create({
     overflow: 'hidden',
   },
 
+  center: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
   subtitulo: {
     fontSize: 16,
     color: '#808080',

@@ -44,10 +44,10 @@ export default function Passo4() {
           foto: fotoPerfil || null
         };
         
-        setModalSucesso(true);
         console.log("Enviando dados completos para a API:", usuario);
         const response = await api.post("/cadastrar", usuario);
         console.log("Sucesso:", response.data);
+        setModalSucesso(true);
 
       } catch (error) {
         console.log("ERRO NO CADASTRO:", error);
@@ -65,6 +65,7 @@ export default function Passo4() {
       setModalSucesso(false);
       navigation.navigate('Login');
     };
+    //----------
 
     // Foto de perfil  
     const solicitarPermissoes = async () => {
@@ -89,11 +90,12 @@ export default function Passo4() {
           mediaTypes: 'images',
           allowsEditing: true,
           aspect: [1, 1],
-          quality: 0.8,
+          quality: 0.1,
+          base64: true,
         });
   
         if (!resultado.canceled) {
-          setImage(resultado.assets[0].uri);
+          setImage(`data:image/jpeg;base64,${resultado.assets[0].base64}`);
           setModal(false);
         }
         console.log(resultado.assets);
@@ -112,11 +114,12 @@ export default function Passo4() {
           mediaTypes: 'images',
           allowsEditing: true,
           aspect: [1, 1],
-          quality: 0.8,
+          quality: 0.1,
+          base64: true,
         });
     
         if (!resultado.canceled && resultado.assets.length > 0) {
-          setImage(resultado.assets[0].uri);
+          setImage(`data:image/jpeg;base64,${resultado.assets[0].base64}`);
           setModal(false);
         }
       } catch (error) {
@@ -152,7 +155,7 @@ export default function Passo4() {
 
   return (
     <View style={styles.container}>
-     <Portal>
+      <Portal>
         <Modal visible={modal} dismissable={true} onDismiss={() => setModal(false)} contentContainerStyle={styles.modalContainer}>
           <View style={styles.modal}>
             <Pressable style={styles.buttonModal} onPress={tirarFoto}>
@@ -174,26 +177,28 @@ export default function Passo4() {
             </Pressable>
           </View>
         </Modal>
+      </Portal>
 
-      <Modal visible={modalSucesso} dismissable={false} contentContainerStyle={styles.modalSucesso}>
-        <View style={styles.modal}>
-          <LottieView
-            source={require('../../../assets/img/sucesso.json')} 
-            autoPlay
-            loop={false}
-            style={{ width: 220, height: 220 }}
-          />
-          <View style={styles.textsModal}>
-            <Text style={[styles.titulo, { fontSize: 25 }]}>Cadastro Realizado</Text>
-            <Text style={[styles.subtitulo, { paddingHorizontal: 20 }]}>Sua conta foi criada com sucesso!</Text>
+      <Portal>
+        <Modal visible={modalSucesso} dismissable={false} contentContainerStyle={styles.modalSucesso}>
+          <View style={styles.modal}>
+            <LottieView
+              source={require('../../../assets/img/sucesso.json')} 
+              autoPlay
+              loop={false}
+              style={{ width: 220, height: 220 }}
+            />
+            <View style={styles.textsModal}>
+              <Text style={[styles.titulo, { fontSize: 25 }]}>Cadastro Realizado</Text>
+              <Text style={[styles.subtitulo, { paddingHorizontal: 20 }]}>Sua conta foi criada com sucesso!</Text>
+            </View>
+
+            <Pressable style={styles.btnPurple} onPress={irParaLogin}>
+              <Text style={styles.txWhite}>Ir para o Login</Text>
+            </Pressable>
           </View>
-
-          <Pressable style={styles.btnPurple} onPress={irParaLogin}>
-            <Text style={styles.txWhite}>Ir para o Login</Text>
-          </Pressable>
-        </View>
-      </Modal>
-    </Portal>
+        </Modal>
+      </Portal>
 
       <View style={styles.header}>
         <Pressable onPress={() => navigation.navigate('Passo3')}>
@@ -216,8 +221,8 @@ export default function Passo4() {
       <View style={styles.content}>
         <Text style={styles.titulo}>Adicione sua foto de perfil</Text>
 
-        <View>
-            <View style={styles.photoUpload}>
+        <View style={styles.center}>
+          <View style={styles.photoUpload}>
             <Pressable style={styles.upload} onPress={() => setModal(true)}>
                 {image ? (
                 <Image 
@@ -231,8 +236,8 @@ export default function Passo4() {
                 />
                 )}
             </Pressable>
-        </View>
-        <Text style={styles.subtitulo}>Toque para adicionar uma foto</Text>
+          </View>
+          <Text style={styles.subtitulo}>Toque para adicionar uma foto</Text>
         </View>
 
         <View style={styles.button}>

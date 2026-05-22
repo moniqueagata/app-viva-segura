@@ -48,7 +48,7 @@ export default function Passo2() {
 
   return (
   <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
-     <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
+     <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }} edges={['right', 'left', 'top']}>
       <KeyboardAvoidingView style={{ flex: 1, backgroundColor:'#fff' }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         // keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}

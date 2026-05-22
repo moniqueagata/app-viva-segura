@@ -15,14 +15,13 @@ export default StyleSheet.create({
     height: 200,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginVertical: '8%'
   },
 
   titulo:{
     color: '#3f0088',
     fontSize: 22,
     fontWeight: '500',
-    marginVertical: '10%'
+    marginVertical: '18%'
   },
 
   inputsContainer: {

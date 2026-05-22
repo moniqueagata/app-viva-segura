@@ -19,36 +19,40 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
 
     // Validação de login
-    const loginValido = cpf.length >= 11 && senha.length >= 8;
+    const cpfLimpo = cpf.replace(/\D/g, '');
+    const loginValido = cpfLimpo.length >= 11 && senha.length >= 8;
     
     const verificaLogin = async () => {
-  setLoading(true);
+      setLoading(true);
 
-  try {
-    console.log("CPF enviado:", cpf.replace(/\D/g, ''));
-console.log("Senha enviada:", senha.trim());
-    const response = await api.post("/login", {
-      cpf: cpf.replace(/\D/g, ''),
-senha: senha.trim(),
-    });
-console.log("RESPOSTA:", response.data);
-    const user = response.data.usuario_encontrado;
+      try {
+        console.log("CPF enviado:", cpfLimpo);
+        console.log("Senha enviada:", senha.trim());
 
-    if (response.data.senha_confere) {
-      await AsyncStorage.setItem("user", JSON.stringify(user));
-      navigation.replace("Home");
-    } else {
-      alert("Senha incorreta");
-    }
+            const response = await api.post("/login", {
+              cpf: cpfLimpo,
+              senha: senha.trim(),
+            });
 
-  } catch (error) {
-    console.log(error.response?.data || error.message);
-    alert("CPF ou senha incorretos.");
-  } finally {
-    setLoading(false);
-  }
+        console.log("RESPOSTA DO SERVIDOR:", response.data);
+        const user = response.data.usuario_encontrado;
 
-  };
+        if (user && response.data.senha_confere) {
+          await AsyncStorage.setItem("user", JSON.stringify(user));
+          navigation.replace("Home");
+        } else if (!user) {
+          alert("Usuária(o) não cadastrada(o).");
+        } else {
+          alert("Senha incorreta");
+        }
+
+      } catch (error) {
+        console.log("Erro na requisição:", error.response?.data || error.message);
+        alert("Não foi possível realizar o login. Verifique sua conexão.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
   return (
     <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
@@ -60,6 +64,7 @@ console.log("RESPOSTA:", response.data);
         <ScrollView 
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
         >
           <View style={styles.logo}>
             <Image source={require('../../../assets/img/logo.png')} style={{ width: 150, height: 150 }} />
@@ -79,6 +84,7 @@ console.log("RESPOSTA:", response.data);
                 value={cpf}
                 onChangeText={text => setCpf(text)}
                 keyboardType='numeric'
+                disabled={loading}
                 render={props =>( <TextInputMask {...props} type={'cpf'} />)}
               />
 
@@ -94,6 +100,7 @@ console.log("RESPOSTA:", response.data);
                   value={senha}
                   onChangeText={setSenha}
                   secureTextEntry={!mostrarSenha}
+                  disabled={loading}
                   right={
                     <PaperInput.Icon
                       onPress={() => setMostrarSenha(!mostrarSenha)}  

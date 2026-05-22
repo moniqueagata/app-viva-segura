@@ -8,7 +8,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Perfil() {
     const navigation = useNavigation();
-
     const [toggle, setToggle] = useState(true);
 
     // Animação na navegação
@@ -64,6 +63,16 @@ export default function Perfil() {
     carregarUsuario();
     }, []);
 
+    // Logout -> Sair da conta
+    const fazerLogout = async () => {
+        await AsyncStorage.removeItem("user");
+
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Login' }],
+        });
+    };
+
   return (
     <View style={styles.container}>
         <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
@@ -71,17 +80,18 @@ export default function Perfil() {
                 <View style={styles.profile}>
                     <View style={styles.photoUpload}>
                         <View style={styles.upload}>
-                            {/* {image ? (
-                            <Image 
-                                source={{ uri: image }} 
-                                style={{ width: '100%', height: '100%', borderRadius: 75 }} 
-                            />
+                            {usuario?.foto ? (
+                                <Image
+                                    source={{ uri: usuario.foto }}
+                                    style={{ width: '100%', height: '100%', borderRadius: 75 }} 
+                                />
                             ) : (
-                            <Image source={require('../../../assets/img/icon.png')} 
-                                style={{ width: '100%', height: '100%' }}
-                                resizeMode='contain'
-                            />
-                            )} */}
+                                <Image 
+                                    source={require('../../../assets/img/icon.png')} 
+                                    style={{ width: '100%', height: '100%' }} 
+                                    resizeMode='contain' 
+                                />
+                            )}
                         </View>          
                     </View>
 
@@ -209,7 +219,7 @@ export default function Perfil() {
                     </View>
 
                     <View style={styles.logout}>
-                        <Pressable style={styles.buttonLogout}>
+                        <Pressable style={styles.buttonLogout} onPress={fazerLogout}>
                             <Text style={styles.textRed}>Sair da conta</Text>
                         </Pressable>
                     </View>

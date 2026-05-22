@@ -15,115 +15,123 @@ export default function EditarPerfil() {
   const [image, setImage] = useState(null);
 
   // Foto de perfil  
-      const solicitarPermissoes = async () => {
-        const camera = await ImagePicker.requestCameraPermissionsAsync();
-        const galeria = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (camera.status !== 'granted' || galeria.status !== 'granted') {
-            Alert.alert(
-              'Permissão negada',
-              'É necessário permitir o acesso à câmera e galeria.'
-            );
-            return false;
-          }
-          return true;
-        };
-    
-      const tirarFoto = async () => {
-        const permissoes = await solicitarPermissoes();
-        if (!permissoes) return;
-    
-        try{
-          const resultado = await ImagePicker.launchCameraAsync({
-            mediaTypes: 'images',
-            allowsEditing: true,
-            aspect: [1, 1],
-            quality: 0.8,
-          });
-    
-          if (!resultado.canceled) {
-            setImage(resultado.assets[0].uri);
-            setModal(false);
-          }
-          console.log(resultado.assets);
-        } catch (error) {
-          console.log("Erro ao abrir a câmera:", error);
-          Alert.alert("Erro","Não foi possível abrir a câmera.")
-        }
-      };
-    
-      const escolherDaGaleria = async () => {
-        const permissoes = await solicitarPermissoes();
-        if (!permissoes) return;
-    
-        try {
-          const resultado = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: 'images',
-            allowsEditing: true,
-            aspect: [1, 1],
-            quality: 0.8,
-          });
-      
-          if (!resultado.canceled && resultado.assets.length > 0) {
-            setImage(resultado.assets[0].uri);
-            setModal(false);
-          }
-        } catch (error) {
-          console.log("Erro ao abrir a galeria:", error);
-          Alert.alert("Erro", "Não foi possível abrir a galeria.");
-        }
-      };
-  
-      const exluirFoto = () => {
-        setImage(null);
+  const solicitarPermissoes = async () => {
+    const camera = await ImagePicker.requestCameraPermissionsAsync();
+    const galeria = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (camera.status !== 'granted' || galeria.status !== 'granted') {
+        Alert.alert(
+          'Permissão negada',
+          'É necessário permitir o acesso à câmera e galeria.'
+        );
+        return false;
+      }
+      return true;
+    };
+
+  const tirarFoto = async () => {
+    const permissoes = await solicitarPermissoes();
+    if (!permissoes) return;
+
+    try{
+      const resultado = await ImagePicker.launchCameraAsync({
+        mediaTypes: 'images',
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.1,
+        base64: true,
+      });
+
+      if (!resultado.canceled) {
+        setImage(`data:image/jpeg;base64,${resultado.assets[0].base64}`);
         setModal(false);
-      };
-      //----------
+      }
+      console.log(resultado.assets);
+    } catch (error) {
+      console.log("Erro ao abrir a câmera:", error);
+      Alert.alert("Erro","Não foi possível abrir a câmera.")
+    }
+  };
+
+  const escolherDaGaleria = async () => {
+    const permissoes = await solicitarPermissoes();
+    if (!permissoes) return;
+
+    try {
+      const resultado = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: 'images',
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.1,
+        base64: true,
+      });
+  
+      if (!resultado.canceled && resultado.assets.length > 0) {
+        setImage(`data:image/jpeg;base64,${resultado.assets[0].base64}`);
+        setModal(false);
+      }
+    } catch (error) {
+      console.log("Erro ao abrir a galeria:", error);
+      Alert.alert("Erro", "Não foi possível abrir a galeria.");
+    }
+  };
+
+  const exluirFoto = () => {
+    setImage(null);
+    setModal(false);
+  };
+  //----------
 
   //atualizar dados
-const [usuario, setUsuario] = useState({});
+  const [usuario, setUsuario] = useState({});
 
-useEffect(() => {
-  async function carregarUsuario() {
-    const user = await AsyncStorage.getItem("user");
+  useEffect(() => {
+    async function carregarUsuario() {
+      const user = await AsyncStorage.getItem("user");
 
-    if (user) {
-      setUsuario(JSON.parse(user));
-    }
-  }
+      if (user) {
+        const dadosOriginais = JSON.parse(user);
+        setUsuario(dadosOriginais);
 
-  carregarUsuario();
-}, []);
-
-const salvar = async () => {
-  try {
-    const user = await AsyncStorage.getItem("user");
-
-    if (!user) {
-      alert("Usuário não encontrado");
-      return;
+        if (dadosOriginais.foto) {
+          setImage(dadosOriginais.foto);
+        }
+      }
     }
 
-    const dados = JSON.parse(user);
+    carregarUsuario();
+  }, []);
 
-    const response = await api.put(`/usuaria/${dados.id_usuaria}`, {
-      nome: usuario.nome,
-      email: usuario.email,
-      telefone: usuario.telefone,
-      foto: image
-    });
+  const salvar = async () => {
+    try {
+      const user = await AsyncStorage.getItem("user");
 
-    await AsyncStorage.setItem(
-      "user",
-      JSON.stringify(response.data.data)
-    );
+      if (!user) {
+        alert("Usuário não encontrado");
+        return;
+      }
 
-    alert("Atualizado com sucesso!");
+      const dados = JSON.parse(user);
 
-  } catch (error) {
-    console.log(error.response?.data || error.message);
-    alert("Erro ao atualizar");
-  }
-};
+      const response = await api.put(`/usuaria/${dados.id_usuaria}`, {
+        nome: usuario.nome,
+        email: usuario.email,
+        telefone: usuario.telefone,
+        foto: image
+      });
+
+      await AsyncStorage.setItem(
+        "user",
+        JSON.stringify(response.data.data)
+      );
+
+      alert("Atualizado com sucesso!");
+      navigation.navigate('Perfil');
+
+    } catch (error) {
+      console.log(error.response?.data || error.message);
+      alert("Erro ao atualizar");
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -204,6 +212,8 @@ const salvar = async () => {
                 style={styles.input}
                 value={usuario.email || ""}
                 onChangeText={(text) => setUsuario({ ...usuario, email: text })}
+                keyboardType="email-address"
+                autoCapitalize="none"
               />
               <Image source={require('../../../assets/img/email_outline.png')}
                 style={{ width: 20, height: 20 }}
@@ -216,8 +226,9 @@ const salvar = async () => {
             <View style={styles.inputContainer}>
               <TextInput
                 style={styles.input}
-                value={usuario.email || ""}
-                onChangeText={(text) => setUsuario({ ...usuario, email: text })}
+                value={usuario.telefone || ""}
+                onChangeText={(text) => setUsuario({ ...usuario, telefone: text })}
+                keyboardType="phone-pad"
               />
               <Image source={require('../../../assets/img/phone_outline.png')}
                 style={{ width: 20, height: 20 }}

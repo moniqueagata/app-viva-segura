@@ -3,13 +3,27 @@ import {View ,Image, Text, Pressable, useWindowDimensions, Animated} from 'react
 import styles from'./styles';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Home() {
     const navigation = useNavigation();
-     const { width } = useWindowDimensions();
+    const [usuario, setUsuario] = useState(null);
     
+    // Buscar dados
+    useEffect(() => {
+        async function carregarDados() {
+            const dados = await AsyncStorage.getItem("user");
+            if (dados) {
+                setUsuario(JSON.parse(dados));
+            }
+        }
+        carregarDados();
+    }, []);
+    // --------
+
+    // Animação na navegação
+    const { width } = useWindowDimensions();
     const [medidas, setMedidas] = useState({});
     const [abaAtiva, setAbaAtiva] = useState(0);
-
     const larguraAba = 60;
     const posicaoX = useRef(new Animated.Value(0)).current;
 
@@ -48,9 +62,22 @@ export default function Home() {
         <View style={styles.header}>
            <View style={styles.userContent}>
              <View style={styles.upload}>
-                {/* Campo de upload da imagem */}
+                {usuario?.foto ? (
+                    <Image 
+                        source={{ uri: usuario.foto }} 
+                        style={{ width: 45, height: 45, borderRadius: 22.5 }} // Tamanho menor para o topo da Home
+                    />
+                ) : (
+                    <Image 
+                        source={require('../../../assets/img/icon.png')} 
+                        style={{ width: 45, height: 45 }} 
+                        resizeMode='contain' 
+                    />
+                )}
             </View>           
-                <Text style={styles.text}>Ola,</Text>
+                <Text style={styles.text}>
+                    Ola, {usuario?.nome ? usuario.nome.split(' ')[0] : ''}!
+                </Text>
            </View>
             <Pressable onPress={() => navigation.navigate('Notificacoes')}>
                 <Image source={require('../../../assets/img/sino.png')}

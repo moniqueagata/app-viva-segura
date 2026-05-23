@@ -43,7 +43,7 @@ export default function MeusGuardioes() {
     
         const abas = [
             { label: 'Home', rota: "Home", imagem: require('../../../assets/img/home.png'), index: 0 },
-            { label: 'Mapa', rota: null,  imagem: require('../../../assets/img/map.png'), index: 1 },
+            { label: 'Mapa', rota: "Mapa",  imagem: require('../../../assets/img/map.png'), index: 1 },
             { label: 'Guardião', rota: "MeusGuardioes", imagem: require('../../../assets/img/angel.png'), index: 2 },
             { label: 'Você', rota: "Perfil",  imagem: require('../../../assets/img/profile.png'), index: 3 }
         ];
@@ -90,7 +90,7 @@ export default function MeusGuardioes() {
                     onLayout={(event) => abaLayout(aba.index, event)}
                 >
                     <Image source={aba.imagem}
-                        style={{ width: 24, height: 24 }}
+                        style={{ width: 22, height: 22 }}
                         tintColor={abaAtiva === aba.index ? '#ff80aa' : '#fff'}
                         resizeMode='contain'
                     />

@@ -19,15 +19,8 @@ export default StyleSheet.create({
     gap: 36
   },
 
-  buttonHeader: {
-    width: 28,
-    height: 28,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
   tituloHeader: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '500',
     color: '#6925b8'
   },

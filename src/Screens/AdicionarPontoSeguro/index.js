@@ -15,7 +15,7 @@ export default function AdicionarPontoSeguro() {
     <View style={styles.container}>
   <View style={styles.fundoEncima}>
         <Pressable onPress={() => navigation.navigate('Home')}>
-           <Image source={require('../../../assets/img/arrow.png')} style={{ width: 22, height: 22 }} />
+           <Image source={require('../../../assets/img/arrow_2.png')} style={{ width: 22, height: 22 }} />
         </Pressable>
         <Text style={styles.titulo}>Adicionar ponto seguros</Text>    
       </View>

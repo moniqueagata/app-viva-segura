@@ -5,7 +5,7 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import { useState,useEffect, } from 'react';
 import axios from 'axios';
-import api from "../../services/api";
+import api from "../../../services/api.js";
 import { Alert } from 'react-native';
 
 export default function AdicionarEndereco() {
@@ -70,7 +70,7 @@ export default function AdicionarEndereco() {
     <View style={styles.container}>
   <View style={styles.fundoEncima}>
         <Pressable onPress={() => navigation.navigate('MeusEnderecos')}>
-           <Image source={require('../../../assets/img/arrow_2.png')} style={{ width: 22, height: 22 }} />
+           <Image source={require('../../../../assets/img/arrow_2.png')} style={{ width: 22, height: 22 }} />
         </Pressable>
         <Text style={styles.titulo}>Adicionar novo endereços</Text>    
       </View>
@@ -89,7 +89,7 @@ export default function AdicionarEndereco() {
     
       <View style={styles.lupaView} >
         <Pressable onPress={salvarPesquisa}>
-          <Image source={require('../../../assets/img/lupa.png')} style={{width: 22, height: 22 }} />
+          <Image source={require('../../../../assets/img/lupa.png')} style={{width: 22, height: 22 }} />
         </Pressable>
           <TextInput
           style={styles.input}

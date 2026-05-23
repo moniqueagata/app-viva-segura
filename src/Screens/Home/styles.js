@@ -74,8 +74,8 @@ export default StyleSheet.create({
 
   descricao:{
     color: '#bbb',
-    fontSize: 14,
-    fontWeight:200,
+    fontSize: 13,
+    fontWeight: 300,
     textAlign:'center',
     lineHeight: 20,
     marginBottom: 20,
@@ -98,19 +98,21 @@ export default StyleSheet.create({
   },
   
   button: {
-    backgroundColor: "#fafafa",
+    backgroundColor: "#fff",
     width: '90%',
     height: 60,
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#ddd',
     alignItems: 'center',
-    paddingLeft: '15%',
+    paddingLeft: '20%',
     flexDirection:'row',
-    gap: 20
+    gap: 16
   },
 
   texto: {
     color: "#550FA4",
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
   },
 

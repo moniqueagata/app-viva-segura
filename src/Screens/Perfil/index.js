@@ -44,7 +44,7 @@ export default function Perfil() {
 
     const abas = [
         { label: 'Home', rota: "Home", imagem: require('../../../assets/img/home.png'), index: 0 },
-        { label: 'Mapa', rota: null,  imagem: require('../../../assets/img/map.png'), index: 1 },
+        { label: 'Mapa', rota: "Mapa",  imagem: require('../../../assets/img/map.png'), index: 1 },
         { label: 'Guardião', rota: "MeusGuardioes", imagem: require('../../../assets/img/angel.png'), index: 2 },
         { label: 'Você', rota: "Perfil",  imagem: require('../../../assets/img/profile.png'), index: 3 }
     ];
@@ -95,12 +95,14 @@ export default function Perfil() {
                         </View>          
                     </View>
 
-                    <Text style={styles.textNome}>
-                        {usuario?.nome || "Nome"}
-                    </Text>
-                    <Text style={styles.id}>
-                    ID: {usuario?.id_usuaria || usuario?.id || "----"}
-                    </Text>
+                    <View style={styles.text}>
+                        <Text style={styles.nome}>
+                            {usuario?.nome || "Nome"}
+                        </Text>
+                        <Text style={styles.id}>
+                            ID: {usuario?.id_usuaria || usuario?.id }
+                        </Text>
+                    </View>
 
                     <Pressable style={styles.buttonEdit} onPress={() => navigation.navigate('EditarPerfil')}>
                         <Text style={styles.textWhite}>Editar perfil</Text>
@@ -108,50 +110,30 @@ export default function Perfil() {
                 </View>
 
                 <View style={styles.settings}>
-
                     <Text style={styles.sessions}>Preferências</Text>
-                    <Pressable style={styles.button} onPress={() => navigation.navigate('Notificacoes')}>
-                        <View style={styles.grid}>
-                            <View style={styles.circle}>
-                                <Image source={require('../../../assets/img/sino_2.png')}
-                                    style={{ width: 23, height: 23 }}
-                                    tintColor='#616161'  
-                                    resizeMode='contain'
-                                />
-                            </View>
-                            <Text style={styles.textButton}>Notificações</Text>
-                        </View>
-                        <Image source={require('../../../assets/img/arrow_2.png')}
-                            style={{ width: 15, height: 15, transform: [{ scaleX: -1 }] }}
-                            tintColor='#aaa'  
-                        />
-                    </Pressable>
-
-                    <Text style={styles.sessions}>Segurança</Text>
                     <View style={styles.gridButtons}>
-                        
-                        <Pressable style={styles.button}>
+                        <Pressable style={styles.button} onPress={() => navigation.navigate('Notificacoes')}>
                             <View style={styles.grid}>
                                 <View style={styles.circle}>
-                                    <Image source={require('../../../assets/img/settings.png')}
-                                        style={{ width: 23, height: 23 }}
-                                        tintColor='#616161'  
+                                    <Image source={require('../../../assets/img/sino_2.png')}
+                                        style={{ width: 20, height: 20 }}
+                                        tintColor='#808080'  
                                         resizeMode='contain'
                                     />
                                 </View>
-                                <Text style={styles.textButton}>Gerenciar guardiões</Text>
+                                <Text style={styles.textButton}>Notificações</Text>
                             </View>
                             <Image source={require('../../../assets/img/arrow_2.png')}
-                                style={{ width: 15, height: 15, transform: [{ scaleX: -1 }] }}
-                                tintColor='#aaa'  
+                                style={{ width: 14, height: 14, transform: [{ scaleX: -1 }] }}
+                                tintColor='#ccc'  
                             />
                         </Pressable>
                         <Pressable style={styles.button}>
                             <View style={styles.grid}>
                                 <View style={styles.circle}>
                                     <Image source={require('../../../assets/img/pin.png')}
-                                        style={{ width: 23, height: 23 }}
-                                        tintColor='#616161'  
+                                        style={{ width: 20, height: 20 }}
+                                        tintColor='#808080'  
                                         resizeMode='contain'
                                     />
                                 </View>
@@ -160,60 +142,60 @@ export default function Perfil() {
                             <Switch
                                 value={toggle}
                                 onValueChange={setToggle}
-                                trackColor={{ false: "#ccc", true: "#cbb4f6" }}
-                                thumbColor={toggle ? "#6925b8" : "#fff"}
+                                trackColor={{ false: "#ccc", true: "#daffd2" }}
+                                thumbColor={toggle ? "#69d87c" : "#fff"}
                             />
                         </Pressable>
-                    </View>
-
-                    <Text style={styles.sessions}>Suporte</Text>
-                    <View style={styles.gridButtons}>
                         <Pressable style={styles.button}>
                             <View style={styles.grid}>
                                 <View style={styles.circle}>
                                     <Image source={require('../../../assets/img/password.png')}
-                                        style={{ width: 23, height: 23 }}
-                                        tintColor='#616161'  
+                                        style={{ width: 20, height: 20 }}
+                                        tintColor='#808080'  
                                         resizeMode='contain'
                                     />
                                 </View>
                                 <Text style={styles.textButton}>Alterar senha</Text>
                             </View>
                             <Image source={require('../../../assets/img/arrow_2.png')}
-                                style={{ width: 15, height: 15, transform: [{ scaleX: -1 }] }}
-                                tintColor='#aaa'  
+                                style={{ width: 14, height: 14, transform: [{ scaleX: -1 }] }}
+                                tintColor='#ccc'  
                             />
                         </Pressable>
+                    </View>
+
+                    <Text style={styles.sessions}>Suporte</Text>
+                    <View style={styles.gridButtons}>
                         <Pressable style={styles.button} onPress={() => navigation.navigate('Central')}>
                             <View style={styles.grid}>
                                 <View style={styles.circle}>
                                     <Image source={require('../../../assets/img/helpcenter.png')}
-                                        style={{ width: 23, height: 23 }}
-                                        tintColor='#616161'  
+                                        style={{ width: 20, height: 20 }}
+                                        tintColor='#808080'  
                                         resizeMode='contain'
                                     />
                                 </View>
                                 <Text style={styles.textButton}>Central de ajuda</Text>
                             </View>
                             <Image source={require('../../../assets/img/arrow_2.png')}
-                                style={{ width: 15, height: 15, transform: [{ scaleX: -1 }] }}
-                                tintColor='#aaa'  
+                                style={{ width: 14, height: 14, transform: [{ scaleX: -1 }] }}
+                                tintColor='#ccc'  
                             />
                         </Pressable>
                         <Pressable style={styles.button}>
                             <View style={styles.grid}>
                                 <View style={styles.circle}>
                                     <Image source={require('../../../assets/img/terms.png')}
-                                        style={{ width: 23, height: 23 }}
-                                        tintColor='#616161'  
+                                        style={{ width: 20, height: 20 }}
+                                        tintColor='#808080'  
                                         resizeMode='contain'
                                     />
                                 </View>
                                 <Text style={styles.textButton}>Termos</Text>
                             </View>
                             <Image source={require('../../../assets/img/arrow_2.png')}
-                                style={{ width: 15, height: 15, transform: [{ scaleX: -1 }] }}
-                                tintColor='#aaa'  
+                                style={{ width: 14, height: 14, transform: [{ scaleX: -1 }] }}
+                                tintColor='#ccc'  
                             />
                         </Pressable>
                     </View>
@@ -248,7 +230,7 @@ export default function Perfil() {
                     onLayout={(event) => abaLayout(aba.index, event)}
                 >
                     <Image source={aba.imagem}
-                        style={{ width: 24, height: 24 }}
+                        style={{ width: 22, height: 22 }}
                         tintColor={abaAtiva === aba.index ? '#ff80aa' : '#fff'}
                         resizeMode='contain'
                     />

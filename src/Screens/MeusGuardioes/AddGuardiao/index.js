@@ -16,7 +16,7 @@ export default function AddGuardiao() {
       <View style={styles.topo}>
       <Pressable onPress={() => navigation.goBack()}>
         <Image
-          source={require('../../../../assets/img/arrow.png')}
+          source={require('../../../../assets/img/arrow_2.png')}
           style={styles.seta}
         />
       </Pressable>

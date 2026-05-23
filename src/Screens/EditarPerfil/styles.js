@@ -109,7 +109,7 @@ export default StyleSheet.create({
   },
 
   buttonPurple: {
-    width: '90%',
+    width: '60%',
     height: 50,
     backgroundColor: '#6925b8',
     alignItems: 'center',
@@ -118,7 +118,7 @@ export default StyleSheet.create({
   },
 
   textWhite: {
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: '400',
     color: '#fff'
   },

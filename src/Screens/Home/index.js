@@ -52,7 +52,7 @@ export default function Home() {
 
     const abas = [
         { label: 'Home', rota: "Home", imagem: require('../../../assets/img/home.png'), index: 0 },
-        { label: 'Mapa', rota: null,  imagem: require('../../../assets/img/map.png'), index: 1 },
+        { label: 'Mapa', rota: "Mapa",  imagem: require('../../../assets/img/map.png'), index: 1 },
         { label: 'Guardião', rota: "MeusGuardioes", imagem: require('../../../assets/img/angel.png'), index: 2 },
         { label: 'Você', rota: "Perfil",  imagem: require('../../../assets/img/profile.png'), index: 3 }
     ];
@@ -65,7 +65,7 @@ export default function Home() {
                 {usuario?.foto ? (
                     <Image 
                         source={{ uri: usuario.foto }} 
-                        style={{ width: 45, height: 45, borderRadius: 22.5 }} // Tamanho menor para o topo da Home
+                        style={{ width: 45, height: 45, borderRadius: 22.5 }}
                     />
                 ) : (
                     <Image 
@@ -81,8 +81,8 @@ export default function Home() {
            </View>
             <Pressable onPress={() => navigation.navigate('Notificacoes')}>
                 <Image source={require('../../../assets/img/sino.png')}
-                    style={{ width: 22, height: 22 }} 
-                    tintColor='#550FA4' 
+                    style={{ width: 20, height: 20 }} 
+                    tintColor='#370075' 
                 />
             </Pressable>
         </View>
@@ -101,7 +101,7 @@ export default function Home() {
             <View style={styles.buttons}>
                 <Pressable style={styles.button} onPress={() => navigation.navigate('MeusEnderecos')}>
                     <Image source={require('../../../assets/img/endereco.png')} 
-                        style={{ width: 28, height: 28 }}
+                        style={{ width: 27, height: 27 }}
                         tintColor='#550FA4' 
                     />
                         <Text style={styles.texto}>Meus endereços</Text>
@@ -109,7 +109,7 @@ export default function Home() {
 
                 <Pressable style={styles.button} onPress={() => navigation.navigate('Telefones')}>
                     <Image source={require('../../../assets/img/tel.png')} 
-                        style={{ width: 28, height: 28 }}
+                        style={{ width: 27, height: 27 }}
                         tintColor='#550FA4' 
                     />
                     <Text style={styles.texto}>Telefones públicos</Text>
@@ -117,7 +117,7 @@ export default function Home() {
 
                 <Pressable style={styles.button}>
                     <Image source={require('../../../assets/img/pontos.png')} 
-                        style={{ width: 28, height: 28 }}
+                        style={{ width: 27, height: 27 }}
                         tintColor='#550FA4' 
                     />
                     <Text style={styles.texto}>Pontos Seguros</Text>
@@ -145,7 +145,7 @@ export default function Home() {
                         onLayout={(event) => abaLayout(aba.index, event)}
                     >
                         <Image source={aba.imagem}
-                            style={{ width: 24, height: 24 }}
+                            style={{ width: 22, height: 22 }}
                             tintColor={abaAtiva === aba.index ? '#ff80aa' : '#fff'}
                             resizeMode='contain'
                         />

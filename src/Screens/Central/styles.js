@@ -70,7 +70,6 @@ export default StyleSheet.create({
     borderColor: '#eee',
   },
 
-
   input: {
     height: 58,
     width: '88%',

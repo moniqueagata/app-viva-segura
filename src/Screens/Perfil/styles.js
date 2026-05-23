@@ -16,14 +16,15 @@ export default StyleSheet.create({
     flex: 1,
     width: '100%',
     paddingHorizontal: 20,
+    paddingVertical: 20,
     alignItems: 'center',
   },
 
   profile: {
     width: '100%',
     alignItems: 'center',
-    minHeight: 200,
-    paddingTop: 33
+    height: 240,
+    paddingTop: 30,
   },
 
   // Foto de perfil
@@ -31,7 +32,7 @@ export default StyleSheet.create({
   photoUpload: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 20,
+    marginVertical: 2,
     position:  'relative',
   },
 
@@ -45,8 +46,14 @@ export default StyleSheet.create({
   },
 
   // ----
+  text: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: '4%'
+  },
 
-  textNome: {
+  nome: {
     fontSize: 20,
     fontWeight: '500',
     color: '#414141',
@@ -54,7 +61,7 @@ export default StyleSheet.create({
   },
 
   id: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: '400',
     color: '#909090',
   },
@@ -66,7 +73,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#6925b8',
     borderRadius: 22,
-    marginTop: 20
+    marginVertical: 5,
   },
 
   textWhite: {
@@ -77,13 +84,13 @@ export default StyleSheet.create({
 
   settings: {
     width: '100%',
-    marginTop: 24
+    marginTop: '18%',
   },
 
   sessions:{
-    fontSize: 16,
-    color: '#606060',
-    marginVertical: 10
+    fontSize: 14,
+    color: '#919191',
+    marginVertical: 5
   },
 
   gridButtons: {
@@ -100,7 +107,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 10,
-    marginVertical: 13
+    marginVertical: '3%'
   },
 
   grid: {
@@ -110,16 +117,16 @@ export default StyleSheet.create({
   },
 
   textButton: {
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: '500',
     color: '#454545',
   },
 
   circle: {
-    width: 47,
-    height: 47,
+    width: 40,
+    height: 40,
     borderRadius: '100%',
-    backgroundColor: '#f3f3f3',
+    backgroundColor: '#f5f5f5',
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -128,19 +135,19 @@ export default StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 30
+    marginVertical: 5
   },
 
   buttonLogout: {
-    width: 130,
+    width: '100%',
     height: 30,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   textRed: {
-    fontSize: 18,
-    fontWeight: '400',
+    fontSize: 16,
+    fontWeight: '300',
     letterSpacing: 0.5,
     color: '#909090',
   },

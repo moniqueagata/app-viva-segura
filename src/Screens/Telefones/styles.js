@@ -6,27 +6,32 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
   },
 
-  fundoEncima: {
-    backgroundColor: "#550FA4",
-    height: '12%',
-    flexDirection: "row",
-    alignItems: "center",
+  header: {
+    width: '100%',
+    height: 88,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    backgroundColor: '#6925b8',
+    paddingHorizontal: 22,
+    paddingTop: 20,
+    gap: 36
   },
 
-  imagem: {
-    height: 20,
-    width: 20,
-    marginLeft: 20,
-     marginTop:'55%',
+  tituloHeader: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: '#fff'
   },
 
-  titulo: {
-    color: "#fff",
-    fontSize: 22,
-    fontWeight:'600',
- marginLeft: '15%',
- marginTop:'7%',
+  content: {
+    flex: 1,
+    width: '100%',
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    justifyContent: 'space-between',
   },
+
 
   card: {
     backgroundColor: "#FAFAFA",

@@ -3,8 +3,35 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flex: 1,
-   backgroundColor:'#000'
+    backgroundColor:'#fff'
   },
+
+  header: {
+    width: '100%',
+    height: 88,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    backgroundColor: '#6925b8',
+    paddingHorizontal: 22,
+    paddingTop: 20,
+    gap: 36
+  },
+
+  tituloHeader: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: '#fff'
+  },
+
+  content: {
+    flex: 1,
+    width: '100%',
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    justifyContent: 'space-between',
+  },
+  
   fundoEncima: {
     backgroundColor: "#550FA4",
     height: 100,

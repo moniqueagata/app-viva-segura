@@ -115,7 +115,7 @@ export default function Home() {
                     <Text style={styles.texto}>Telefones públicos</Text>
                 </Pressable>
 
-                <Pressable style={styles.button}>
+                <Pressable style={styles.button} onPress={() => navigation.navigate('AdicionarPontoSeguro')}>
                     <Image source={require('../../../assets/img/pontos.png')} 
                         style={{ width: 27, height: 27 }}
                         tintColor='#550FA4' 

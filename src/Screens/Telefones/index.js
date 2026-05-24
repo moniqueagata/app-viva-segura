@@ -20,7 +20,7 @@ const ligar = (numero) => {
             tintColor='#fff'
         />
         </Pressable>
-        <Text style={styles.tituloHeader}>Meus Endereços</Text>
+        <Text style={styles.tituloHeader}>Telefones públicos</Text>
       </View>
 
      

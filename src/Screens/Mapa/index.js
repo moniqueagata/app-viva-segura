@@ -1,8 +1,6 @@
 import { View, Text, Pressable, Image, Dimensions, StyleSheet, useWindowDimensions, TextInput, Animated, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-//import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { GestureHandlerRootView, PanGestureHandler, State } from 'react-native-gesture-handler';
-//import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect, useRef } from 'react'; 

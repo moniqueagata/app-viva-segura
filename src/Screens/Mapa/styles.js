@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
 
   // Card Topo
-  cardResumo: {
+  modalContainer: {
     position: 'absolute',
     top: 50,
     left: 20,
@@ -22,23 +22,54 @@ export default StyleSheet.create({
   modalTopo: {
     backgroundColor: '#fff',
     width: '100%',
-    minHeight: 100,
+    minHeight: 110,
     borderRadius: 15,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 8,
+    justifyContent: 'space-between',
+    alignItems: 'center',
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
     elevation: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 5,
+    gap: 10
   },
 
-  titulo: {
+  icones: {
+    justifyContent: 'space-between',
+    gap: 26
+  },
+
+  exit: {
+    justifyContent: 'flex-start',
+  },
+
+  x: {
+    fontSize: 25,
+    fontWeight: '500',
+    color: '#aaa'
+  },
+
+  contentEnd: {
+    width: '80%',
+  },
+
+  linha: {
+    width: '100%',
+    height: 2,
+    backgroundColor: '#f5f5f5',
+    borderRadius: 5,
+    marginVertical: 8,
+  },
+
+  text: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#5c0eaf',
+    color: '#606060',
+    paddingVertical: 3,
+    paddingLeft: 8
   },
   
   // ---------

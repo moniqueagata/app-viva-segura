@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Image, Dimensions, StyleSheet, useWindowDimensions, TextInput, Animated, ScrollView } from 'react-native';
+import { View, Text, Pressable, Image, Dimensions, StyleSheet, useWindowDimensions, TextInput, Animated, ScrollView, Alert, Share } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GestureHandlerRootView, PanGestureHandler, State } from 'react-native-gesture-handler';
 import styles from './styles';
@@ -8,11 +8,16 @@ import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { getDistance } from 'geolib';
 
-
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const SNAP_BOTTOM = (SCREEN_HEIGHT * 0.65) - 120;
 const SNAP_TOP = 0;
 
+const ZONA_LESTE_BOUNDS = {
+  minLng: -46.6100, // Limite Oeste 
+  maxLat: -23.4800, // Limite Norte
+  maxLng: -46.3600, // Limite Leste
+  minLat: -23.6400  // Limite Sul
+};
 
 export default function Mapa() {
   const navigation = useNavigation();
@@ -188,6 +193,29 @@ export default function Mapa() {
             </Marker>
           )}
         </MapView>
+
+        <View style={styles.modalContainer}>
+          <View style={styles.modalTopo}>
+            <View style={styles.icones}>
+              <Image 
+                source={require('../../../assets/img/alert.png')}
+                style={{ width: 20, height: 20 }}
+                tintColor='#aaa'
+              />
+              <Image 
+                source={require('../../../assets/img/pin.png')}
+                style={{ width: 20, height: 20 }}
+                tintColor='#aaa'
+              />
+            </View>
+            <View style={styles.contentEnd}>
+              <Text style={styles.text}>Sua localização atual</Text>
+              <View style={styles.linha}/>
+              <Text style={styles.text}>Endereço...</Text>
+            </View>
+              <Pressable><Text style={styles.x}>×</Text></Pressable>
+          </View>
+        </View>
      
         <PanGestureHandler
           onGestureEvent={gesto}
@@ -202,7 +230,7 @@ export default function Mapa() {
             <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}
               ref={ScrollViewRef}
               onScroll={(event) => {
-                const y = event.nativeEvent.contentInset.y;
+                const y = event.nativeEvent.contentOffset.y;
                 if (y <= 0) {
                   setScrollAtivo(false);
                 } else {

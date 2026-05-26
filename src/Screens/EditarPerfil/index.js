@@ -189,7 +189,7 @@ export default function EditarPerfil() {
             </View>
             <Pressable style={styles.edit} onPress={() => setModal(true)}>
                 <Image source={require('../../../assets/img/pen.png')}
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: 18, height: 18 }}
                   tintColor='#fff'
                   resizeMode='cover'
                 />

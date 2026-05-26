@@ -10,6 +10,39 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
 
+  // Card Topo
+  cardResumo: {
+    position: 'absolute',
+    top: 50,
+    left: 20,
+    right: 20,
+    zIndex: 999,
+  },
+
+  modalTopo: {
+    backgroundColor: '#fff',
+    width: '100%',
+    minHeight: 100,
+    borderRadius: 15,
+    padding: 20,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+  },
+
+  titulo: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#5c0eaf',
+  },
+  
+  // ---------
+
   content: {
     flex: 1,
     width: '100%',
@@ -80,7 +113,9 @@ export default StyleSheet.create({
     width: '85%',
     height: 50,
     backgroundColor: 'trasnparent',
-    paddingRight: 10
+    paddingRight: 10,
+    fontSize: 15,
+    color: '#505050'
   },
 
   // Foto de perfil
@@ -133,7 +168,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
 
   // Navegação
   navegacao: {

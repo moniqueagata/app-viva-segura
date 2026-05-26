@@ -56,14 +56,14 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: '100%',
-    borderWidth: 1,
-    borderColor: '#a460f1',
+    borderWidth: 2,
+    borderColor: '#6925b8',
     overflow: 'hidden',
   },
 
   edit: {
-    width: 45,
-    height: 45,
+    width: 40,
+    height: 40,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#6925b8',

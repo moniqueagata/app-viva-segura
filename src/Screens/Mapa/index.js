@@ -4,12 +4,15 @@ import { GestureHandlerRootView, PanGestureHandler, State } from 'react-native-g
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect, useRef } from 'react'; 
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
+import { getDistance } from 'geolib';
+
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const SNAP_BOTTOM = (SCREEN_HEIGHT * 0.65) - 120;
 const SNAP_TOP = 0;
+
 
 export default function Mapa() {
   const navigation = useNavigation();
@@ -32,7 +35,6 @@ export default function Mapa() {
   const estadoPainel = (event) => {
     if(event.nativeEvent.oldState === State.ACTIVE) {
       const { translationY, velocityY } = event.nativeEvent;
-
       const posicao = posicaoPainel.current + translationY;
       let pontoDestino = SNAP_BOTTOM;
 
@@ -73,21 +75,46 @@ export default function Mapa() {
   }, []);
   // --------
 
-  // Permissão do mapa
+  // Permissão do mapa e localização atual
   useEffect(() => {
-    (async () => {
-      // 1. Solicita permissão
+    let inscrito = true;
+    let subscription = null;
+
+    async function iniciarMonitoramento() {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permissão de localização negada');
         return;
       }
 
-      // 2. Obtém a posição atual
-      let currentLocation = await Location.getCurrentPositionAsync({});
-      setLocation(currentLocation.coords);
-    })();
+      let primeiraPosicao = await Location.getLastKnownPositionAsync({});
+      if (primeiraPosicao && inscrito) {
+        setLocation(primeiraPosicao.coords);
+      }
+      
+      subscription = await Location.watchPositionAsync(
+        {
+          accuracy: Location.Accuracy.High,
+          timeInterval: 3000,
+          distanceInterval: 5,
+        },
+        ( novaPosicao) => {
+          if (inscrito) {
+            setLocation(novaPosicao.coords);
+          }
+        }
+      );
+    }
+    iniciarMonitoramento();
+
+    return () => {
+      inscrito = false;
+      if (subscription) {
+        subscription.remove();
+      }
+    };
   }, []);
+  // ---------
 
   // Animação na navegação
   const { width } = useWindowDimensions();

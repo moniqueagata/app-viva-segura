@@ -22,46 +22,37 @@ export default StyleSheet.create({
   modalTopo: {
     backgroundColor: '#fff',
     width: '100%',
-    minHeight: 110,
+    minHeight: 120,
     borderRadius: 15,
-    paddingHorizontal: 20,
-    paddingVertical: 8,
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    padding: 18,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     elevation: 8,
-    shadowColor: '#000',
+    shadowColor: '#0000008a',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 5,
     gap: 10
   },
 
-  icones: {
-    justifyContent: 'space-between',
-    gap: 26
+  left: {
+    width: '91%',
+    justifyContent: 'center'
   },
 
-  exit: {
-    justifyContent: 'flex-start',
-  },
-
-  x: {
-    fontSize: 25,
-    fontWeight: '500',
-    color: '#aaa'
-  },
-
-  contentEnd: {
-    width: '80%',
+  rowM: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 10,
+    paddingLeft: 8
   },
 
   linha: {
     width: '100%',
     height: 2,
     backgroundColor: '#f5f5f5',
-    borderRadius: 5,
-    marginVertical: 8,
+    borderRadius: 10,
+    marginVertical: '4%',
   },
 
   text: {
@@ -70,6 +61,13 @@ export default StyleSheet.create({
     color: '#606060',
     paddingVertical: 3,
     paddingLeft: 8
+  },
+
+  right: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 20,
+    width: 20,
   },
   
   // ---------
@@ -83,9 +81,24 @@ export default StyleSheet.create({
     width: 30,
     height: 30,
     backgroundColor: '#a262e6',
-    borderRadius: '100%',
+    borderRadius: 15,
     borderWidth: 4,
     borderColor: '#d0b2f0'
+  },
+
+  pin: {
+    width: 34, 
+    height: 34, 
+    borderRadius: 17,
+    backgroundColor: '#ff80aa',
+    alignItems: 'center', 
+    justifyContent: 'center',
+    borderWidth: 2, 
+    borderColor: '#fff',
+    shadowColor: '#000', 
+    shadowOpacity: 0.2, 
+    shadowRadius: 4, 
+    elevation: 4,
   },
 
   scroll: {
@@ -130,23 +143,33 @@ export default StyleSheet.create({
   inputContainer: {
     width: '84%',
     height: 50,
-    backgroundColor: 'trasnparent',
+    backgroundColor: '#fff',
     borderRadius: 30,
     borderWidth: 1,
     borderColor: '#ddd',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
+    paddingHorizontal: 18,
     gap: 10,
   },
 
   input: {
-    width: '85%',
+    width: '75%',
     height: 50,
-    backgroundColor: 'trasnparent',
+    backgroundColor: 'transparent',
     paddingRight: 10,
     fontSize: 15,
-    color: '#505050'
+    color: '#505050',
+  },
+
+  btnSearch: {
+    width: 38,
+    height: 38,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#6925b8',
+    borderRadius: 19
   },
 
   // Foto de perfil
@@ -176,16 +199,43 @@ export default StyleSheet.create({
     width: 160,
     height: 40,
     backgroundColor: '#6925b8',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: '5%',
     borderRadius: 30,
+    gap: 10
   },
 
   txWhite: {
     fontSize: 14,
     fontWeight: '500',
     color: '#fff'
+  },
+
+  listaSugestoes: {
+    backgroundColor: '#1b1b1b',
+    borderRadius: 15,
+    marginTop: 8,
+    overflow: 'hidden',
+  },
+
+  itemSugestao: {
+    padding: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: '#333',
+  },
+
+  textSugestao: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+
+  enderecoSugestao: {
+    color: '#aaa',
+    fontSize: 12,
+    marginTop: 4,
   },
 
   card: {

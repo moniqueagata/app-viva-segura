@@ -13,13 +13,13 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const SNAP_BOTTOM = (SCREEN_HEIGHT * 0.65) - 120;
 const SNAP_TOP = 0;
 
-const ICONE_TIPO = {
-  delegacia: '🚔',
-  estacao: '🚇',
-  saude: '🏥',
-  apoio: '🤝',
-  default: '📌',
-};
+// const ICONE_TIPO = {
+//   delegacia: '🚔',
+//   estacao: '🚇',
+//   saude: '🏥',
+//   apoio: '🤝',
+//   default: '📌',
+// };
 
 const ZONA_LESTE_BOUNDS = {
   minLng: -46.6100, // Limite Oeste 
@@ -290,8 +290,9 @@ export default function Mapa() {
       if (resultados && resultados.length > 0) {
         const local = resultados[0];
         setEnderecoDestino(pesquisa);
+        setCoordenadasDestino({ latitude: local.latitude, longitude: local.longitude });
         setModal(true);
-        
+
         if (location) {
           const metros = getDistance(
             { latitude: location.latitude, longitude: location.longitude },
@@ -408,6 +409,7 @@ export default function Mapa() {
       <View style={styles.container}>
         <View style={styles.content}>
           <MapView
+            ref={mapRef}
             style={StyleSheet.absoluteFillObject}
             initialRegion={{
               latitude: -23.5505,
@@ -430,14 +432,19 @@ export default function Mapa() {
               </View>
             </Marker>
           )}
-          {coordenadasDestino && (
-            <Marker 
-              coordinate={coordenadasDestino}
+          {rotaAtiva?.length > 0 && (
+            <Marker
+              coordinate={rotaAtiva[rotaAtiva.length - 1]}
               title={enderecoDestino}
-              pinColor="#a262e6"
-            />
+            >
+              <Image 
+                source={require('../../../assets/img/map.png')}
+                style={{ width: 33, height: 33 }}
+                tintColor='#a262e6'
+              />
+            </Marker>
           )}
-          {pontosRota.map((ponto) => {
+          {/* {pontosRota.map((ponto) => {
             const pLat = Number(ponto.latitude);
             const pLng = Number(ponto.longitude);
             if (isNaN(pLat) || isNaN(pLng)) return null;
@@ -461,8 +468,8 @@ export default function Mapa() {
                 </View>
               </Marker>
             );
-          })}
-            {alertas.map((alerta) => {
+          })} */}
+            {/* {alertas.map((alerta) => {
               const aLat = Number(alerta.latitude);
               const aLng = Number(alerta.longitude);
               if (isNaN(aLat) || isNaN(aLng)) return null;
@@ -476,7 +483,7 @@ export default function Mapa() {
                   pinColor="#ff4444"
                 />
               );
-            })}
+            })} */}
             {rotaAtiva && rotaAtiva.length > 0 && (
               <Polyline coordinates={rotaAtiva} strokeColor="#a262e6" strokeWidth={4} lineDashPattern={[0]} />
             )}
@@ -490,7 +497,7 @@ export default function Mapa() {
                 <Image 
                   source={require('../../../assets/img/alert.png')}
                   style={{ width: 22, height: 22 }}
-                  tintColor='#ccc'
+                  tintColor='#bbb'
                 />
                 <Text style={styles.text}>Sua localização atual</Text>
               </View>
@@ -499,15 +506,18 @@ export default function Mapa() {
                 <Image 
                   source={require('../../../assets/img/pin.png')}
                   style={{ width: 22, height: 22 }}
-                  tintColor='#ccc'
+                  tintColor='#9539ff'
                 />
-                <Text style={styles.text} numberOfLines={2}>{enderecoDestino}</Text>
+                <Text style={styles.endereço} numberOfLines={2}>{enderecoDestino}</Text>
               </View>
-              {distanciaAtual !== null && (
-                <Text style={{ marginTop: 8, color: '#7A31D8', fontWeight: '700', paddingLeft: 8 }}>
+              <View style={styles.footer}>
+                <Text style={styles.km}>Distância de </Text>
+                {distanciaAtual !== null && (
+                <Text style={styles.km}>
                   {distanciaAtual >= 1000 ? `${(distanciaAtual / 1000).toFixed(1)} km` : `${distanciaAtual} metros`}
                 </Text>
               )}
+              </View>
             </View>
               <Pressable style={styles.right} onPress={() => { setModal(false); setRotaAtiva(null); setDistanciaAtual(null); }}>
                 <Image 
@@ -579,46 +589,36 @@ export default function Mapa() {
                   </View>          
                 </View>
               </View>
-              {pesquisa.trim().length > 0 && (
-                <View style={{
-                  marginTop:10,
-                  backgroundColor:'#fff',
-                  borderRadius:18,
-                  overflow:'hidden',
-                  borderWidth: 1,
-                  borderColor: '#eee',
-                  elevation: 5,        
-                  zIndex: 9999,  
-                  position: 'relative'
-                  }}
-                >
-                {sugestoes.length > 0 ? (
-                  sugestoes.map((item)=>(
-                    <Pressable key={`sugestao-${item.id}`} style={{ padding: 14, borderBottomWidth: 1, borderColor: '#eee' }} onPress={() => selecionarSugestao(item)} >
-                      <Text style={{ fontWeight: '700' }}>
-                        {ICONE_TIPO[item.tipo] || ICONE_TIPO.default} {item.nome}
-                      </Text>
-                      <Text style={{ color: '#666', marginTop: 4 }}>{item.endereco}</Text>
-                    </Pressable>
-                    ))
-                    ) : (
-                      <Text style={{ padding: 15, color: '#777' }}>Nenhum local encontrado</Text>
-                    )}
-                    </View>
-                  )}
               <View style={styles.contentPainel} onTouchStart={() => setScrollAtivo(true)}>
-                <Text style={styles.subtitulo}>Deseja compartilhar sua localização atual?</Text>
-                <Pressable 
-                  style={styles.button}
-                  onPress={compartilharLocalizacao}
-                  disabled={compartilhando}
-                >
-                  <Text style={styles.txWhite}>{compartilhando ? 'Compartilhando...' : 'Compartilhar'}</Text>
-                  <Image source={require('../../../assets/img/share_1.png')}
-                    style={{ width: 15, height: 15 }}
-                    tintColor='#fff'
-                  />
-                </Pressable>
+                {pesquisa.trim().length > 0 && ( <View style={styles.cardSugestões}>
+                  {sugestoes.length > 0 ? (
+                    sugestoes.map((item)=>(
+                      <Pressable key={`sugestao-${item.id}`} style={{ padding: 14, borderBottomWidth: 1, borderColor: '#eee' }} onPress={() => selecionarSugestao(item)} >
+                        <Text style={{ fontWeight: '700' }}>
+                          {ICONE_TIPO[item.tipo] || ICONE_TIPO.default} {item.nome}
+                        </Text>
+                        <Text style={{ color: '#666', marginTop: 4 }}>{item.endereco}</Text>
+                      </Pressable>
+                    ))
+                  ) : (
+                    <Text style={{ padding: 15, color: '#777' }}>Nenhum local encontrado</Text>
+                  )}
+                  </View>
+                )}
+                <View style={styles.compartilhar}>
+                  <Text style={styles.subtitulo}>Deseja compartilhar sua localização atual?</Text>
+                  <Pressable 
+                    style={styles.button}
+                    onPress={compartilharLocalizacao}
+                    disabled={compartilhando}
+                  >
+                    <Text style={styles.txWhite}>{compartilhando ? 'Compartilhando...' : 'Compartilhar'}</Text>
+                    <Image source={require('../../../assets/img/share_1.png')}
+                      style={{ width: 15, height: 15 }}
+                      tintColor='#fff'
+                    />
+                  </Pressable>
+                </View>
               </View>
             </ScrollView>
           </Animated.View>

@@ -10,7 +10,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
 
-  // Card Topo
+  // Card Topo -> cálculo de distância
   modalContainer: {
     position: 'absolute',
     top: 50,
@@ -22,7 +22,7 @@ export default StyleSheet.create({
   modalTopo: {
     backgroundColor: '#fff',
     width: '100%',
-    minHeight: 120,
+    minHeight: 130,
     borderRadius: 15,
     padding: 18,
     flexDirection: 'row',
@@ -56,9 +56,17 @@ export default StyleSheet.create({
   },
 
   text: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '500',
     color: '#606060',
+    paddingVertical: 3,
+    paddingLeft: 8
+  },
+
+  endereço: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#9539ff',
     paddingVertical: 3,
     paddingLeft: 8
   },
@@ -69,7 +77,23 @@ export default StyleSheet.create({
     height: 20,
     width: 20,
   },
-  
+
+  footer: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingLeft: 6,
+    gap: 2,
+    marginTop: 15
+  },
+
+  km: {
+    fontSize: 13,
+    color: '#606060', 
+    fontWeight: '500'
+  },
+
   // ---------
 
   content: {
@@ -124,6 +148,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginVertical: '10%',
     justifyContent: 'space-between',
+    gap: '10%'
   },
 
   puxador: {
@@ -189,6 +214,12 @@ export default StyleSheet.create({
     overflow: 'hidden'
   },
 
+  compartilhar: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   subtitulo: {
     fontSize: 15,
     fontWeight: '400',
@@ -213,41 +244,16 @@ export default StyleSheet.create({
     color: '#fff'
   },
 
-  listaSugestoes: {
-    backgroundColor: '#1b1b1b',
-    borderRadius: 15,
-    marginTop: 8,
-    overflow: 'hidden',
-  },
-
-  itemSugestao: {
-    padding: 14,
-    borderBottomWidth: 1,
-    borderBottomColor: '#333',
-  },
-
-  textSugestao: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: '600',
-  },
-
-  enderecoSugestao: {
-    color: '#aaa',
-    fontSize: 12,
-    marginTop: 4,
-  },
-
-  card: {
+  cardSugestões: {
     width: '95%',
-    height: 110,
+    maxHeight: 130,
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 10,
-    marginVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 17
   },
 
   // Navegação

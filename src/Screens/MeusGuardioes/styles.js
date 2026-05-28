@@ -1,120 +1,159 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-      container: {
-  flex: 1,
-  backgroundColor: "#fff",
-  paddingTop: 60,
-},
-  
-content: {
-  flex: 1,
-},
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
 
- header: {
+  scroll: {
+    flex: 1,
     width: '100%',
-    height: 80,
+  },
+
+  content: {
+    paddingHorizontal: 22,
+    paddingTop: 60,
+    paddingBottom: 20,
+    gap: 16,
+  },
+
+  cabecalho: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    backgroundColor: '#fff',
-    paddingHorizontal: 22,
-    gap: 15
+    gap: 10,
+    marginBottom: 4,
   },
 
-buttonHeader: {
+  titulo: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#6925b8',
+  },
+
+  tituloIcon: {
     width: 28,
     height: 28,
+    tintColor: '#6925b8',
+  },
+
+  subtitulo: {
+    fontSize: 14,
+    color: '#666',
+    lineHeight: 20,
+    marginBottom: 8,
+  },
+
+  listaGuardioes: {
+    gap: 12,
+    marginBottom: 8,
+  },
+
+  card: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#e8e8e8',
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+  },
+
+  cardInfo: {
+    flex: 1,
+    gap: 4,
+  },
+
+  cardTopo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+
+  cardNome: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#220049',
+  },
+
+  badge: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: '#6925b8',
+    backgroundColor: '#f0e6ff',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 20,
+  },
+
+  cardTelefone: {
+    fontSize: 13,
+    color: '#888',
+  },
+
+  cardAcoes: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  btnChat: {
+    backgroundColor: '#6925b8',
+    paddingHorizontal: 18,
+    paddingVertical: 8,
+    borderRadius: 20,
+  },
+
+  btnChatText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+
+  btnRemover: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#fff0f0',
+    borderWidth: 1,
+    borderColor: '#ffcccc',
     alignItems: 'center',
     justifyContent: 'center',
-
   },
 
-  tituloHeader: {
-    fontSize: 24,
-    fontWeight: '500',
-    color: '#6925b8',
-
-  },
-
-    titulo: {
-      fontSize: 25,
-      fontWeight: "bold",
-      color: "#5A1BB3",
-      textAlign: "center",
-      marginTop: 10,
-margin:10,
-    },
-
-    cabecalho: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: 8, 
-    },
-    
-    tituloIcon: {
-      width: 22,
-      height: 22,
-      tintColor: "#5A1BB3",
- 
-    },
-  
-
-  
-    botao: {
-      marginTop: 20,
-      alignSelf: "center",
-      backgroundColor: "#5A1BB3",
-      paddingVertical: 12,
-      paddingHorizontal: 25,
-      borderRadius: 25,
-    },
-  
-    buttonText: {
-      color: "#fff",
-      fontSize: 16,
-      fontWeight: "bold",
-    },
-
-      // Navegação
-navegacao: {
-  position: 'absolute', // 👈 ESSENCIAL
-  bottom: 0,            // 👈 COLA NO FINAL
-  left: 0,
-  width: '100%',
-  height: 88,
-  alignItems: 'center',
-justifyContent: 'space-between',
-  flexDirection: 'row',
-  backgroundColor: '#fff',
-  borderTopWidth: 1,
-  borderTopColor: '#ddd',
-  paddingBottom: 3,
-},
-
-  line: {
-    height: 4,
-    backgroundColor: '#6925b8',
-    borderRadius: 2,
-    top: 0,
-    left: 0,
-    position: 'absolute',
-  },
-
-buttonNav: {
-  flex: 1,
-  height: 66,
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: 5,
-},
-
-  textNav: {
+  btnRemoverTexto: {
+    color: '#e53935',
     fontSize: 14,
-    fontWeight: '400',
-    color: '#ccc'
+    fontWeight: '700',
   },
 
+  vazio: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 60,
+    gap: 16,
+  },
 
-  });
+  vazioTexto: {
+    fontSize: 15,
+    color: '#aaa',
+    textAlign: 'center',
+  },
+
+  botao: {
+    backgroundColor: '#6925b8',
+    paddingVertical: 14,
+    paddingHorizontal: 28,
+    borderRadius: 30,
+    alignSelf: 'flex-start',
+    marginTop: 8,
+  },
+
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+});

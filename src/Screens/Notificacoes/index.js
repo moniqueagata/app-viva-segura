@@ -20,6 +20,20 @@ export default function Notificacoes() {
         </View>
         <View style={styles.content}>
 
+        <View style={styles.notificacaoCard}>
+    <View style={styles.notificacaoIcon}>
+        <Image 
+            source={require('../../../assets/img/logo.png')}
+            style={{ width: '100%', height: '100%', borderRadius: 10 }}
+            resizeMode="cover"
+        />
+    </View>
+    <View style={styles.notificacaoTextoWrapper}>
+        <Text style={styles.notificacaoApp}>VivaSegura</Text>
+        <Text style={styles.notificacaoTexto}>Viva com mais segurança, compartilhe sua rota 💜</Text>
+    </View>
+</View>
+
         </View>
       <StatusBar style="auto" />
     </View>

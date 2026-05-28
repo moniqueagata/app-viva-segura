@@ -1,8 +1,10 @@
-
 import axios from "axios";
 
+const BASE_URL = "http://192.168.1.14:8000/api"; // <- alterar o ip 
+
 const api = axios.create({
-  baseURL: "http://10.67.4.174:8000/api",
+  baseURL: BASE_URL,
 });
 
-export default api;
+export { BASE_URL as api }; 
+export default api;      

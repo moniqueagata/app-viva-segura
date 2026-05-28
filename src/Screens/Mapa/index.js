@@ -7,25 +7,20 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { getDistance } from 'geolib';
-import { api } from '../../services/api';
+import { api } from '../../services/api'
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const SNAP_BOTTOM = (SCREEN_HEIGHT * 0.65) - 120;
 const SNAP_TOP = 0;
 
-// const ICONE_TIPO = {
-//   delegacia: '🚔',
-//   estacao: '🚇',
-//   saude: '🏥',
-//   apoio: '🤝',
-//   default: '📌',
-// };
-
-const ZONA_LESTE_BOUNDS = {
-  minLng: -46.6100, // Limite Oeste 
-  maxLat: -23.4800, // Limite Norte
-  maxLng: -46.3600, // Limite Leste
-  minLat: -23.6400  // Limite Sul
+const ICONE_TIPO = {
+  delegacia: '🚨',
+  estacao: '🚉',
+  saude: '🏥',
+  apoio: '♀️',
+  terminal: '🚍', 
+  policia: '👮🏻‍♀️',
+  default: '📌',
 };
 
 export default function Mapa() {
@@ -49,12 +44,12 @@ export default function Mapa() {
   const [coordenadasDestino, setCoordenadasDestino] = useState(null);
   const [distanciaAtual, setDistanciaAtual] = useState(null);
 
+  // Animação do Painel
   const posicaoY = useRef(new Animated.Value(SNAP_BOTTOM)).current;
   const posicaoPainel = useRef(SNAP_BOTTOM);
   const ScrollViewRef = useRef(null);
   const [scrollAtivo, setScrollAtivo] = useState(false);
     
-  // Animação do Painel
   const gesto = Animated.event(
     [{ nativeEvent: { translationY: posicaoY} }],
     { useNativeDriver: true }
@@ -113,6 +108,12 @@ export default function Mapa() {
       if (primeiraPosicao && inscrito) {
         setLocation(primeiraPosicao.coords);
         atualizarEndereco(primeiraPosicao.coords);
+        mapRef.current?.animateToRegion({
+          latitude: primeiraPosicao.coords.latitude,
+          longitude: primeiraPosicao.coords.longitude,
+          latitudeDelta: 0.02,
+          longitudeDelta: 0.02,
+        });
       }
       subscription = await Location.watchPositionAsync(
         { accuracy: Location.Accuracy.High, timeInterval: 5000, distanceInterval: 10 },
@@ -133,17 +134,6 @@ export default function Mapa() {
     };
   }, [usuario]);
 
-  useEffect(() => {
-    if (location) {
-      mapRef.current?.animateToRegion({
-        latitude: location.latitude,
-        longitude: location.longitude,
-        latitudeDelta: 0.02,
-        longitudeDelta: 0.02,
-      });
-    }
-  }, [location]);
-
   const atualizarEndereco = async (coords) => {
     try {
       const [res] = await Location.reverseGeocodeAsync({
@@ -154,7 +144,7 @@ export default function Mapa() {
       if (res) {
         const rua = res.street || res.name || '';
         const bairro = res.district || res.subregion || '';
-        setEndereco( rua && bairro ? `${rua}, ${bairro}` : rua || bairro );
+        setEndereco(rua && bairro ? `${rua}, ${bairro}` : rua || bairro || 'Endereço não encontrado');
       }
     } catch {
       setEndereco('Endereço indisponível');
@@ -202,12 +192,10 @@ export default function Mapa() {
   useEffect(() => {
     carregarPontosRota();
     if (location) carregarAlertas();
-
     const intervalo = setInterval(() => {
       carregarPontosRota();
       if (location) carregarAlertas();
-    }, 5000);
-
+    }, 30000);
     return () => clearInterval(intervalo);
   }, [location, carregarPontosRota, carregarAlertas]);
 
@@ -232,11 +220,8 @@ export default function Mapa() {
       return;
     }
     const busca = texto.toLowerCase().trim();
-    const resultado = pontosRota.filter((p) =>
-      (p.nome || '').toLowerCase().includes(busca) ||
-      (p.endereco || '').toLowerCase().includes(busca)
-    );
-    setSugestoes(resultado);
+    setSugestoes(
+      pontosRota.filter((p) => (p.nome     || '').toLowerCase().includes(busca) || (p.endereco || '').toLowerCase().includes(busca) || (p.tipo     || '').toLowerCase().includes(busca)));
   };
 
   // Toca numa sugestão: centraliza mapa e limpa busca
@@ -245,7 +230,6 @@ export default function Mapa() {
     setSugestoes([]);
     const destLat = Number(ponto.latitude);
     const destLng = Number(ponto.longitude);
-
     if (isNaN(destLat) || isNaN(destLng)) {
       Alert.alert("Erro", "Coordenadas do local são inválidas.");
       return;
@@ -255,11 +239,10 @@ export default function Mapa() {
     setModal(true);
 
     if (location) {
-      const metros = getDistance(
-        { latitude: location.latitude,  longitude: location.longitude },
+      setDistanciaAtual(getDistance(
+        { latitude: location.latitude, longitude: location.longitude },
         { latitude: destLat, longitude: destLng }
-      );
-      setDistanciaAtual(metros);
+      ));
     }
 
     mapRef.current?.animateToRegion({
@@ -269,6 +252,7 @@ export default function Mapa() {
       longitudeDelta: 0.01,
     });
     tracarRota(destLat, destLng);
+    salvarPesquisa(ponto.nome || ponto.endereco);
   };
 
   // Busca livre: qualquer endereço digitado
@@ -277,44 +261,43 @@ export default function Mapa() {
     setBuscando(true);
 
     try {
-      const pontoEncontrado = pontosRota.find((p) => (p.nome || '').toLowerCase().includes(pesquisa.toLowerCase().trim()));
-
+      // 1. Verifica nos locais seguros do banco
+      const pontoEncontrado = pontosRota.find((p) =>
+        (p.nome || '').toLowerCase().includes(pesquisa.toLowerCase().trim())
+      );
       if (pontoEncontrado) {
         selecionarSugestao(pontoEncontrado);
         salvarPesquisa(pontoEncontrado.nome);
         return;
       }
 
-      const resultados = await Location.geocodeAsync(pesquisa);
+      // 2. Busca via geocodeAsync com contexto de São Paulo
+      const resultados = await Location.geocodeAsync(`${pesquisa}, São Paulo, SP, Brasil`);
 
       if (resultados && resultados.length > 0) {
-        const local = resultados[0];
+        const { latitude: lat, longitude: lng } = resultados[0];
+
         setEnderecoDestino(pesquisa);
-        setCoordenadasDestino({ latitude: local.latitude, longitude: local.longitude });
+        setCoordenadasDestino({ latitude: lat, longitude: lng });
         setModal(true);
 
         if (location) {
-          const metros = getDistance(
+          setDistanciaAtual(getDistance(
             { latitude: location.latitude, longitude: location.longitude },
-            { latitude: local.latitude, longitude: local.longitude }
-          );
-          setDistanciaAtual(metros);
+            { latitude: lat, longitude: lng }
+          ));
         }
 
-        mapRef.current?.animateToRegion({ 
-          latitude: local.latitude, 
-          longitude: local.longitude, 
-          latitudeDelta: 0.01, 
-          longitudeDelta: 0.01 
-        }, 800);
-
-        tracarRota(local.latitude, local.longitude);
+        mapRef.current?.animateToRegion(
+          { latitude: lat, longitude: lng, latitudeDelta: 0.01, longitudeDelta: 0.01 }, 800
+        );
+        tracarRota(lat, lng);
         salvarPesquisa(pesquisa);
       } else {
-        Alert.alert('Nenhum resultado', 'Local não encontrado');
+        Alert.alert('Nenhum resultado', 'Endereço não encontrado. Tente incluir o bairro.');
       }
     } catch {
-      Alert.alert('Erro', 'Falha ao buscar endereço');
+      Alert.alert('Erro', 'Falha ao buscar endereço. Verifique sua conexão.');
     } finally {
       setBuscando(false);
     }
@@ -332,15 +315,18 @@ export default function Mapa() {
       const json = await res.json();
 
       if (json.code === 'Ok' && json.routes?.length > 0) {
-        const coordenadas = json.routes[0].geometry.coordinates.map(([lng, lat]) => ({
-          latitude: lat, longitude: lng,
-        }));
-        setRotaAtiva(coordenadas);
+        setRotaAtiva(json.routes[0].geometry.coordinates.map(([lng, lat]) => ({ latitude: lat, longitude: lng })));
         } else {
-        setRotaAtiva([{ latitude: origLat, longitude: origLng }, { latitude: destLat, longitude: destLng }]);
+        setRotaAtiva([
+          { latitude: origLat, longitude: origLng }, 
+          { latitude: destLat, longitude: destLng }
+        ]);
       }
     } catch {
-      setRotaAtiva([{ latitude: origLat, longitude: origLng }, { latitude: destLat, longitude: destLng }]);
+      setRotaAtiva([
+        { latitude: origLat, longitude: origLng },
+        { latitude: destLat, longitude: destLng }
+      ]);
     }
   };
 
@@ -349,8 +335,7 @@ export default function Mapa() {
     if (!location) { Alert.alert('Localização indisponível', 'Aguarde a localização ser obtida.'); return; }
     setCompartilhando(true);
     const { latitude, longitude } = location;
-    const link = `https://maps.google.com/?q=${latitude},${longitude}`;
-    const mensagem = `🚨 Preciso de ajuda!\n📍 ${endereco}\n\n${link}`;
+    const mensagem = `🚨 Preciso de ajuda!\n📍 ${endereco}\n\nhttps://maps.google.com/?q=${latitude},${longitude}`;
     try {
       await Share.share({ message: mensagem });
       await fetch(`${api}/localizacao`, {
@@ -358,9 +343,8 @@ export default function Mapa() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id_usuaria: usuario?.id, latitude, longitude, compartilhado: true }),
       });
-    } catch { 
-      
-    } finally { 
+    } catch { } 
+    finally { 
       setCompartilhando(false); 
     }
   };
@@ -427,31 +411,42 @@ export default function Mapa() {
               }}
               anchor={{ x: 0.5, y: 0.5 }}
             >
-              <View style={{ width: 40, height: 40, alignItems: 'center', justifyContent: 'center' }}>
-                <View style={styles.circle}/>
+              <View style={styles.circle}>
+                {usuario?.foto ? (
+                  <Image
+                    source={{ uri: usuario.foto }}
+                    style={{ width: '100%', height: '100%' }}
+                  />
+                ) : (
+                  <Image
+                    source={require('../../../assets/img/icon.png')}
+                    style={{ width: '100%', height: '100%' }}
+                    resizeMode="contain"
+                  />
+                )}
               </View>
             </Marker>
           )}
           {rotaAtiva?.length > 0 && (
             <Marker
+              key="destino"
               coordinate={rotaAtiva[rotaAtiva.length - 1]}
               title={enderecoDestino}
             >
               <Image 
                 source={require('../../../assets/img/map.png')}
-                style={{ width: 33, height: 33 }}
+                style={{ width: 25, height: 25 }}
                 tintColor='#a262e6'
               />
             </Marker>
           )}
-          {/* {pontosRota.map((ponto) => {
+          {pontosRota.map((ponto, index) => {
             const pLat = Number(ponto.latitude);
             const pLng = Number(ponto.longitude);
             if (isNaN(pLat) || isNaN(pLng)) return null;
-
             return (
               <Marker
-                key={ponto.id}
+                key={`ponto-${ponto.id ?? ponto.id_localSeguro ?? index}`}
                 coordinate={{ latitude: Number(ponto.latitude), longitude: Number(ponto.longitude) }}
                 title={ponto.nome}
                 description={ponto.endereco}
@@ -459,16 +454,18 @@ export default function Mapa() {
               >
                 <View style={[
                   styles.pin,
-                  ponto.tipo === 'delegacia' && { backgroundColor: '#4a90d9' },
-                  ponto.tipo === 'saude' && { backgroundColor: '#e74c3c' },
-                  ponto.tipo === 'apoio' && { backgroundColor: '#27ae60' },
-                  ponto.tipo === 'estacao' && { backgroundColor: '#8e44ad' },
+                  ponto.tipo === 'delegacia',
+                  ponto.tipo === 'saude',
+                  ponto.tipo === 'apoio',
+                  ponto.tipo === 'estacao',
+                  ponto.tipo === 'terminal',
+                  ponto.tipo === 'policia',
                 ]}>
                   <Text style={{ fontSize: 14 }}>{ICONE_TIPO[ponto.tipo] || ICONE_TIPO.default}</Text>
                 </View>
               </Marker>
             );
-          })} */}
+          })}
             {/* {alertas.map((alerta) => {
               const aLat = Number(alerta.latitude);
               const aLng = Number(alerta.longitude);
@@ -590,19 +587,20 @@ export default function Mapa() {
                 </View>
               </View>
               <View style={styles.contentPainel} onTouchStart={() => setScrollAtivo(true)}>
-                {pesquisa.trim().length > 0 && ( <View style={styles.cardSugestões}>
-                  {sugestoes.length > 0 ? (
-                    sugestoes.map((item)=>(
-                      <Pressable key={`sugestao-${item.id}`} style={{ padding: 14, borderBottomWidth: 1, borderColor: '#eee' }} onPress={() => selecionarSugestao(item)} >
-                        <Text style={{ fontWeight: '700' }}>
-                          {ICONE_TIPO[item.tipo] || ICONE_TIPO.default} {item.nome}
-                        </Text>
-                        <Text style={{ color: '#666', marginTop: 4 }}>{item.endereco}</Text>
-                      </Pressable>
-                    ))
-                  ) : (
-                    <Text style={{ padding: 15, color: '#777' }}>Nenhum local encontrado</Text>
-                  )}
+                {pesquisa.trim().length > 0 && ( 
+                  <View style={styles.lista}>
+                    {sugestoes.length > 0 ? (
+                      sugestoes.map((item, index)=>(
+                        <Pressable key={`sugestao-${item.id ?? item.id_localSeguro ?? index}`} style={styles.card} onPress={() => selecionarSugestao(item)} >
+                          <Text style={styles.nomeLocal}>
+                            {ICONE_TIPO[item.tipo] || ICONE_TIPO.default} {item.nome}
+                          </Text>
+                          <Text style={{ fontSize: 14, fontWeight: '400', color: '#808080' }}>{item.endereco}</Text>
+                        </Pressable>
+                      ))
+                    ) : (
+                      <Text style={{ fontSize: 14, fontWeight: '400', color: '#808080' }}>Nenhum local encontrado</Text>
+                    )}
                   </View>
                 )}
                 <View style={styles.compartilhar}>
@@ -614,7 +612,7 @@ export default function Mapa() {
                   >
                     <Text style={styles.txWhite}>{compartilhando ? 'Compartilhando...' : 'Compartilhar'}</Text>
                     <Image source={require('../../../assets/img/share_1.png')}
-                      style={{ width: 15, height: 15 }}
+                      style={{ width: 14, height: 14 }}
                       tintColor='#fff'
                     />
                   </Pressable>

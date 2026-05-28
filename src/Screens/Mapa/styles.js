@@ -102,27 +102,24 @@ export default StyleSheet.create({
   },
 
   circle: {
-    width: 30,
-    height: 30,
-    backgroundColor: '#a262e6',
-    borderRadius: 15,
-    borderWidth: 4,
-    borderColor: '#d0b2f0'
+    width: 35,
+    height: 35,
+    backgroundColor: '#eee',
+    overflow: 'hidden',
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: '#bb7cff'
   },
 
   pin: {
     width: 34, 
     height: 34, 
     borderRadius: 17,
-    backgroundColor: '#ff80aa',
+    backgroundColor: '#ffc5d9',
     alignItems: 'center', 
     justifyContent: 'center',
     borderWidth: 2, 
     borderColor: '#fff',
-    shadowColor: '#000', 
-    shadowOpacity: 0.2, 
-    shadowRadius: 4, 
-    elevation: 4,
   },
 
   scroll: {
@@ -148,7 +145,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginVertical: '10%',
     justifyContent: 'space-between',
-    gap: '10%'
+    paddingBottom: 22
   },
 
   puxador: {
@@ -214,10 +211,33 @@ export default StyleSheet.create({
     overflow: 'hidden'
   },
 
+  lista: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    marginVertical: 12
+  },
+
+  card: {
+    width: '100%',
+    minHeight: 100,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 10,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    padding: 17,
+    gap: 4
+  },
+
   compartilhar: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    marginVertical: '8%',
+    gap: 10
   },
 
   subtitulo: {
@@ -233,7 +253,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: '5%',
     borderRadius: 30,
     gap: 10
   },
@@ -244,17 +263,12 @@ export default StyleSheet.create({
     color: '#fff'
   },
 
-  cardSugestões: {
-    width: '95%',
-    maxHeight: 130,
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 17
+  nomeLocal: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: '#6925b8',
   },
+
 
   // Navegação
   navegacao: {

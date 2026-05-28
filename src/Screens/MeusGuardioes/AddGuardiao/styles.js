@@ -19,12 +19,11 @@ export default StyleSheet.create({
     width: 25,
     height: 25,
     tintColor: '#6925b8',
-    marginTop: 20,
     },
 
   header: {
     alignItems: "center",
-    marginTop: 50,
+    marginTop: 40,
     gap: 6,
   },
 
@@ -41,6 +40,7 @@ export default StyleSheet.create({
   },
 
   inputsContainer: {
+    marginTop: 30,
     gap: 15,
   },
 
@@ -109,4 +109,64 @@ export default StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
   },
+
+
+modal: {
+    width: '100%',
+  height: 500,
+  backgroundColor: '#fff',
+  borderTopLeftRadius: 50,
+  borderTopRightRadius: 50,
+  position: 'absolute',
+  bottom: 0,
+  margin: 0,
+  alignSelf:'center',
+  justifyContent:'center',
+  
+},
+
+circleCheck: {
+  width: 150,
+  height: 150,
+  backgroundColor: '#8e3deb',
+  borderRadius: 50,
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: 25,
+    alignSelf:'center',
+},
+
+tituloModal: {
+  fontSize: 30,
+  fontWeight: '500',
+  color: '#515151',
+  letterSpacing: 0.5,
+  marginBottom: 11,
+    alignSelf:'center',
+},
+
+subtitulo: {
+  fontSize: 18,
+  fontWeight: '400',
+  color: '#717171',
+  marginBottom: 60,
+    alignSelf:'center',
+},
+
+buttonModal: {
+  backgroundColor: '#6925b8',
+  width: '70%',
+  height: 54,
+  borderRadius: 35,
+  justifyContent: 'center',
+  alignItems: 'center',
+    alignSelf:'center',
+},
+
+txWhite: {
+  color: '#fff',
+  fontSize: 22,
+  fontWeight: '500',
+},
+
 });

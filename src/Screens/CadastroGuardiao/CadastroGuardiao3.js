@@ -91,31 +91,72 @@ export default function Passo3Guardiao() {
   };
 
   // ---------------- FINALIZAR CADASTRO ----------------
-  const finalizarCadastro = async (fotoPerfil) => {
-    try {
-      const usuario = {
-        nome,
-        email,
-        senha,
-        telefone: telefone.replace(/\D/g, ""),
-        id_role: 2,
-        codigo_convite: codigo_convite,
-                foto: fotoPerfil || null,
-      };
+const [cpf, setCpf] = useState('00000000000');
+const [dataNasc, setDataNasc] = useState('0000-01-01');
+  const validarCodigo = async () => {
+  try {
 
-      console.log("ENVIANDO:", usuario);
+    const response = await api.post('/validar-codigo', {
+      codigo: codigoDigitado,
+      id_usuario: usuario.id
+    });
 
-      const response = await api.post("/cadastrar", usuario);
-
-      console.log("SUCESSO:", response.data);
-
-      setModalSucesso(true);
-    } catch (error) {
-      console.log(error.response?.data || error.message);
-      Alert.alert("Erro ao cadastrar");
+    if (response.data.success) {
+      alert('Código válido');
+    } else {
+      alert(response.data.message);
     }
-  };
 
+  } catch (error) {
+    console.log(error);
+  }
+};const finalizarCadastro = async (fotoPerfil) => {
+  try {
+
+    // VALIDAR CÓDIGO
+    const validar = await api.post('/validar-codigo', {
+      codigo: codigo_convite
+    });
+
+    // se não existir
+    if (!validar.data.success) {
+      Alert.alert('Código inválido');
+      return;
+    }
+
+    // CADASTRAR USUÁRIA
+    const usuario = {
+      nome,
+      email,
+      senha,
+      telefone: telefone.replace(/\D/g, ""),
+      id_role: 2,
+      codigo_convite,
+      foto: fotoPerfil || null,
+        dataNasc,
+        cpf
+    };
+
+    console.log("ENVIANDO:", usuario);
+
+    const response = await api.post("/cadastrar", usuario);
+
+    console.log("SUCESSO:", response.data);
+
+    setModalSucesso(true);
+
+  } catch (error) {
+   console.log("ERRO COMPLETO:", error);
+
+  console.log("DATA:", error.response?.data);
+
+  console.log("STATUS:", error.response?.status);
+
+    console.log(error.response?.data || error.message);
+
+    Alert.alert("Erro ao cadastrar");
+  }
+};
   const irLogin = () => {
     setModalSucesso(false);
     navigation.replace("Login");

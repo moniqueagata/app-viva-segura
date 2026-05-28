@@ -1,19 +1,13 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  Image,
-  View,
-  Text,
-  Pressable,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
-} from "react-native";
-import { TextInput as PaperInput, ActivityIndicator } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import styles from "./styles";
-import api from "../../services/api";
+import { StatusBar } from 'expo-status-bar';
+import { Image, View, Text, Pressable, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { TextInput as PaperInput, ActivityIndicator } from 'react-native-paper';
+import { TextInputMask } from 'react-native-masked-text';
+import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from './styles';
+import { api } from "../../services/api";
 
 export default function Login() {
   const navigation = useNavigation();
@@ -28,129 +22,118 @@ export default function Login() {
 
   const verificaLogin = async () => {
     setLoading(true);
-
     try {
       console.log("email enviado:", email.trim());
       console.log("Senha enviada:", senha.trim());
 
-        const response = await api.post("/login", {
-        email: email.trim(),
-        senha: senha.trim(),
-        });
+      const response = await api.post("/login", {
+      email: email.trim(),
+      senha: senha.trim(),
+      });
 
-        console.log("RESPOSTA:", response.data);
+      console.log("RESPOSTA:", response.data);
 
-        if (response.data.user) {
-          const user = response.data.user;
-            await AsyncStorage.setItem("user", JSON.stringify(user));
+      if (response.data && response.data.user) {
+        const user = response.data.user;
+        await AsyncStorage.setItem("user", JSON.stringify(user));
+        console.log("USER SALVO NO STORAGE:", user);
 
-            console.log("USER SALVO NO STORAGE:", user);
-
-            if (user.id_role === 2) {
-                navigation.replace("HomeGuardiao");
-            } else {
-                navigation.replace("Home");
-            }
-
-            } else {
-                alert("Senha incorreta");
-            }
-
-        } catch (error) {
-            console.log(error.response?.data || error.message);
-            alert("Erro ao fazer login.");
-        } finally {
-            setLoading(false);
+        if (user.id_role === 2) {
+            navigation.replace("HomeGuardiao");
+        } else {
+            navigation.replace("Home");
         }
-};
+      } else {
+        alert("Senha incorreta ou usuário não encontrado");
+      }
+    } catch (error) {
+      console.log(error.response?.data || error.message);
+      alert("Erro ao fazer login.");
+      alert(JSON.stringify(error.response?.data) || error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <ScrollView
-        contentContainerStyle={styles.container}
-        keyboardShouldPersistTaps="handled"
+    <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
+     <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
+      <KeyboardAvoidingView style={{ flex: 1, backgroundColor:'#fff' }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        // keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
       >
-        <View style={styles.logo}>
-          <Image
-            source={require("../../../assets/img/logo.png")}
-            style={{ width: 200, height: 200 }}
-          />
-        </View>
-
-        <Text style={styles.titulo}>Bem vinda(o) de volta!</Text>
-
-        <View style={styles.inputsContainer}>
-
-        <PaperInput
-          label={<Text style={{ fontSize: 19 }}>E-mail</Text>}
-          mode="outlined"
-          style={{ backgroundColor: "#fff", height: 57, width: "95%" }}
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          outlineColor="#ddd"
-          activeOutlineColor="#6925b8"
-          outlineStyle={{ borderRadius: 15 }}
-          theme={{
-            colors: { primary: "#6925b8", onSurfaceVariant: "#ccc" },
-          }}
-        />
-
-          <View style={styles.senhaContainer}>
-            <PaperInput
-              label={
-                <Text style={{ fontSize: 19, letterSpacing: 0.4 }}>Senha</Text>
-              }
-              mode="outlined"
-              style={{ backgroundColor: "#fff", height: 57, width: "95%" }}
-              outlineColor="#ddd"
-              activeOutlineColor="#6925b8"
-              outlineStyle={{ borderRadius: 15 }}
-              theme={{
-                colors: { primary: "#6925b8", onSurfaceVariant: "#ccc" },
-              }}
-              value={senha}
-              onChangeText={setSenha}
-              secureTextEntry={!mostrarSenha}
-              right={
-                <PaperInput.Icon
-                  onPress={() => setMostrarSenha(!mostrarSenha)}
-                  icon={mostrarSenha ? "eye" : "eye-off"}
-                  color={mostrarSenha ? "#bbb" : "#6925b8"}
-                />
-              }
-            />
-            <Text style={styles.textEsqueciSenha}>Esqueceu a senha?</Text>
+        <ScrollView 
+          contentContainerStyle={styles.container}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.logo}>
+            <Image source={require('../../../assets/img/logo.png')} style={{ width: 150, height: 150 }} />
           </View>
-        </View>
 
-        <View style={styles.buttonContainer}>
-          <Pressable
-            style={[styles.btnPurple, !loginValido && { opacity: 0.5 }]}
-            onPress={verificaLogin}
-            disabled={!loginValido || loading}
-          >
-            {loading ? (
-              <ActivityIndicator color="#fff" />
-            ) : (
-              <Text style={styles.txWhite}>Entrar</Text>
-            )}
-          </Pressable>
-        </View>
+          <Text style={styles.titulo}>Bem vinda(o) de volta!</Text>
 
-        <View style={styles.linkView}>
-          <Text style={styles.txLink}>Ainda não possui conta?</Text>
-          <Pressable onPress={() => navigation.navigate("Passo1")}>
-            <Text style={styles.link}>Criar conta</Text>
-          </Pressable>
-        </View>
+            <View style={styles.inputsContainer}>
+              <PaperInput
+                label={<Text style={{ fontSize: 15, letterSpacing: 0.4 }}>E-mail</Text>}
+                mode='outlined'
+                style={{ backgroundColor: '#fff', height: 50, width: '95%' }}
+                outlineColor='#ddd'        
+                activeOutlineColor='#6925b8' 
+                outlineStyle={{ borderRadius: 15 }}
+                theme={{ colors: { primary: '#6925b8', onSurfaceVariant: '#ccc' } }} 
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                disabled={loading}
+              />
 
-        <StatusBar style="auto" />
-      </ScrollView>
-    </KeyboardAvoidingView>
+              <View style={styles.senhaContainer}>
+                <PaperInput 
+                  label={<Text style={{ fontSize: 15, letterSpacing: 0.4 }}>Senha</Text>}
+                  mode='outlined'
+                  style={{ backgroundColor: '#fff', height: 50, width: '95%' }}
+                  outlineColor='#ddd'        
+                  activeOutlineColor='#6925b8' 
+                  outlineStyle={{ borderRadius: 15 }}
+                  theme={{colors: { primary: '#6925b8', onSurfaceVariant: '#ccc' }}}
+                  value={senha}
+                  onChangeText={setSenha}
+                  secureTextEntry={!mostrarSenha}
+                  disabled={loading}
+                  right={
+                    <PaperInput.Icon
+                      onPress={() => setMostrarSenha(!mostrarSenha)}  
+                      icon={mostrarSenha ? 'eye' : 'eye-off'}
+                      color={mostrarSenha ? '#bbb' : '#6925b8'}
+                    />
+                  } 
+                />
+                <Text style={styles.textEsqueciSenha}>Esqueceu a senha?</Text>
+              </View>
+            </View>
+
+            <View style={styles.buttonContainer}>
+              <Pressable style={[styles.btnPurple, !loginValido && {opacity: 0.5}]}
+                onPress={verificaLogin}
+                disabled={!loginValido || loading}
+              >
+                {loading ? (
+                  <ActivityIndicator color='#fff'/>
+                ):(
+                  <Text style={styles.txWhite}>Entrar</Text>
+                )}
+              </Pressable>
+            </View>
+
+            <View style={styles.linkView}>
+                <Text style={styles.txLink}>Ainda não possui conta?</Text><Pressable onPress={() => navigation.navigate('Passo1')}><Text style={styles.link}>Criar conta</Text></Pressable>
+            </View>
+          <StatusBar style="auto" />
+        </ScrollView>
+      </KeyboardAvoidingView>
+     </SafeAreaView>
+  </View>
   );
 }

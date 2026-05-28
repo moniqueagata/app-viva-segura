@@ -151,29 +151,18 @@ export default function Mapa() {
     }
   };
 
-  // POST /localizacao 
-  const enviarLocalizacaoAPI = async (coords) => {
-    if (!usuario?.id) return;
-    try {
-      await fetch(`${api}/localizacao`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id_usuaria: usuario.id, latitude: coords.latitude, longitude: coords.longitude }),
-      });
-    } catch {  }
-  };
-
-  // GET /pontos-rota 
+  // GET /pontos-rota
   const carregarPontosRota = useCallback(async () => {
     setCarregandoLocais(true);
     try {
-      const res  = await fetch(`${api}/pontos-rota`);
-      const json = await res.json();
-      setPontosRota(Array.isArray(json) ? json : []);
-    } catch { 
-      setPontosRota([]); 
-    } finally { 
-      setCarregandoLocais(false); 
+      const res = await api.get('/pontos-rota');
+      console.log('Pontos carregados:', res.data);
+      setPontosRota(Array.isArray(res.data) ? res.data : []);
+    } catch (e) {
+      console.log('Erro ao carregar pontos:', e);
+      setPontosRota([]);
+    } finally {
+      setCarregandoLocais(false);
     }
   }, []);
 
@@ -181,13 +170,24 @@ export default function Mapa() {
   const carregarAlertas = useCallback(async () => {
     if (!location) return;
     try {
-      const res  = await fetch(`${api}/alertas?latitude=${location.latitude}&longitude=${location.longitude}&raio=5`);
-      const json = await res.json();
-      setAlertas(Array.isArray(json) ? json : []);
-    } catch { 
-      setAlertas([]); 
+      const res = await api.get(`/alertas?latitude=${location.latitude}&longitude=${location.longitude}&raio=5`);
+      setAlertas(Array.isArray(res.data) ? res.data : []);
+    } catch {
+      setAlertas([]);
     }
   }, [location]);
+
+  // POST /localizacao
+  const enviarLocalizacaoAPI = async (coords) => {
+    if (!usuario?.id) return;
+    try {
+      await api.post('/localizacao', {
+        id_usuaria: usuario.id,
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+      });
+    } catch {}
+  };
 
   useEffect(() => {
     carregarPontosRota();
@@ -199,16 +199,15 @@ export default function Mapa() {
     return () => clearInterval(intervalo);
   }, [location, carregarPontosRota, carregarAlertas]);
 
-  // POST /salvarPesquisaEndereco 
+  // POST /salvarPesquisaEndereco
   const salvarPesquisa = async (texto) => {
     if (!usuario?.id || !texto.trim()) return;
     try {
-      await fetch(`${api}/salvarPesquisaEndereco`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id_usuaria: usuario.id, endereco: texto }),
+      await api.post('/salvarPesquisaEndereco', {
+        id_usuaria: usuario.id,
+        endereco: texto,
       });
-    } catch { }
+    } catch {}
   };
   // -------
 
@@ -221,10 +220,14 @@ export default function Mapa() {
     }
     const busca = texto.toLowerCase().trim();
     setSugestoes(
-      pontosRota.filter((p) => (p.nome     || '').toLowerCase().includes(busca) || (p.endereco || '').toLowerCase().includes(busca) || (p.tipo     || '').toLowerCase().includes(busca)));
+      pontosRota.filter((p) =>
+        String(p.nome ?? '').toLowerCase().includes(busca) ||
+        String(p.endereco ?? '').toLowerCase().includes(busca) ||
+        String(p.tipo ?? '').toLowerCase().includes(busca)
+      )
+    );
   };
 
-  // Toca numa sugestão
   const selecionarSugestao = (ponto) => {
     setPesquisa('');
     setSugestoes([]);
@@ -327,7 +330,7 @@ export default function Mapa() {
     }
   };
 
-  // Compartilhar localização 
+  // Compartilhar localização
   const compartilharLocalizacao = async () => {
     if (!location) { Alert.alert('Localização indisponível', 'Aguarde a localização ser obtida.'); return; }
     setCompartilhando(true);
@@ -335,17 +338,17 @@ export default function Mapa() {
     const mensagem = `🚨 Preciso de ajuda!\n📍 ${endereco}\n\nhttps://maps.google.com/?q=${latitude},${longitude}`;
     try {
       await Share.share({ message: mensagem });
-      await fetch(`${api}/localizacao`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id_usuaria: usuario?.id, latitude, longitude, compartilhado: true }),
+      await api.post('/localizacao', {
+        id_usuaria: usuario?.id,
+        latitude,
+        longitude,
+        compartilhado: true,
       });
-    } catch { } 
-    finally { 
-      setCompartilhando(false); 
+    } catch {}
+    finally {
+      setCompartilhando(false);
     }
   };
-  // ---------
 
   // Animação na navegação
   const { width } = useWindowDimensions();
@@ -650,5 +653,4 @@ export default function Mapa() {
       </View>
     </GestureHandlerRootView>
   );
-}
 }

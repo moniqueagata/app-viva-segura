@@ -3,10 +3,37 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flex: 1,
-   backgroundColor:'#ffffff'
+   backgroundColor:'#ffffff',
   },
+
+  content: {
+    flex: 1,
+    width: '100%',
+  },
+
+  userContent: {
+    maxWidth: 300,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 15,
+  },
+
+  upload: {
+    width: 43,
+    height: 43,
+    backgroundColor: '#e7e7e7',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '100%',
+  },
+
+  text: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: "#1b1b1b",
+  },
+
  fundoEmbaixo: {
- 
  width: '100%',
     height: 88,
     position:'absolute',
@@ -82,15 +109,14 @@ botao: {
      textAlign:'center',
   },
   viewFlex:{
-  flexDirection:'row',
-  marginTop:30,
-  },
-  notificacao:{
-    width:23,
-    height:23,
-    marginBottom:50,
-    marginTop:27,
-    marginLeft:200,
+    width: '100%',
+    height: 88,
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 18,
+    paddingTop: 33,
+    marginBottom: 25,
   },
  
   ola:{
@@ -108,9 +134,21 @@ botao: {
    marginTop:25,
   },
 
+  // Navegação
+  navegacao: {
+    width: '100%',
+    height: 80,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    backgroundColor: '#6925b8',
+    paddingBottom: 3,
+    paddingHorizontal: 10
+  },
+
   line: {
     height: 4,
-    backgroundColor: '#FF88A7',
+    backgroundColor: '#ff80aa',
     borderRadius: 2,
     top: 0,
     left: 0,
@@ -128,6 +166,7 @@ botao: {
   textNav: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#ccc'
+    color: '#fff'
   },
+
 });

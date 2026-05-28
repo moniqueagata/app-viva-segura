@@ -6,7 +6,7 @@ import { useState, useRef, useEffect } from "react"
 import { useNavigation, useRoute } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import styles from "./styles/styles_passo4";
-import api from "../../services/api";
+import { api } from '../../services/api';
 
 export default function Passo4() {
     const navigation = useNavigation();
@@ -90,14 +90,13 @@ export default function Passo4() {
           mediaTypes: 'images',
           allowsEditing: true,
           aspect: [1, 1],
-        quality: 0.1,
-base64: false,
+          quality: 0.1,
+          base64: true,
         });
   
         if (!resultado.canceled) {
-
-          setImage(resultado.assets[0].uri);  
-                  setModal(false);
+          setImage(`data:image/jpeg;base64,${resultado.assets[0].base64}`);
+          setModal(false);
         }
         console.log(resultado.assets);
       } catch (error) {
@@ -115,7 +114,7 @@ base64: false,
           mediaTypes: 'images',
           allowsEditing: true,
           aspect: [1, 1],
-          quality: 0.03,         
+          quality: 0.1,
           base64: true,
         });
     
@@ -231,7 +230,7 @@ base64: false,
                     style={{ width: '100%', height: '100%', borderRadius: 75 }} 
                 />
                 ) : (
-                <Image source={require('../../../assets/img/icon2.png')} 
+                <Image source={require('../../../assets/img/icon.png')} 
                     style={{ width: '100%', height: '100%' }}
                     resizeMode='contain'
                 />

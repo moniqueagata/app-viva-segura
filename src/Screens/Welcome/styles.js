@@ -6,46 +6,73 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 20,
+    paddingVertical: 30,
     paddingHorizontal: 20,
   },
 
-  logo: {
+  header: {
+    width: '100%',
+    height: 88,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  content: {
+    flex: 1,
+    width: '100%',
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+
+  txIcon: {
+    width: '100%',
+    alignItems: 'center',
+    marginTop: '22%',
+    gap: 30
+  },
+
+  texts: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 30,
-  },
-
-  session: {
-    width: '100%',
-    alignItems: 'center',
+    gap: 8,
+    marginVertical: '5%'
   },
 
   titulo: {
-    fontSize: 30,
-    fontWeight: '600',
+    fontSize: 25,
+    fontWeight: '500',
     color: '#6925b8', 
     letterSpacing: 0.5,
-    marginVertical: 12
+    textAlign: 'center',
   },
 
-  subtitulo: {
-    fontSize: 17,
-    color: '#717171',
+  descricao: {
+    fontSize: 15,
+    fontWeight: '300',
+    color: '#505050',
+    textAlign: 'center',
+  },
+
+  imagem: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20
   },
 
   buttonContainer: {
     width: '100%',
-    height: 180,
     alignItems: 'center',
-    gap: 20,
+    marginVertical: '3%',
+    gap: 15,
   },
 
   btnPurple: {
     backgroundColor: '#6925b8', 
-    width: '85%',
-    height: 56,
+    width: '90%',
+    height: 50,
     borderRadius: 35, 
     justifyContent: 'center',
     alignItems: 'center',
@@ -53,25 +80,30 @@ export default StyleSheet.create({
 
   txWhite: {
     color: '#FFFFFF',
-    fontSize: 22,
-    fontWeight: '500',
+    fontSize: 18,
+    fontWeight: '400',
   },
 
-  btnWhite: { 
-    width: '85%',
-    height: 56,
-    backgroundColor: 'transparent',
-    borderRadius: 35,
-    borderWidth: 2,
-    borderColor: '#6925b8',
+  linkView: {
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
+    marginVertical: 15
   },
 
-  txPurple: {
-    color: '#6925b8',
-    fontSize: 22,
+  txLink: {
+    color: '#919191',
+    fontSize: 14,
+    fontWeight: '400',
+  },
+
+  link: {
+    color: '#9131ff',
+    paddingLeft: 4,
+    fontSize: 14,
     fontWeight: '500',
+    textDecorationLine: 'underline'
   },
 
 

@@ -1,183 +1,244 @@
-  import { StatusBar } from "expo-status-bar";
-  import {
-    Image,
-    ScrollView,
-    View,
-    Text,
-    Pressable,
-    Animated,
-    Easing,
-    useWindowDimensions,
-  } from "react-native";
-  import styles from "./styles";
-  import { useNavigation } from "@react-navigation/native";
-  import { useState, useEffect, useRef } from "react";
+import { StatusBar } from 'expo-status-bar';
+import { Image, ScrollView, View, Text, Pressable, Animated, Easing, useWindowDimensions, Switch } from 'react-native';
+import styles from './styles';
+import { useNavigation } from '@react-navigation/native';
+import { useState, useEffect, useRef } from 'react';
 
-  import BottomNav from "../../components/BottomNav";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-  import AsyncStorage from "@react-native-async-storage/async-storage";
-
-  export default function Perfil() {
+export default function Perfil() {
     const navigation = useNavigation();
+    const [toggle, setToggle] = useState(true);
 
-    
+    // Animação na navegação
+    const { width } = useWindowDimensions();
+
+    const [medidas, setMedidas] = useState({});
+    const [abaAtiva, setAbaAtiva] = useState(3);
+
+    const larguraAba = 60;
+    const posicaoX = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        const medidaAtual = medidas[abaAtiva];
+
+        if (medidaAtual) {
+            const { x, width } = medidaAtual;
+
+            const destinoX = x + (width / 2) - (larguraAba / 2);
+
+            Animated.spring(posicaoX, {
+                toValue: destinoX,
+                useNativeDriver: true,
+                bounciness: 4,
+            }).start();
+        }
+    }, [abaAtiva, medidas]);
+
+    const abaLayout = (index, event) => {
+        const { x, width } = event.nativeEvent.layout;
+        setMedidas(prev => ({
+            ...prev, [index]: { x, width }
+        }));
+    };
+
+    const abas = [
+        { label: 'Home', rota: "Home", imagem: require('../../../assets/img/home.png'), index: 0 },
+        { label: 'Mapa', rota: "Mapa",  imagem: require('../../../assets/img/map.png'), index: 1 },
+        { label: 'Guardião', rota: "MeusGuardioes", imagem: require('../../../assets/img/angel.png'), index: 2 },
+        { label: 'Você', rota: "Perfil",  imagem: require('../../../assets/img/profile.png'), index: 3 }
+    ];
+    // --------
 
     //pegar dados da usuaria
     const [usuario, setUsuario] = useState(null);
 
     useEffect(() => {
-      const carregarUsuario = async () => {
+        const carregarUsuario = async () => {
         const dados = await AsyncStorage.getItem("user");
-
-        if (dados) {
-          setUsuario(JSON.parse(dados));
-        }
-      };
-
-      carregarUsuario();
+            if (dados) {
+            setUsuario(JSON.parse(dados));
+            }
+        };
+    carregarUsuario();
     }, []);
 
+    // Logout -> Sair da conta
+    const fazerLogout = async () => {
+        await AsyncStorage.removeItem("user");
 
-    return (
-      <View style={styles.container}>
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Login' }],
+        });
+    };
+
+  return (
+    <View style={styles.container}>
         <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
-          <View style={styles.content}>
-            
-            <View style={styles.profile}>
-              <View style={styles.photoUpload}>
-                
-               <View style={styles.upload}>
-  <Image
-    source={
-      usuario?.foto
-        ? { uri: usuario.foto }
-        : require("../../../assets/imgHomeGuardiao/perfil.png")
-    }
-    style={{
-      width: "100%",
-      height: "100%",
-      borderRadius: 999,
-    }}
-    resizeMode="cover"
-  />
-</View>
+            <View style={styles.content}>
+                <View style={styles.profile}>
+                    <View style={styles.photoUpload}>
+                        <View style={styles.upload}>
+                            {usuario?.foto ? (
+                                <Image
+                                    source={{ uri: usuario.foto }}
+                                    style={{ width: '100%', height: '100%', borderRadius: 75 }} 
+                                />
+                            ) : (
+                                <Image 
+                                    source={require('../../../assets/img/icon.png')} 
+                                    style={{ width: '100%', height: '100%' }} 
+                                    resizeMode='contain' 
+                                />
+                            )}
+                        </View>          
+                    </View>
 
-              </View>
+                    <View style={styles.text}>
+                        <Text style={styles.nome}>
+                            {usuario?.nome || "Nome"}
+                        </Text>
+                        <Text style={styles.id}>
+                            ID: {usuario?.id_usuaria || usuario?.id }
+                        </Text>
+                    </View>
 
-              <Text style={styles.nome}>{usuario?.nome || "Nome"}</Text>
-
-              <Text style={styles.id}>
-                  Código: {usuario?.codigo_convite || "----"}
-              </Text>
-
-              <Pressable
-                style={styles.buttonEdit}
-                onPress={() => navigation.navigate("EditarPerfil")}
-              >
-                <Text style={styles.textWhite}>Editar perfil</Text>
-              </Pressable>
-            </View>
-
-            <View style={styles.settings}>
-              <Text style={styles.sessions}>Preferências</Text>
-              <Pressable
-                style={styles.button}
-                onPress={() => navigation.navigate("Notificacoes")}
-              >
-                <View style={styles.grid}>
-                  <View style={styles.circle}>
-                    <Image
-                      source={require("../../../assets/img/sino.png")}
-                      style={{ width: 23, height: 23 }}
-                      tintColor="#616161"
-                      resizeMode="contain"
-                    />
-                  </View>
-                  <Text style={styles.textButton}>Notificações</Text>
+                    <Pressable style={styles.buttonEdit} onPress={() => navigation.navigate('EditarPerfil')}>
+                        <Text style={styles.textWhite}>Editar perfil</Text>
+                    </Pressable>
                 </View>
-                <Image
-                  source={require("../../../assets/img/arrow_2.png")}
-                  style={{ width: 15, height: 15,  transform: [{ scaleX: -1 }] }}
-                  tintColor="#4B0082"               
-                  />
-              </Pressable>
 
-              
-              <Text style={styles.sessions}>Suporte</Text>
-              <View style={styles.gridButtons}>
-                <Pressable style={styles.button}>
-                  <View style={styles.grid}>
-                    <View style={styles.circle}>
-                      <Image
-                        source={require("../../../assets/img/password.png")}
-                        style={{ width: 23, height: 23 }}
-                        tintColor="#4B0082"
-                        resizeMode="contain"
-                      />
+                <View style={styles.settings}>
+                    <Text style={styles.sessions}>Preferências</Text>
+                    <View style={styles.gridButtons}>
+                        <Pressable style={styles.button} onPress={() => navigation.navigate('Notificacoes')}>
+                            <View style={styles.grid}>
+                                <View style={styles.circle}>
+                                    <Image source={require('../../../assets/img/sino.png')}
+                                        style={{ width: 20, height: 20 }}
+                                        tintColor='#808080'  
+                                        resizeMode='contain'
+                                    />
+                                </View>
+                                <Text style={styles.textButton}>Notificações</Text>
+                            </View>
+                            <Image source={require('../../../assets/img/arrow_2.png')}
+                                style={{ width: 14, height: 14, transform: [{ scaleX: -1 }] }}
+                                tintColor='#ccc'  
+                            />
+                        </Pressable>
+                        <Pressable style={styles.button}>
+                            <View style={styles.grid}>
+                                <View style={styles.circle}>
+                                    <Image source={require('../../../assets/img/pin.png')}
+                                        style={{ width: 20, height: 20 }}
+                                        tintColor='#808080'  
+                                        resizeMode='contain'
+                                    />
+                                </View>
+                                <Text style={styles.textButton}>Compartilhar localização</Text>
+                            </View>
+                            <Switch
+                                value={toggle}
+                                onValueChange={setToggle}
+                                trackColor={{ false: "#ccc", true: "#daffd2" }}
+                                thumbColor={toggle ? "#69d87c" : "#fff"}
+                            />
+                        </Pressable>
+                        <Pressable style={styles.button}>
+                            <View style={styles.grid}>
+                                <View style={styles.circle}>
+                                    <Image source={require('../../../assets/img/password.png')}
+                                        style={{ width: 20, height: 20 }}
+                                        tintColor='#808080'  
+                                        resizeMode='contain'
+                                    />
+                                </View>
+                                <Text style={styles.textButton}>Alterar senha</Text>
+                            </View>
+                            <Image source={require('../../../assets/img/arrow_2.png')}
+                                style={{ width: 14, height: 14, transform: [{ scaleX: -1 }] }}
+                                tintColor='#ccc'  
+                            />
+                        </Pressable>
                     </View>
-                    <Text style={styles.textButton}>Alterar senha</Text>
-                  </View>
-                  <Image
-                    source={require("../../../assets/img/arrow_2.png")}
-                    style={{ width: 15, height: 15, transform: [{ scaleX: -1 }] }}
-                    tintColor="#4B0082"
-                  />
-                </Pressable>
-                <Pressable
-                  style={styles.button}
-                  onPress={() => navigation.navigate("Central")}
-                >
-                  <View style={styles.grid}>
-                    <View style={styles.circle}>
-                      <Image
-                        source={require("../../../assets/img/helpcenter.png")}
-                        style={{ width: 23, height: 23 }}
-                        tintColor="#4B0082"
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <Text style={styles.textButton}>Central de ajuda</Text>
-                  </View>
-                  <Image
-                    source={require("../../../assets/img/arrow_2.png")}
-                    style={{ width: 15, height: 15, transform: [{ scaleX: -1 }] }}
-                    tintColor="#4B0082"
-                  />
-                </Pressable>
-                <Pressable style={styles.button}>
-                  <View style={styles.grid}>
-                    <View style={styles.circle}>
-                      <Image
-                        source={require("../../../assets/img/terms.png")}
-                        style={{ width: 23, height: 23 }}
-                        tintColor="#4B0082"
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <Text style={styles.textButton}>Termos</Text>
-                  </View>
-                  <Image
-                    source={require("../../../assets/img/arrow_2.png")}
-                    style={{ width: 15, height: 15, transform: [{ scaleX: -1 }] }}
-                    tintColor="#4B0082"
-                  />
-                </Pressable>
-              </View>
 
-              <View style={styles.logout}>
-                <Pressable style={styles.buttonLogout} 
-                  onPress={() => navigation.navigate("Welcome")}>
-                  <Text style={styles.textRed}>Sair da conta</Text>
-                </Pressable>
-              </View>
+                    <Text style={styles.sessions}>Suporte</Text>
+                    <View style={styles.gridButtons}>
+                        <Pressable style={styles.button} onPress={() => navigation.navigate('Central')}>
+                            <View style={styles.grid}>
+                                <View style={styles.circle}>
+                                    <Image source={require('../../../assets/img/helpcenter.png')}
+                                        style={{ width: 20, height: 20 }}
+                                        tintColor='#808080'  
+                                        resizeMode='contain'
+                                    />
+                                </View>
+                                <Text style={styles.textButton}>Central de ajuda</Text>
+                            </View>
+                            <Image source={require('../../../assets/img/arrow_2.png')}
+                                style={{ width: 14, height: 14, transform: [{ scaleX: -1 }] }}
+                                tintColor='#ccc'  
+                            />
+                        </Pressable>
+                        <Pressable style={styles.button}>
+                            <View style={styles.grid}>
+                                <View style={styles.circle}>
+                                    <Image source={require('../../../assets/img/terms.png')}
+                                        style={{ width: 20, height: 20 }}
+                                        tintColor='#808080'  
+                                        resizeMode='contain'
+                                    />
+                                </View>
+                                <Text style={styles.textButton}>Termos</Text>
+                            </View>
+                            <Image source={require('../../../assets/img/arrow_2.png')}
+                                style={{ width: 14, height: 14, transform: [{ scaleX: -1 }] }}
+                                tintColor='#ccc'  
+                            />
+                        </Pressable>
+                    </View>
+
+                    <View style={styles.logout}>
+                        <Pressable style={styles.buttonLogout} onPress={fazerLogout}>
+                            <Text style={styles.textRed}>Sair da conta</Text>
+                        </Pressable>
+                    </View>
+
+                </View>
             </View>
-          </View>
         </ScrollView>
 
-        <BottomNav abaAtivaInicial={3} />
-
-        
-        <StatusBar style="auto" />
-      </View>
-    );
-  }
+        <View style={styles.navegacao}>
+            <Animated.View 
+                style={[styles.line, 
+                    { width: larguraAba, transform: [{ translateX: posicaoX }]}
+                ]}
+            />
+            {abas.map((aba) => (
+                <Pressable 
+                    key={aba.index}
+                    style={styles.buttonNav}
+                    onPress={() => {
+                        setAbaAtiva(aba.index);
+                    
+                        if (aba.rota) {
+                        navigation.navigate(aba.rota);
+                        }
+                    }}               
+                    onLayout={(event) => abaLayout(aba.index, event)}
+                >
+                    <Image source={aba.imagem}
+                        style={{ width: 22, height: 22 }}
+                        tintColor={abaAtiva === aba.index ? '#ff80aa' : '#fff'}
+                        resizeMode='contain'
+                    />
+                    <Text style={[styles.textNav, abaAtiva === aba.index && { color: '#ff80aa'}]}>{aba.label}</Text>
+                </Pressable>
+            ))}
+        </View>
+      <StatusBar style="auto" />
+    </View>
+  );
+}

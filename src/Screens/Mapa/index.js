@@ -1,175 +1,654 @@
-import {
-  View,
-  Text,
-  Pressable,
-  Image,
-  Dimensions,
-  StyleSheet,
-  TextInput,
-  Animated as RNAnimated // Usamos como RNAnimated para não confundir com o Reanimated
-} from 'react-native';
-
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
-
-
-import React, { useState, useEffect, useRef } from 'react'; // <--- O SEGREDO ESTÁ AQUI (adicionei o useRef)
+iimport { View, Text, Pressable, Image, Dimensions, StyleSheet, useWindowDimensions, TextInput, Animated, ScrollView, Alert, Share } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { GestureHandlerRootView, PanGestureHandler, State } from 'react-native-gesture-handler';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
-import MapView, { Marker } from 'react-native-maps';
+import { useState, useEffect, useRef, useCallback } from 'react'; 
+import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
-import axios from 'axios';
-
-import BottomNav from '../../components/BottomNav';
+import { getDistance } from 'geolib';
+import { api } from '../../services/api'
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
-const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 280; // O quanto ele sobe
+const SNAP_BOTTOM = (SCREEN_HEIGHT * 0.65) - 120;
+const SNAP_TOP = 0;
+
+const ICONE_TIPO = {
+  delegacia: '🚨',
+  estacao: '🚉',
+  saude: '🏥',
+  apoio: '♀️',
+  terminal: '🚍', 
+  policia: '👮🏻‍♀️',
+  default: '📌',
+};
 
 export default function Mapa() {
   const navigation = useNavigation();
+  const mapRef = useRef(null);
 
   const [location, setLocation] = useState(null);
-
   const [errorMsg, setErrorMsg] = useState(null);
+  const [usuario, setUsuario] = useState(null);
+  const [modal, setModal] = useState(false);
+  const [endereco, setEndereco] = useState('Obtendo endereço...');
+  const [pesquisa, setPesquisa] = useState('');
+  const [sugestoes, setSugestoes] = useState([]);
+  const [buscando, setBuscando] = useState(false);
+  const [pontosRota, setPontosRota] = useState([]);
+  const [alertas, setAlertas] = useState([]);
+  const [rotaAtiva, setRotaAtiva] = useState(null);
+  const [carregandoLocais, setCarregandoLocais] = useState(false);
+  const [compartilhando, setCompartilhando] = useState(false);
+  const [enderecoDestino, setEnderecoDestino] = useState('');
+  const [coordenadasDestino, setCoordenadasDestino] = useState(null);
+  const [distanciaAtual, setDistanciaAtual] = useState(null);
 
-  const enviarLocalizacao = async (coords) => {
-    try {
+  // Animação do Painel
+  const posicaoY = useRef(new Animated.Value(SNAP_BOTTOM)).current;
+  const posicaoPainel = useRef(SNAP_BOTTOM);
+  const ScrollViewRef = useRef(null);
+  const [scrollAtivo, setScrollAtivo] = useState(false);
+    
+  const gesto = Animated.event(
+    [{ nativeEvent: { translationY: posicaoY} }],
+    { useNativeDriver: true }
+  );
 
-      const response = await axios.post(
-        'http://10.67.4.174:8000/api/localizacao',
-        {
-          id_usuaria: 1,
-          latitude: coords.latitude,
-          longitude: coords.longitude,
-        }
-      );
+  const estadoPainel = (event) => {
+    if(event.nativeEvent.oldState === State.ACTIVE) {
+      const { translationY, velocityY } = event.nativeEvent;
+      const posicao = posicaoPainel.current + translationY;
+      let pontoDestino = SNAP_BOTTOM;
 
-      console.log('Localização enviada:', response.data);
+      if (posicao < SCREEN_HEIGHT *0.45 || velocityY < -500) {
+        pontoDestino = SNAP_TOP; // Sobe/Abre
+      } else if (posicao >= SCREEN_HEIGHT * 0.45 || velocityY > 500) {
+        pontoDestino = SNAP_BOTTOM; // Fecha
+      }
 
-    } catch (error) {
-      console.log(
-        'Erro ao enviar localização:',
-        error.response?.data || error.message
-      );
+      posicaoPainel.current = pontoDestino;
+      posicaoY.setOffset(pontoDestino);
+      posicaoY.setValue(0);
+
+      Animated.spring(posicaoY, { toValue: 0, tension: 65, friction: 11, useNativeDriver: true }).start();
     }
   };
 
-  
+  useEffect(() => {
+    posicaoY.setOffset(SNAP_BOTTOM);
+    posicaoY.setValue(0);
+  }, []);
+  // -----------
 
-  //const gesture = Gesture.Pan()
-  //.onStart(() => {
-  // context.value = { y: translateY.value };
-  //})
-  // .onUpdate((event) => {
-  //translateY.value = event.translationY + context.value.y;
-  // Limita para não subir demais
-  // translateY.value = Math.max(translateY.value, MAX_TRANSLATE_Y);
-  //})
-  //.onEnd(() => {
-  // Se soltar no meio, ele decide se sobe tudo ou desce
-  // if (translateY.value > -SCREEN_HEIGHT / 3) {
-  //  translateY.value = withSpring(0, { damping: 65 });
-  //} else {
-  //  translateY.value = withSpring(MAX_TRANSLATE_Y, { damping: 65 });
-  // }
-  //});
+  // Buscar dados
+  useEffect(() => {
+    async function carregarDados() {
+        const dados = await AsyncStorage.getItem("user");
+        if (dados) {
+            setUsuario(JSON.parse(dados));
+        }
+    }
+    carregarDados();
+  }, []);
+  // --------
 
-  //const rBottomSheetStyle = useAnimatedStyle(() => {
-  //return {
-  //transform: [{ translateY: translateY.value }],
-  //};
-  //});
+  // Localização + geocodificação reversa + envio à API
+  useEffect(() => {
+    let inscrito = true;
+    let subscription = null;
+
+    async function iniciarMonitoramento() {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setEndereco('Permissão de localização negada');
+        return;
+      }
+      const primeiraPosicao = await Location.getLastKnownPositionAsync({});
+      if (primeiraPosicao && inscrito) {
+        setLocation(primeiraPosicao.coords);
+        atualizarEndereco(primeiraPosicao.coords);
+        mapRef.current?.animateToRegion({
+          latitude: primeiraPosicao.coords.latitude,
+          longitude: primeiraPosicao.coords.longitude,
+          latitudeDelta: 0.02,
+          longitudeDelta: 0.02,
+        });
+      }
+      subscription = await Location.watchPositionAsync(
+        { accuracy: Location.Accuracy.High, timeInterval: 5000, distanceInterval: 10 },
+        (novaPosicao) => {
+          if (inscrito) {
+            setLocation(novaPosicao.coords);
+            atualizarEndereco(novaPosicao.coords);
+            enviarLocalizacaoAPI(novaPosicao.coords);
+          }
+        }
+      );
+    }
+
+    iniciarMonitoramento();
+    return () => {
+      inscrito = false;
+      if (subscription) subscription.remove();
+    };
+  }, [usuario]);
+
+  const atualizarEndereco = async (coords) => {
+    try {
+      const [res] = await Location.reverseGeocodeAsync({
+        latitude: coords.latitude,
+        longitude: coords.longitude
+      });
+
+      if (res) {
+        const rua = res.street || res.name || '';
+        const bairro = res.district || res.subregion || '';
+        setEndereco(rua && bairro ? `${rua}, ${bairro}` : rua || bairro || 'Endereço não encontrado');
+      }
+    } catch {
+      setEndereco('Endereço indisponível');
+    }
+  };
+
+  // POST /localizacao 
+  const enviarLocalizacaoAPI = async (coords) => {
+    if (!usuario?.id) return;
+    try {
+      await fetch(`${api}/localizacao`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id_usuaria: usuario.id, latitude: coords.latitude, longitude: coords.longitude }),
+      });
+    } catch {  }
+  };
+
+  // GET /pontos-rota 
+  const carregarPontosRota = useCallback(async () => {
+    setCarregandoLocais(true);
+    try {
+      const res  = await fetch(`${api}/pontos-rota`);
+      const json = await res.json();
+      setPontosRota(Array.isArray(json) ? json : []);
+    } catch { 
+      setPontosRota([]); 
+    } finally { 
+      setCarregandoLocais(false); 
+    }
+  }, []);
+
+  // GET /alertas
+  const carregarAlertas = useCallback(async () => {
+    if (!location) return;
+    try {
+      const res  = await fetch(`${api}/alertas?latitude=${location.latitude}&longitude=${location.longitude}&raio=5`);
+      const json = await res.json();
+      setAlertas(Array.isArray(json) ? json : []);
+    } catch { 
+      setAlertas([]); 
+    }
+  }, [location]);
 
   useEffect(() => {
-    (async () => {
-      // 1. Solicita permissão
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permissão de localização negada');
+    carregarPontosRota();
+    if (location) carregarAlertas();
+    const intervalo = setInterval(() => {
+      carregarPontosRota();
+      if (location) carregarAlertas();
+    }, 30000);
+    return () => clearInterval(intervalo);
+  }, [location, carregarPontosRota, carregarAlertas]);
+
+  // POST /salvarPesquisaEndereco 
+  const salvarPesquisa = async (texto) => {
+    if (!usuario?.id || !texto.trim()) return;
+    try {
+      await fetch(`${api}/salvarPesquisaEndereco`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id_usuaria: usuario.id, endereco: texto }),
+      });
+    } catch { }
+  };
+  // -------
+
+  // Filtra locais seguros conforme a usuária digita
+  const filtroPesquisa = (texto) => {
+    setPesquisa(texto);
+    if (!texto.trim()) {
+      setSugestoes([]);
+      return;
+    }
+    const busca = texto.toLowerCase().trim();
+    setSugestoes(
+      pontosRota.filter((p) => (p.nome     || '').toLowerCase().includes(busca) || (p.endereco || '').toLowerCase().includes(busca) || (p.tipo     || '').toLowerCase().includes(busca)));
+  };
+
+  // Toca numa sugestão
+  const selecionarSugestao = (ponto) => {
+    setPesquisa('');
+    setSugestoes([]);
+    const destLat = Number(ponto.latitude);
+    const destLng = Number(ponto.longitude);
+    if (isNaN(destLat) || isNaN(destLng)) {
+      Alert.alert("Erro", "Coordenadas do local são inválidas.");
+      return;
+    }
+    setEnderecoDestino(ponto.nome || ponto.endereco);
+    setCoordenadasDestino({ latitude: destLat, longitude: destLng });
+    setModal(true);
+
+    if (location) {
+      setDistanciaAtual(getDistance(
+        { latitude: location.latitude, longitude: location.longitude },
+        { latitude: destLat, longitude: destLng }
+      ));
+    }
+
+    mapRef.current?.animateToRegion({
+      latitude: destLat,
+      longitude: destLng,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    });
+    tracarRota(destLat, destLng);
+    salvarPesquisa(ponto.nome || ponto.endereco);
+  };
+
+  // Busca livre: qualquer endereço digitado
+  const buscarEndereco = async () => {
+    if (!pesquisa.trim()) return;
+    setBuscando(true);
+
+    try {
+      const pontoEncontrado = pontosRota.find((p) =>
+        (p.nome || '').toLowerCase().includes(pesquisa.toLowerCase().trim())
+      );
+      if (pontoEncontrado) {
+        selecionarSugestao(pontoEncontrado);
+        salvarPesquisa(pontoEncontrado.nome);
         return;
       }
 
-      // 2. Obtém a posição atual
-      let currentLocation = await Location.getCurrentPositionAsync({});
+      const resultados = await Location.geocodeAsync(`${pesquisa}, São Paulo, SP, Brasil`);
 
-      setLocation(currentLocation.coords);
+      if (resultados && resultados.length > 0) {
+        const { latitude: lat, longitude: lng } = resultados[0];
 
-      enviarLocalizacao(currentLocation.coords);
-    })();
-  }, []);
+        setEnderecoDestino(pesquisa);
+        setCoordenadasDestino({ latitude: lat, longitude: lng });
+        setModal(true);
 
+        if (location) {
+          setDistanciaAtual(getDistance(
+            { latitude: location.latitude, longitude: location.longitude },
+            { latitude: lat, longitude: lng }
+          ));
+        }
 
+        mapRef.current?.animateToRegion(
+          { latitude: lat, longitude: lng, latitudeDelta: 0.01, longitudeDelta: 0.01 }, 800
+        );
+        tracarRota(lat, lng);
+        salvarPesquisa(pesquisa);
+      } else {
+        Alert.alert('Nenhum resultado', 'Endereço não encontrado. Tente incluir o bairro.');
+      }
+    } catch {
+      Alert.alert('Erro', 'Falha ao buscar endereço. Verifique sua conexão.');
+    } finally {
+      setBuscando(false);
+    }
+  };
+  
+  const tracarRota = async (destLat, destLng) => {
+    if (!location) return;
+    const origLat = location.latitude;
+    const origLng = location.longitude;
+
+    try {
+      const url = `https://router.project-osrm.org/route/v1/foot/${origLng},${origLat};${destLng},${destLat}?overview=full&geometries=geojson`;
+      const res = await fetch(url);
+      const json = await res.json();
+
+      if (json.code === 'Ok' && json.routes?.length > 0) {
+        setRotaAtiva(json.routes[0].geometry.coordinates.map(([lng, lat]) => ({ latitude: lat, longitude: lng })));
+        } else {
+        setRotaAtiva([
+          { latitude: origLat, longitude: origLng }, 
+          { latitude: destLat, longitude: destLng }
+        ]);
+      }
+    } catch {
+      setRotaAtiva([
+        { latitude: origLat, longitude: origLng },
+        { latitude: destLat, longitude: destLng }
+      ]);
+    }
+  };
+
+  // Compartilhar localização 
+  const compartilharLocalizacao = async () => {
+    if (!location) { Alert.alert('Localização indisponível', 'Aguarde a localização ser obtida.'); return; }
+    setCompartilhando(true);
+    const { latitude, longitude } = location;
+    const mensagem = `🚨 Preciso de ajuda!\n📍 ${endereco}\n\nhttps://maps.google.com/?q=${latitude},${longitude}`;
+    try {
+      await Share.share({ message: mensagem });
+      await fetch(`${api}/localizacao`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id_usuaria: usuario?.id, latitude, longitude, compartilhado: true }),
+      });
+    } catch { } 
+    finally { 
+      setCompartilhando(false); 
+    }
+  };
+  // ---------
+
+  // Animação na navegação
+  const { width } = useWindowDimensions();
+  const [medidas, setMedidas] = useState({});
+  const [abaAtiva, setAbaAtiva] = useState(1);
+  const larguraAba = 60;
+  const posicaoX = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+      const medidaAtual = medidas[abaAtiva];
+
+      if (medidaAtual) {
+          const { x, width } = medidaAtual;
+
+          const destinoX = x + (width / 2) - (larguraAba / 2);
+
+          Animated.spring(posicaoX, {
+              toValue: destinoX,
+              useNativeDriver: true,
+              bounciness: 4,
+          }).start();
+      }
+  }, [abaAtiva, medidas]);
+
+  const abaLayout = (index, event) => {
+      const { x, width } = event.nativeEvent.layout;
+      setMedidas(prev => ({
+          ...prev, [index]: { x, width }
+      }));
+  };
+
+  const abas = [
+      { label: 'Home', rota: "Home", imagem: require('../../../assets/img/home.png'), index: 0 },
+      { label: 'Mapa', rota: "Mapa",  imagem: require('../../../assets/img/map.png'), index: 1 },
+      { label: 'Guardião', rota: "MeusGuardioes", imagem: require('../../../assets/img/angel.png'), index: 2 },
+      { label: 'Você', rota: "Perfil",  imagem: require('../../../assets/img/profile.png'), index: 3 }
+  ];
+  //----------
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
-
-        {/* MAPA AO FUNDO */}
-        <MapView
-          style={StyleSheet.absoluteFillObject}
-          region={
-            location
-              ? {
-                latitude: location.latitude,
-                longitude: location.longitude,
-                latitudeDelta: 0.01,
-                longitudeDelta: 0.01,
-              }
-              : {
-                latitude: -23.5505,
-                longitude: -46.6333,
-                latitudeDelta: 0.05,
-                longitudeDelta: 0.05,
-              }
-          }
-          showsUserLocation={false}
-        >
+        <View style={styles.content}>
+          <MapView
+            ref={mapRef}
+            style={StyleSheet.absoluteFillObject}
+            initialRegion={{
+              latitude: -23.5505,
+              longitude: -46.6333,
+              latitudeDelta: 0.05,
+              longitudeDelta: 0.05,
+            }}
+            showsUserLocation={false}
+          >
           {location && (
             <Marker
               coordinate={{
                 latitude: location.latitude,
                 longitude: location.longitude,
               }}
+              anchor={{ x: 0.5, y: 0.5 }}
             >
-              <Image
-                source={require('../../../assets/icones/local1.png')}
-                style={{ width: 30, height: 30 }}
-                resizeMode="contain"
+              <View style={styles.circle}>
+                {usuario?.foto ? (
+                  <Image
+                    source={{ uri: usuario.foto }}
+                    style={{ width: '100%', height: '100%' }}
+                  />
+                ) : (
+                  <Image
+                    source={require('../../../assets/img/icon.png')}
+                    style={{ width: '100%', height: '100%' }}
+                    resizeMode="contain"
+                  />
+                )}
+              </View>
+            </Marker>
+          )}
+          {rotaAtiva?.length > 0 && (
+            <Marker
+              key="destino"
+              coordinate={rotaAtiva[rotaAtiva.length - 1]}
+              title={enderecoDestino}
+            >
+              <Image 
+                source={require('../../../assets/img/map.png')}
+                style={{ width: 25, height: 25 }}
+                tintColor='#a262e6'
               />
             </Marker>
           )}
+          {pontosRota.map((ponto, index) => {
+            const pLat = Number(ponto.latitude);
+            const pLng = Number(ponto.longitude);
+            if (isNaN(pLat) || isNaN(pLng)) return null;
+            return (
+              <Marker
+                key={`ponto-${ponto.id ?? ponto.id_localSeguro ?? index}`}
+                coordinate={{ latitude: Number(ponto.latitude), longitude: Number(ponto.longitude) }}
+                title={ponto.nome}
+                description={ponto.endereco}
+                onCalloutPress={() => selecionarSugestao(ponto)}
+              >
+                <View style={[
+                  styles.pin,
+                  ponto.tipo === 'delegacia',
+                  ponto.tipo === 'saude',
+                  ponto.tipo === 'apoio',
+                  ponto.tipo === 'estacao',
+                  ponto.tipo === 'terminal',
+                  ponto.tipo === 'policia',
+                ]}>
+                  <Text style={{ fontSize: 14 }}>{ICONE_TIPO[ponto.tipo] || ICONE_TIPO.default}</Text>
+                </View>
+              </Marker>
+            );
+          })}
+            {/* {alertas.map((alerta) => {
+              const aLat = Number(alerta.latitude);
+              const aLng = Number(alerta.longitude);
+              if (isNaN(aLat) || isNaN(aLng)) return null;
+
+              return (
+                <Marker
+                  key={`alerta-${alerta.id}`}
+                  coordinate={{ latitude: aLat, longitude: aLng }}
+                  title={`⚠️ ${alerta.tipo_alerta || 'Alerta'}`}
+                  description={alerta.descricao}
+                  pinColor="#ff4444"
+                />
+              );
+            })} */}
+            {rotaAtiva && rotaAtiva.length > 0 && (
+              <Polyline coordinates={rotaAtiva} strokeColor="#a262e6" strokeWidth={4} lineDashPattern={[0]} />
+            )}
         </MapView>
 
-        {/* PAINEL DESLIZÁVEL (O BOTTOM SHEET) */}
-        <View>
-          <View style={styles.barraPesquisa}>
-            {/* O PUXADOR (A LINHA) */}
-            <View style={styles.viewPuxador}>
+        {modal && (
+          <View style={styles.modalContainer}>
+          <View style={styles.modalTopo}>
+            <View style={styles.left}>
+              <View style={styles.rowM}>
+                <Image 
+                  source={require('../../../assets/img/alert.png')}
+                  style={{ width: 22, height: 22 }}
+                  tintColor='#bbb'
+                />
+                <Text style={styles.text}>Sua localização atual</Text>
+              </View>
+              <View style={styles.linha}/>
+              <View style={styles.rowM}>
+                <Image 
+                  source={require('../../../assets/img/pin.png')}
+                  style={{ width: 22, height: 22 }}
+                  tintColor='#9539ff'
+                />
+                <Text style={styles.endereço} numberOfLines={2}>{enderecoDestino}</Text>
+              </View>
+              <View style={styles.footer}>
+                <Text style={styles.km}>Distância de </Text>
+                {distanciaAtual !== null && (
+                <Text style={styles.km}>
+                  {distanciaAtual >= 1000 ? `${(distanciaAtual / 1000).toFixed(1)} km` : `${distanciaAtual} metros`}
+                </Text>
+              )}
+              </View>
+            </View>
+              <Pressable style={styles.right} onPress={() => { setModal(false); setRotaAtiva(null); setDistanciaAtual(null); }}>
+                <Image 
+                  source={require('../../../assets/img/add.png')}
+                  style={{ width: 20, height: 20, transform: [{ rotate: '45deg' }] }}
+                  tintColor='#505050'
+                />
+              </Pressable>
+          </View>
+        </View>
+        )}
+        <PanGestureHandler
+          onGestureEvent={gesto}
+          onHandlerStateChange={estadoPainel}
+          enabled={!scrollAtivo}
+        >
+          <Animated.View style={[styles.painel, { transform: [{ translateY: posicaoY }]}]}>
+            <View style={{ width: '100%', alignItems: 'center' }} onTouchStart={() => setScrollAtivo(false)}>
               <View style={styles.puxador} />
             </View>
 
-            {/* CONTEÚDO DO PAINEL */}
-            <View style={styles.viewPesquisa}>
-              <TextInput
-                placeholder='Pesquise no mapa'
-                style={styles.pesquisa}
-              />
-            </View>
-
-            {/* Adicione mais coisas aqui para aparecerem quando subir */}
-            <View style={{ marginTop: 30 }}>
-              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-                Sugestões
-              </Text>
-              {/* Lista de locais, etc */}
-            </View>
-
-          </View>
+            <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}
+              ref={ScrollViewRef}
+              onScroll={(event) => {
+                const y = event.nativeEvent.contentOffset.y;
+                if (y <= 0) {
+                  setScrollAtivo(false);
+                } else {
+                  setScrollAtivo(true);
+                }
+              }}
+              scrollEventThrottle={16}
+            >
+              <View style={styles.row}>
+                <View style={styles.inputContainer}>
+                  <Image source={require('../../../assets/img/lupa.png')}
+                    style={{ width: 22, height: 22 }}
+                    tintColor='#ddd'
+                  />
+                  <TextInput 
+                    style={styles.input}
+                    placeholder='Procurar no mapa'
+                    placeholderTextColor='#ccc'
+                    value={pesquisa}
+                    onChangeText={filtroPesquisa}
+                    onSubmitEditing={buscarEndereco}
+                    returnKeyType="search"
+                  />
+                  {pesquisa.length > 0 && (
+                    <Pressable style={styles.btnSearch} onPress={buscarEndereco}>
+                      <Image source={require('../../../assets/img/send.png')} style={{ width: 15, height: 15 }} tintColor="#fff" />
+                    </Pressable>
+                  )}
+                </View>
+                <View style={styles.photoUpload}>
+                  <View style={styles.upload}>
+                      {usuario?.foto ? (
+                        <Image
+                            source={{ uri: usuario.foto }}
+                            style={{ width: '100%', height: '100%' }} 
+                        />
+                      ) : (
+                        <Image 
+                            source={require('../../../assets/img/icon.png')} 
+                            style={{ width: '100%', height: '100%' }} 
+                            resizeMode='contain' 
+                        />
+                      )}
+                  </View>          
+                </View>
+              </View>
+              <View style={styles.contentPainel} onTouchStart={() => setScrollAtivo(true)}>
+                {pesquisa.trim().length > 0 && ( 
+                  <View style={styles.lista}>
+                    {sugestoes.length > 0 ? (
+                      sugestoes.map((item, index)=>(
+                        <Pressable key={`sugestao-${item.id ?? item.id_localSeguro ?? index}`} style={styles.card} onPress={() => selecionarSugestao(item)} >
+                          <Text style={styles.nomeLocal}>
+                            {ICONE_TIPO[item.tipo] || ICONE_TIPO.default} {item.nome}
+                          </Text>
+                          <Text style={{ fontSize: 14, fontWeight: '400', color: '#808080' }}>{item.endereco}</Text>
+                        </Pressable>
+                      ))
+                    ) : (
+                      <Text style={{ fontSize: 14, fontWeight: '400', color: '#808080' }}>Nenhum local encontrado</Text>
+                    )}
+                  </View>
+                )}
+                <View style={styles.compartilhar}>
+                  <Text style={styles.subtitulo}>Deseja compartilhar sua localização atual?</Text>
+                  <Pressable 
+                    style={styles.button}
+                    onPress={compartilharLocalizacao}
+                    disabled={compartilhando}
+                  >
+                    <Text style={styles.txWhite}>{compartilhando ? 'Compartilhando...' : 'Compartilhar'}</Text>
+                    <Image source={require('../../../assets/img/share_1.png')}
+                      style={{ width: 14, height: 14 }}
+                      tintColor='#fff'
+                    />
+                  </Pressable>
+                </View>
+              </View>
+            </ScrollView>
+          </Animated.View>
+        </PanGestureHandler>
         </View>
-
-        <BottomNav abaAtivaInicial={1} />
-
+        <View style={styles.navegacao}>
+          <Animated.View 
+              style={[styles.line, 
+                  { width: larguraAba, transform: [{ translateX: posicaoX }]}
+              ]}
+          />
+          {abas.map((aba) => (
+              <Pressable 
+                  key={aba.index}
+                  style={styles.buttonNav}
+                  onPress={() => {
+                      setAbaAtiva(aba.index);
+                  
+                      if (aba.rota) {
+                      navigation.navigate(aba.rota);
+                      }
+                  }}               
+                  onLayout={(event) => abaLayout(aba.index, event)}
+              >
+                  <Image source={aba.imagem}
+                      style={{ width: 22, height: 22 }}
+                      tintColor={abaAtiva === aba.index ? '#ff80aa' : '#fff'}
+                      resizeMode='contain'
+                  />
+                  <Text style={[styles.textNav, abaAtiva === aba.index && { color: '#ff80aa'}]}>{aba.label}</Text>
+              </Pressable>
+          ))}
+        </View>
       </View>
     </GestureHandlerRootView>
   );
+}
 }

@@ -1,115 +1,77 @@
-import { StatusBar } from 'expo-status-bar';
-import { View, Image, ScrollView, Text, Pressable, SafeAreaView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import styles from './styles';
-import BottomNavGuardiao from '../../components/BottomNavGuardiao';
+import React, { useState, useRef } from "react";
+import {
+  View, Text, TextInput, Pressable, Image,
+  FlatList, KeyboardAvoidingView, Platform
+} from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import styles from "./styles";
 
+const mensagensIniciais = [
+  { id: '1', texto: 'Oi! Tudo bem com você?', meu: false },
+  { id: '2', texto: 'Sim! Estou bem, obrigada por perguntar 😊', meu: true },
+  { id: '3', texto: 'Qualquer coisa me chama, tô aqui!', meu: false },
+];
 
 export default function ChatGuardiao() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { nome } = route.params || { nome: 'Guardião' };
+  const [mensagens, setMensagens] = useState(mensagensIniciais);
+  const [texto, setTexto] = useState('');
+  const flatListRef = useRef(null);
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar style="dark" />
-            
-            <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
-                <View style={styles.content}>
-                    
-                    {/* Cabeçalho: Botão Voltar + Título */}
-                    <View style={styles.headerContainer}>
-                            <Text style={styles.headerTitle}>Chat</Text>
-                    </View>
+  const enviar = () => {
+    if (!texto.trim()) return;
+    setMensagens(prev => [...prev, { id: Date.now().toString(), texto, meu: true }]);
+    setTexto('');
+    setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 100);
+  };
 
-                    {/* Card 1: Sara Santos */}
-                    <Pressable 
-                        style={styles.chatCard}
-                        onPress={() => navigation.navigate('MensagensGuardiao', { usuario: 'Sara Santos' })}
-                    >
-                        <View style={styles.avatarPlaceholder}>
-                            <Image 
-                                source={require('../../../assets/imgHomeGuardiao/meuPerfil.png')} 
-                                style={styles.avatarImage} 
-                                tintColor="#CCCCCC"
-                            />
-                        </View>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.userName}>Sara Santos</Text>
-                            <Text style={styles.lastMessage} numberOfLines={1}>
-                                Você vai vir me buscar hoje????
-                            </Text>
-                        </View>
-                        <Text style={styles.statusText}>1min</Text>
-                    </Pressable>
+  return (
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+      <View style={styles.header}>
+        <Pressable onPress={() => navigation.goBack()} style={styles.btnVoltar}>
+          <Image
+            source={require('../../../assets/img/arrow_2.png')}
+            style={{ width: 20, height: 20 }}
+            tintColor='#333'
+          />
+        </Pressable>
+        <View style={styles.avatar} />
+        <Text style={styles.headerNome}>{nome}</Text>
+        <Text style={styles.dots}>•••</Text>
+      </View>
 
-                    {/* Card 2: Karine Almeida */}
-                    <Pressable 
-                        style={styles.chatCard}
-                        onPress={() => navigation.navigate('MensagensGuardiao', { usuario: 'Karine Almeida' })}
-                    >
-                        <View style={styles.avatarPlaceholder}>
-                            <Image 
-                                source={require('../../../assets/imgHomeGuardiao/meuPerfil.png')} 
-                                style={styles.avatarImage} 
-                                tintColor="#CCCCCC"
-                            />
-                        </View>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.userName}>Karine Almeida</Text>
-                            <Text style={styles.lastMessage} numberOfLines={1}>
-                                Não quero ir sozinha :((
-                            </Text>
-                        </View>
-                        <Text style={styles.statusText}>visto</Text>
-                    </Pressable>
+      <FlatList
+        ref={flatListRef}
+        data={mensagens}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.lista}
+        renderItem={({ item }) => (
+          <View style={[styles.bolha, item.meu ? styles.bolhaMinha : styles.bolhaDele]}>
+            <Text style={[styles.textoBolha, item.meu && styles.textoBolhaMinha]}>
+              {item.texto}
+            </Text>
+          </View>
+        )}
+      />
 
-                    {/* Card 3: Luiza Karoline */}
-                    <Pressable 
-                        style={styles.chatCard}
-                        onPress={() => navigation.navigate('MensagensGuardiao', { usuario: 'Luiza Karoline' })}
-                    >
-                        <View style={styles.avatarPlaceholder}>
-                            <Image 
-                                source={require('../../../assets/imgHomeGuardiao/meuPerfil.png')} 
-                                style={styles.avatarImage} 
-                                tintColor="#CCCCCC"
-                            />
-                        </View>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.userName}>Luiza Karoline</Text>
-                            <Text style={styles.lastMessage} numberOfLines={1}>
-                                Cheguei na estação!
-                            </Text>
-                        </View>
-                        <Text style={styles.statusText}>visto</Text>
-                    </Pressable>
-
-                    {/* Card 4: Emilly Farias */}
-                    <Pressable 
-                        style={styles.chatCard}
-                        onPress={() => navigation.navigate('MensagensGuardiao', { usuario: 'Emilly Farias' })}
-                    >
-                        <View style={styles.avatarPlaceholder}>
-                            <Image 
-                                source={require('../../../assets/imgHomeGuardiao/meuPerfil.png')} 
-                                style={styles.avatarImage} 
-                                tintColor="#CCCCCC"
-                            />
-                        </View>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.userName}>Emilly Farias</Text>
-                            <Text style={styles.lastMessage} numberOfLines={1}>
-                                Compartilhe minha Rota com...
-                            </Text>
-                        </View>
-                        <Text style={styles.statusText}>1min</Text>
-                    </Pressable>
-
-                </View>
-            </ScrollView>
-
-      <BottomNavGuardiao abaAtivaInicial={1} />
-
-            
-        </SafeAreaView>
-    );
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          value={texto}
+          onChangeText={setTexto}
+          placeholder="Digite uma mensagem..."
+          placeholderTextColor="#aaa"
+          onSubmitEditing={enviar}
+        />
+        <Pressable style={styles.btnEnviar} onPress={enviar}>
+          <Text style={styles.setaEnviar}>↑</Text>
+        </Pressable>
+      </View>
+    </KeyboardAvoidingView>
+  );
 }

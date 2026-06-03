@@ -37,9 +37,9 @@ export default function Passo1() {
           onPress={() => navigation.navigate("Welcome")}
         >
           <Image
-            source={require("../../../assets/img/arrow.png")}
-            style={{ width: 25, height: 25 }}
-            tintColor="#aaa"
+            source={require("../../../assets/img/arrow_2.png")}
+            style={{ width: 20, height: 20 }}
+            tintColor="#ccc"
             resizeMode="contain"
           />
         </Pressable>

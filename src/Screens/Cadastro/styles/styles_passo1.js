@@ -12,6 +12,7 @@ export default StyleSheet.create({
 
   header: {
     width: '100%',
+    height: 80,
     alignItems: 'center',
     flexDirection: 'row',
   },
@@ -19,7 +20,7 @@ export default StyleSheet.create({
   barra: {
     flex: 1,
     height: 8,
-    backgroundColor: '#e7e7e7',
+    backgroundColor: '#ececec',
     borderRadius: 10,
     overflow: 'hidden',
     marginHorizontal: '16%'
@@ -32,12 +33,11 @@ export default StyleSheet.create({
     borderRadius: 4
   },
 
-  btnExit: {
-    width: 30,
-    height: 30,
+  content: {
+    flex: 1,
+    width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 30,
+    justifyContent: 'space-around'
   },
 
   logo: {
@@ -47,8 +47,8 @@ export default StyleSheet.create({
   },
 
   titulo:{
-    color: '#6925b8',
-    fontSize: 28,
+    color: '#3f0088',
+    fontSize: 22,
     fontWeight: '500',
   },
 
@@ -74,7 +74,7 @@ export default StyleSheet.create({
   },
 
   cardSelecionado: {
-    backgroundColor: '#F6ECFF',
+    backgroundColor: '#f6ecffbb',
     borderColor: '#c28ffd'
   },
 
@@ -85,15 +85,15 @@ export default StyleSheet.create({
   },
 
   tipo: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: '500',
     letterSpacing: 0.5,
-    color: '#7f27e4', 
+    color: '#606060', 
   },
 
   desc: {
-    fontSize: 16,
-    color: '#545454',
+    fontSize: 14,
+    color: '#808080',
     marginBottom: 5,
     marginTop: 4,
     paddingRight: 15,
@@ -104,13 +104,13 @@ export default StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 200,  
+    marginVertical: '10%',
   },
 
   btnPurple: {
     backgroundColor: '#6925b8', 
-    width: '80%',
-    height: 55,
+    width: '90%',
+    height: 50,
     borderRadius: 35, 
     justifyContent: 'center',
     alignItems: 'center',
@@ -118,8 +118,8 @@ export default StyleSheet.create({
 
   txWhite: {
     color: '#FFFFFF',
-    fontSize: 22,
-    fontWeight: '500',
+    fontSize: 18,
+    fontWeight: '400',
   },
   
 });

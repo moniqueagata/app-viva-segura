@@ -21,7 +21,6 @@
     const navigation = useNavigation();
 
     
-
     //pegar dados da usuaria
     const [usuario, setUsuario] = useState(null);
 
@@ -37,38 +36,44 @@
       carregarUsuario();
     }, []);
 
+    // Logout -> Sair da conta
+    const fazerLogout = async () => {
+        await AsyncStorage.removeItem("user");
+
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Login' }],
+        });
+    };
 
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
           <View style={styles.content}>
-            
             <View style={styles.profile}>
               <View style={styles.photoUpload}>
-                
                <View style={styles.upload}>
-  <Image
-    source={
-      usuario?.foto
-        ? { uri: usuario.foto }
-        : require("../../../assets/imgHomeGuardiao/perfil.png")
-    }
-    style={{
-      width: "100%",
-      height: "100%",
-      borderRadius: 999,
-    }}
-    resizeMode="cover"
-  />
-</View>
-
+                  {usuario?.foto ? (
+                      <Image
+                          source={{ uri: usuario.foto }}
+                          style={{ width: '100%', height: '100%', borderRadius: 75 }} 
+                      />
+                  ) : (
+                      <Image 
+                          source={require('../../../assets/img/icon2.png')} 
+                          style={{ width: '100%', height: '100%' }} 
+                          resizeMode='contain' 
+                      />
+                  )}
+                  </View>
               </View>
 
-              <Text style={styles.nome}>{usuario?.nome || "Nome"}</Text>
-
-              <Text style={styles.id}>
-                  Código: {usuario?.codigo_convite || "----"}
-              </Text>
+              <View style={styles.text}>
+                <Text style={styles.nome}>{usuario?.nome || "Nome"}</Text>
+                <Text style={styles.id}>
+                    Código: {usuario?.codigo_convite || "----"}
+                </Text>
+              </View>
 
               <Pressable
                 style={styles.buttonEdit}
@@ -79,98 +84,85 @@
             </View>
 
             <View style={styles.settings}>
-              <Text style={styles.sessions}>Preferências</Text>
-              <Pressable
-                style={styles.button}
-                onPress={() => navigation.navigate("Notificacoes")}
-              >
-                <View style={styles.grid}>
-                  <View style={styles.circle}>
-                    <Image
-                      source={require("../../../assets/img/sino.png")}
-                      style={{ width: 23, height: 23 }}
-                      tintColor="#4B0082"
-                      resizeMode="contain"
-                    />
-                  </View>
-                  <Text style={styles.textButton}>Notificações</Text>
+                    <Text style={styles.sessions}>Preferências</Text>
+                    <View style={styles.gridButtons}>
+                        <Pressable style={styles.button} onPress={() => navigation.navigate('Notificacoes')}>
+                            <View style={styles.grid}>
+                                <View style={styles.circle}>
+                                    <Image source={require('../../../assets/img/sino.png')}
+                                        style={{ width: 20, height: 20 }}
+                                        tintColor='#808080'  
+                                        resizeMode='contain'
+                                    />
+                                </View>
+                                <Text style={styles.textButton}>Notificações</Text>
+                            </View>
+                            <Image source={require('../../../assets/img/arrow_2.png')}
+                                style={{ width: 14, height: 14, transform: [{ scaleX: -1 }] }}
+                                tintColor='#ccc'  
+                            />
+                        </Pressable>
+                        <Pressable style={styles.button}>
+                            <View style={styles.grid}>
+                                <View style={styles.circle}>
+                                    <Image source={require('../../../assets/img/password.png')}
+                                        style={{ width: 20, height: 20 }}
+                                        tintColor='#808080'  
+                                        resizeMode='contain'
+                                    />
+                                </View>
+                                <Text style={styles.textButton}>Alterar senha</Text>
+                            </View>
+                            <Image source={require('../../../assets/img/arrow_2.png')}
+                                style={{ width: 14, height: 14, transform: [{ scaleX: -1 }] }}
+                                tintColor='#ccc'  
+                            />
+                        </Pressable>
+                    </View>
+
+                    <Text style={styles.sessions}>Suporte</Text>
+                    <View style={styles.gridButtons}>
+                        <Pressable style={styles.button} onPress={() => navigation.navigate('Central')}>
+                            <View style={styles.grid}>
+                                <View style={styles.circle}>
+                                    <Image source={require('../../../assets/img/helpcenter.png')}
+                                        style={{ width: 20, height: 20 }}
+                                        tintColor='#808080'  
+                                        resizeMode='contain'
+                                    />
+                                </View>
+                                <Text style={styles.textButton}>Central de ajuda</Text>
+                            </View>
+                            <Image source={require('../../../assets/img/arrow_2.png')}
+                                style={{ width: 14, height: 14, transform: [{ scaleX: -1 }] }}
+                                tintColor='#ccc'  
+                            />
+                        </Pressable>
+                        <Pressable style={styles.button}>
+                            <View style={styles.grid}>
+                                <View style={styles.circle}>
+                                    <Image source={require('../../../assets/img/terms.png')}
+                                        style={{ width: 20, height: 20 }}
+                                        tintColor='#808080'  
+                                        resizeMode='contain'
+                                    />
+                                </View>
+                                <Text style={styles.textButton}>Termos</Text>
+                            </View>
+                            <Image source={require('../../../assets/img/arrow_2.png')}
+                                style={{ width: 14, height: 14, transform: [{ scaleX: -1 }] }}
+                                tintColor='#ccc'  
+                            />
+                        </Pressable>
+                    </View>
+
+                    <View style={styles.logout}>
+                        <Pressable style={styles.buttonLogout} onPress={fazerLogout}>
+                            <Text style={styles.textRed}>Sair da conta</Text>
+                        </Pressable>
+                    </View>
+
                 </View>
-                <Image
-                  source={require("../../../assets/img/arrow_2.png")}
-                  style={{ width: 15, height: 15,  transform: [{ scaleX: -1 }] }}
-                  tintColor="#4B0082"               
-                  />
-              </Pressable>
-
-              
-              <Text style={styles.sessions}>Suporte</Text>
-              <View style={styles.gridButtons}>
-                <Pressable style={styles.button}>
-                  <View style={styles.grid}>
-                    <View style={styles.circle}>
-                      <Image
-                        source={require("../../../assets/img/password.png")}
-                        style={{ width: 23, height: 23 }}
-                        tintColor="#4B0082"
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <Text style={styles.textButton}>Alterar senha</Text>
-                  </View>
-                  <Image
-                    source={require("../../../assets/img/arrow_2.png")}
-                    style={{ width: 15, height: 15, transform: [{ scaleX: -1 }] }}
-                    tintColor="#4B0082"
-                  />
-                </Pressable>
-                <Pressable
-                  style={styles.button}
-                  onPress={() => navigation.navigate("Central")}
-                >
-                  <View style={styles.grid}>
-                    <View style={styles.circle}>
-                      <Image
-                        source={require("../../../assets/img/helpcenter.png")}
-                        style={{ width: 23, height: 23 }}
-                        tintColor="#4B0082"
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <Text style={styles.textButton}>Central de ajuda</Text>
-                  </View>
-                  <Image
-                    source={require("../../../assets/img/arrow_2.png")}
-                    style={{ width: 15, height: 15, transform: [{ scaleX: -1 }] }}
-                    tintColor="#4B0082"
-                  />
-                </Pressable>
-                <Pressable style={styles.button}>
-                  <View style={styles.grid}>
-                    <View style={styles.circle}>
-                      <Image
-                        source={require("../../../assets/img/terms.png")}
-                        style={{ width: 23, height: 23 }}
-                        tintColor="#4B0082"
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <Text style={styles.textButton}>Termos</Text>
-                  </View>
-                  <Image
-                    source={require("../../../assets/img/arrow_2.png")}
-                    style={{ width: 15, height: 15, transform: [{ scaleX: -1 }] }}
-                    tintColor="#4B0082"
-                  />
-                </Pressable>
-              </View>
-
-              <View style={styles.logout}>
-                <Pressable style={styles.buttonLogout} 
-                  onPress={() => navigation.navigate("Welcome")}>
-                  <Text style={styles.textRed}>Sair da conta</Text>
-                </Pressable>
-              </View>
-            </View>
           </View>
         </ScrollView>
 

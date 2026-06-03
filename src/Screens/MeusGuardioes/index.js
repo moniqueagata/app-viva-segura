@@ -48,6 +48,8 @@ export default function MeusGuardioes() {
       setLoading(true);
 
       const response = await api.get(`/guardioes/${idUsuario}`);
+          console.log(response.data);
+
 
       setGuardioes(response.data);
 
@@ -167,9 +169,14 @@ export default function MeusGuardioes() {
 
                 <View style={styles.cardAcoes}>
 
-                  <Pressable style={styles.btnChat}
-                    onPress={() => navigation.navigate('ChatGuardiao',
-                      { nomeGuardiaoCadastroCodigo: g.nomeGuardiaoCadastroCodigo })} >
+                  <Pressable
+                    style={styles.btnChat}
+                    onPress={() =>
+                      navigation.navigate('Mensagens', {
+                        origem: 'MeusGuardioes',
+                      })
+                    }
+                  >
 
                     <Text style={styles.btnChatText}>
                       chat

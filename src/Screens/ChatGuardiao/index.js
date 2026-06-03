@@ -4,113 +4,95 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import BottomNavGuardiao from '../../components/BottomNavGuardiao';
 
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 export default function ChatGuardiao() {
     const navigation = useNavigation();
 
+    const [usuarios, setUsuarios] = useState([]);
+
+    useEffect(() => {
+        const carregarUsuarios = async () => {
+            const user = await AsyncStorage.getItem("user");
+
+            if (user) {
+                const usuarioConvertido = JSON.parse(user);
+
+                const idGuardiao = usuarioConvertido.id_usuaria;
+
+                fetch(`http://192.168.0.60:8000/api/guardiao/home/${idGuardiao}`)
+                    .then((res) => res.json())
+                    .then((json) => {
+                        setUsuarios(json.data);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+        };
+
+        carregarUsuarios();
+    }, []);
+
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar style="dark" />
-            
+
             <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
                 <View style={styles.content}>
-                    
+
                     {/* Cabeçalho: Botão Voltar + Título */}
                     <View style={styles.headerContainer}>
-                            <Text style={styles.headerTitle}>Chat</Text>
-                            <Text style={styles.subtitle}>Acompanhe e responda as usuárias em tempo real</Text>
+                        <Text style={styles.headerTitle}>Chat</Text>
+                        <Text style={styles.subtitle}>Clique no card para conversar com a sua usuária protegida! </Text>
                     </View>
 
-                    {/* Card 1: Sara Santos */}
-                    <Pressable 
-                        style={styles.chatCard}
-                        onPress={() => navigation.navigate('MensagensGuardiao', { usuario: 'Sara Santos' })}
-                    >
-                        <View style={styles.avatarPlaceholder}>
-                            <Image 
-                                source={require('../../../assets/imgHomeGuardiao/meuPerfil.png')} 
-                                style={styles.avatarImage} 
-                                tintColor="#CCCCCC"
-                            />
-                        </View>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.userName}>Sara Santos</Text>
-                            <Text style={styles.lastMessage} numberOfLines={1}>
-                                Você vai vir me buscar hoje????
-                            </Text>
-                        </View>
-                        <Text style={styles.statusText}>1min</Text>
-                    </Pressable>
 
-                    {/* Card 2: Karine Almeida */}
-                    <Pressable 
-                        style={styles.chatCard}
-                        onPress={() => navigation.navigate('MensagensGuardiao', { usuario: 'Karine Almeida' })}
-                    >
-                        <View style={styles.avatarPlaceholder}>
-                            <Image 
-                                source={require('../../../assets/imgHomeGuardiao/meuPerfil.png')} 
-                                style={styles.avatarImage} 
-                                tintColor="#CCCCCC"
-                            />
-                        </View>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.userName}>Karine Almeida</Text>
-                            <Text style={styles.lastMessage} numberOfLines={1}>
-                                Não quero ir sozinha :((
-                            </Text>
-                        </View>
-                        <Text style={styles.statusText}>visto</Text>
-                    </Pressable>
+                    {usuarios.map((item) => (
+                        <Pressable
+                            key={item.id}
+                            style={styles.chatCard}
+                            onPress={() =>
+                                navigation.navigate("Mensagens", {
+                                    origem: "ChatGuardiao",
+                                    Usuario: item.usuaria.nome,
+                                    idDestinatario: item.usuaria.id_usuaria,
+                                })
+                            }
+                        >
+                            <View style={styles.avatarPlaceholder}>
+                                <Image
+                                    source={
+                                        item.usuaria?.foto
+                                            ? { uri: item.usuaria.foto }
+                                            : require("../../../assets/imgHomeGuardiao/meuPerfil.png")
+                                    }
+                                    style={styles.avatarImage}
+                                />
+                            </View>
 
-                    {/* Card 3: Luiza Karoline */}
-                    <Pressable 
-                        style={styles.chatCard}
-                        onPress={() => navigation.navigate('MensagensGuardiao', { usuario: 'Luiza Karoline' })}
-                    >
-                        <View style={styles.avatarPlaceholder}>
-                            <Image 
-                                source={require('../../../assets/imgHomeGuardiao/meuPerfil.png')} 
-                                style={styles.avatarImage} 
-                                tintColor="#CCCCCC"
-                            />
-                        </View>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.userName}>Luiza Karoline</Text>
-                            <Text style={styles.lastMessage} numberOfLines={1}>
-                                Cheguei na estação!
-                            </Text>
-                        </View>
-                        <Text style={styles.statusText}>visto</Text>
-                    </Pressable>
+                            <View style={styles.textContainer}>
+                                <Text style={styles.userName}>
+                                    {item.usuaria.nome}
+                                </Text>
 
-                    {/* Card 4: Emilly Farias */}
-                    <Pressable 
-                        style={styles.chatCard}
-                        onPress={() => navigation.navigate('MensagensGuardiao', { usuario: 'Emilly Farias' })}
-                    >
-                        <View style={styles.avatarPlaceholder}>
-                            <Image 
-                                source={require('../../../assets/imgHomeGuardiao/meuPerfil.png')} 
-                                style={styles.avatarImage} 
-                                tintColor="#CCCCCC"
-                            />
-                        </View>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.userName}>Emilly Farias</Text>
-                            <Text style={styles.lastMessage} numberOfLines={1}>
-                                Compartilhe minha Rota com...
-                            </Text>
-                        </View>
-                        <Text style={styles.statusText}>1min</Text>
-                    </Pressable>
+                                <Text style={styles.lastMessage} numberOfLines={1}>
+                                    Conversar com {item.usuaria.nome}
 
+                                </Text>
+                            </View>
+
+                            <Text style={styles.statusText}>Chat</Text>
+                        </Pressable>
+                    ))}
                 </View>
             </ScrollView>
 
-      <BottomNavGuardiao abaAtivaInicial={1} />
+            <BottomNavGuardiao abaAtivaInicial={1} />
 
-            
+
         </SafeAreaView>
     );
 }

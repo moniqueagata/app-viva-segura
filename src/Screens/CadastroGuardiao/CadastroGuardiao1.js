@@ -52,10 +52,10 @@ export default function CadastroGuardiao1() {
     >
         
               <View style={styles.header}>
-        <Pressable style={styles.btnExit} onPress={() => navigation.navigate('Passo1')}>
-          <Image source={require('../../../assets/imgGuardiao/arrow_1.png')} 
-            style={{ width: 25, height: 25 }}
-            tintColor='#aaa'
+        <Pressable onPress={() => navigation.navigate('Passo1')}>
+          <Image source={require('../../../assets/imgGuardiao/arrow_2.png')} 
+            style={{ width: 20, height: 20 }}
+            tintColor='#ccc'
             resizeMode='contain' 
           />
         </Pressable>
@@ -77,39 +77,34 @@ export default function CadastroGuardiao1() {
           />
         </View>
 
-        <View style={styles.texts}>
-          <Text style={styles.titulo}>Vamos começar!</Text>
-         
-        </View>
+        <Text style={styles.subtitulo}>
+          Preencha as informações que estão abaixo
+        </Text>
 
         <View style={styles.inputsContainer}>
           <PaperInput
-            label={<Text style={{ fontSize: 19, letterSpacing: 0.4 }}>Nome</Text>}
+            label={<Text style={{ fontSize: 15, letterSpacing: 0.4 }}>Nome</Text>}
             mode='outlined'
-            style={{ backgroundColor: '#fff', height: 57, width: '90%' }}
+            style={{ backgroundColor: '#fff', height: 50, width: '95%' }}
             outlineColor='#ddd'        
-            activeOutlineColor='#6925b8' 
+            activeOutlineColor='#3fc8b3' 
             outlineStyle={{ borderRadius: 15 }}
-            theme={{ colors: { primary: '#6925b8', onSurfaceVariant: '#ccc' } }} 
+            theme={{ colors: { primary: '#3fc8b3', onSurfaceVariant: '#ccc' } }} 
             value={nome}
             onChangeText={setNome}
             autoCapitalize='words'
             maxLength={80}
           />
 
-         
-
-         
-
           <PaperInput
-            label={<Text style={{ fontSize: 19, letterSpacing: 0.4 }}>Telefone</Text>}
+            label={<Text style={{ fontSize: 15, letterSpacing: 0.4 }}>Telefone</Text>}
             mode='outlined'
-            style={{ backgroundColor: '#fff', height: 57, width: '90%' }}
+            style={{ backgroundColor: '#fff', height: 50, width: '95%' }}
             left={<PaperInput.Affix text="+55" />}
             outlineColor='#ddd'        
-            activeOutlineColor='#6925b8' 
+            activeOutlineColor='#3fc8b3' 
             outlineStyle={{ borderRadius: 15 }}
-            theme={{ colors: { primary: '#6925b8', onSurfaceVariant: '#ccc' } }} 
+            theme={{ colors: { primary: '#3fc8b3', onSurfaceVariant: '#ccc' } }} 
             value={telefone}
             onChangeText={setTelefone}
             keyboardType='phone-pad'
@@ -117,13 +112,13 @@ export default function CadastroGuardiao1() {
           />
 
           <PaperInput
-            label={<Text style={{ fontSize: 19, letterSpacing: 0.4 }}>E-mail</Text>}
+            label={<Text style={{ fontSize: 15, letterSpacing: 0.4 }}>E-mail</Text>}
             mode='outlined'
-            style={{ backgroundColor: '#fff', height: 57, width: '90%' }}
+            style={{ backgroundColor: '#fff', height: 50, width: '95%' }}
             outlineColor='#ddd'        
-            activeOutlineColor='#6925b8' 
+            activeOutlineColor='#3fc8b3' 
             outlineStyle={{ borderRadius: 15 }}
-            theme={{ colors: { primary: '#6925b8', onSurfaceVariant: '#ccc' } }} 
+            theme={{ colors: { primary: '#3fc8b3', onSurfaceVariant: '#ccc' } }} 
             value={email}
             onChangeText={setEmail}
             keyboardType='email-address'
@@ -131,13 +126,13 @@ export default function CadastroGuardiao1() {
             maxLength={100}
           />  
            <PaperInput
-            label={<Text style={{ fontSize: 19, letterSpacing: 0.4 }}>Codigo Usuária</Text>}
+            label={<Text style={{ fontSize: 15, letterSpacing: 0.4 }}>Codigo Usuária</Text>}
             mode='outlined'
-            style={{ backgroundColor: '#fff', height: 57, width: '90%' }}
+            style={{ backgroundColor: '#fff', height: 50, width: '95%' }}
             outlineColor='#ddd'        
-            activeOutlineColor='#6925b8' 
+            activeOutlineColor='#3fc8b3' 
             outlineStyle={{ borderRadius: 15 }}
-            theme={{ colors: { primary: '#6925b8', onSurfaceVariant: '#ccc' } }} 
+            theme={{ colors: { primary: '#3fc8b3', onSurfaceVariant: '#ccc' } }} 
             value={codUsu}
             onChangeText={setCodUsu}
             keyboardType='number'
@@ -149,7 +144,7 @@ export default function CadastroGuardiao1() {
         <View style={styles.buttonContainer}>
           <Pressable style={[styles.btnPurple, !formularioValido && {opacity: 0.5}]}
             onPress={() => { 
-              navigation.navigate('CadastroGuardiao2', {nome,telefone, email, codUsu});
+              navigation.navigate('CadastroGuardiao2', {nome, telefone, email, codUsu});
           }}>
             <Text style={styles.txWhite}>Continuar</Text>
           </Pressable>

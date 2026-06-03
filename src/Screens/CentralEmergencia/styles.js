@@ -7,18 +7,18 @@ export default StyleSheet.create({
   },
 
   title: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: "bold",
-    marginTop: 20,
+    marginTop: 25,
     marginLeft: 16,
     color: "#6c27a8",
   },
 
   subtitle: {
-    fontSize: 14,
+    fontSize: 17,
     marginLeft: 16,
-    marginTop: 4,
-    color: "#777",
+    marginTop: 7,
+    color: "#717171",
   },
 
   card: {

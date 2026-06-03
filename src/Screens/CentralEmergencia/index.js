@@ -12,6 +12,8 @@ import styles from "./styles";
 
 import BottomNavGuardiao from "../../components/BottomNavGuardiao";
 import { useEffect, useState } from "react";
+import api from "../../services/api";
+
 
 import { Linking, Alert } from "react-native";
 
@@ -20,62 +22,64 @@ export default function CentralEmergencia() {
   const navigation = useNavigation();
 
   const ligarEmergencia = async (item) => {
-  try {
-    Alert.alert(
-      "Emergência",
-      `Deseja ligar para a emergência agora?`,
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Ligar",
-          onPress: async () => {
-            await Linking.openURL("tel:190");
+    try {
+      Alert.alert(
+        "Emergência",
+        `Deseja ligar para a emergência agora?`,
+        [
+          { text: "Cancelar", style: "cancel" },
+          {
+            text: "Ligar",
+            onPress: async () => {
+              await Linking.openURL("tel:190");
+            },
           },
-        },
-      ]
-    );
-  } catch (error) {
-    console.log("Erro ao ligar emergência:", error);
-  }
-};
+        ]
+      );
+    } catch (error) {
+      console.log("Erro ao ligar emergência:", error);
+    }
+  };
 
   const [alertas, setAlertas] = useState([]);
 
-  // MOCK (depois você troca pela API)
+  const buscarAlertas = async () => {
+    try {
+      const response = await api.get("/botao-panico-ativos");
+
+      const agrupados = {};
+
+      response.data.forEach((alerta) => {
+        if (!agrupados[alerta.id_usuaria]) {
+          agrupados[alerta.id_usuaria] = {
+            ...alerta,
+            quantidadeAlertas: 1,
+          };
+        } else {
+          agrupados[alerta.id_usuaria].quantidadeAlertas++;
+        }
+      });
+
+      setAlertas(Object.values(agrupados));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   useEffect(() => {
-    const dadosFakes = [
-      {
-        id: 1,
-        nome: "Maria Silva",
-        status: "ATIVO",
-        distancia: "120m",
-        hora: "Agora",
-        foto: null,
-      },
-      {
-        id: 2,
-        nome: "Ana Souza",
-        status: "ATIVO",
-        distancia: "350m",
-        hora: "2 min atrás",
-        foto: null,
-      },
-      {
-        id: 3,
-        nome: "Juliana Costa",
-        status: "ATIVO",
-        distancia: "800m",
-        hora: "5 min atrás",
-        foto: null,
-      },
-    ];
+    buscarAlertas();
 
-    setAlertas(dadosFakes);
+    const interval = setInterval(() => {
+      buscarAlertas();
+    }, 5000);
+
+    return () => clearInterval(interval);
   }, []);
-
 
   const renderItem = ({ item }) => (
     <View style={styles.card}>
+
       {/* topo */}
       <View style={styles.row}>
         <View style={styles.fotoBox}>
@@ -91,17 +95,22 @@ export default function CentralEmergencia() {
 
         <View style={{ flex: 1 }}>
           <Text style={styles.nome}>{item.nome}</Text>
-          <Text style={styles.status}>● {item.status}</Text>
+
+          <Text style={styles.status}>
+            🚨 EMERGÊNCIA ATIVA
+          </Text>
         </View>
 
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>{item.distancia}</Text>
-        </View>
+      
       </View>
 
       {/* info */}
       <Text style={styles.info}>
-        Emergência ativa • recebido {item.hora}
+        {item.quantidadeAlertas} acionamentos SOS
+      </Text>
+
+      <Text style={styles.info}>
+        Último alerta: {item.dataHoraAlerta}
       </Text>
 
       {/* ações */}
@@ -115,12 +124,12 @@ export default function CentralEmergencia() {
           <Text style={styles.btnTextSec}>Acompanhar rota</Text>
         </Pressable>
 
-       <Pressable
-  style={[styles.btnPrincipal, { backgroundColor: "#d32a27" }]}
-  onPress={() => ligarEmergencia(item)}
->
-  <Text style={styles.btnText}>Acionar SOS</Text>
-</Pressable>
+        <Pressable
+          style={[styles.btnPrincipal, { backgroundColor: "#d32a27" }]}
+          onPress={() => ligarEmergencia(item)}
+        >
+          <Text style={styles.btnText}>Acionar SOS</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -132,12 +141,12 @@ export default function CentralEmergencia() {
       <Text style={styles.title}>Central de Emergência</Text>
 
       <Text style={styles.subtitle}>
-        Alertas ativos em tempo real
+Veja aqui os alertas recebidos em tempo real!
       </Text>
 
       <FlatList
         data={alertas}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id_alerta.toString()}
         renderItem={renderItem}
         contentContainerStyle={{ padding: 16, paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}

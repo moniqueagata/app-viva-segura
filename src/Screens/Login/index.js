@@ -8,6 +8,7 @@ import {
   ScrollView,
   Platform,
 } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput as PaperInput, ActivityIndicator } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
@@ -65,92 +66,96 @@ export default function Login() {
 };
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <ScrollView
-        contentContainerStyle={styles.container}
-        keyboardShouldPersistTaps="handled"
-      >
-        <View style={styles.logo}>
-          <Image
-            source={require("../../../assets/img/logo.png")}
-            style={{ width: 200, height: 200 }}
-          />
-        </View>
+    <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <ScrollView
+            contentContainerStyle={styles.container}
+            keyboardShouldPersistTaps="handled"
+          >
+            <View style={styles.logo}>
+              <Image
+                source={require("../../../assets/img/logo.png")}
+                style={{ width: 160, height: 160 }}
+              />
+            </View>
 
-        <Text style={styles.titulo}>Bem vinda(o) de volta!</Text>
+            <Text style={styles.titulo}>Bem vinda(o) de volta!</Text>
 
-        <View style={styles.inputsContainer}>
+            <View style={styles.inputsContainer}>
 
-        <PaperInput
-          label={<Text style={{ fontSize: 19 }}>E-mail</Text>}
-          mode="outlined"
-          style={{ backgroundColor: "#fff", height: 57, width: "95%" }}
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          outlineColor="#ddd"
-          activeOutlineColor="#6925b8"
-          outlineStyle={{ borderRadius: 15 }}
-          theme={{
-            colors: { primary: "#6925b8", onSurfaceVariant: "#ccc" },
-          }}
-        />
-
-          <View style={styles.senhaContainer}>
             <PaperInput
-              label={
-                <Text style={{ fontSize: 19, letterSpacing: 0.4 }}>Senha</Text>
-              }
+              label={<Text style={{ fontSize: 15, letterSpacing: 0.4 }}>E-mail</Text>}
               mode="outlined"
-              style={{ backgroundColor: "#fff", height: 57, width: "95%" }}
+              style={{ backgroundColor: "#fff", height: 50, width: '95%' }}
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
               outlineColor="#ddd"
               activeOutlineColor="#6925b8"
               outlineStyle={{ borderRadius: 15 }}
               theme={{
                 colors: { primary: "#6925b8", onSurfaceVariant: "#ccc" },
               }}
-              value={senha}
-              onChangeText={setSenha}
-              secureTextEntry={!mostrarSenha}
-              right={
-                <PaperInput.Icon
-                  onPress={() => setMostrarSenha(!mostrarSenha)}
-                  icon={mostrarSenha ? "eye" : "eye-off"}
-                  color={mostrarSenha ? "#bbb" : "#6925b8"}
-                />
-              }
             />
-            <Text style={styles.textEsqueciSenha}>Esqueceu a senha?</Text>
-          </View>
-        </View>
 
-        <View style={styles.buttonContainer}>
-          <Pressable
-            style={[styles.btnPurple, !loginValido && { opacity: 0.5 }]}
-            onPress={verificaLogin}
-            disabled={!loginValido || loading}
-          >
-            {loading ? (
-              <ActivityIndicator color="#fff" />
-            ) : (
-              <Text style={styles.txWhite}>Entrar</Text>
-            )}
-          </Pressable>
-        </View>
+              <View style={styles.senhaContainer}>
+                <PaperInput
+                  label={
+                    <Text style={{ fontSize: 15, letterSpacing: 0.4, letterSpacing: 0.4 }}>Senha</Text>
+                  }
+                  mode="outlined"
+                  style={{ backgroundColor: "#fff", height: 50, width: '95%' }}
+                  outlineColor="#ddd"
+                  activeOutlineColor="#6925b8"
+                  outlineStyle={{ borderRadius: 15 }}
+                  theme={{
+                    colors: { primary: "#6925b8", onSurfaceVariant: "#ccc" },
+                  }}
+                  value={senha}
+                  onChangeText={setSenha}
+                  secureTextEntry={!mostrarSenha}
+                  right={
+                    <PaperInput.Icon
+                      onPress={() => setMostrarSenha(!mostrarSenha)}
+                      icon={mostrarSenha ? "eye" : "eye-off"}
+                      color={mostrarSenha ? "#bbb" : "#6925b8"}
+                    />
+                  }
+                />
+                <Text style={styles.textEsqueciSenha}>Esqueceu a senha?</Text>
+              </View>
+            </View>
 
-        <View style={styles.linkView}>
-          <Text style={styles.txLink}>Ainda não possui conta?</Text>
-          <Pressable onPress={() => navigation.navigate("Passo1")}>
-            <Text style={styles.link}>Criar conta</Text>
-          </Pressable>
-        </View>
+            <View style={styles.buttonContainer}>
+              <Pressable
+                style={[styles.btnPurple, !loginValido && { opacity: 0.5 }]}
+                onPress={verificaLogin}
+                disabled={!loginValido || loading}
+              >
+                {loading ? (
+                  <ActivityIndicator color="#fff" />
+                ) : (
+                  <Text style={styles.txWhite}>Entrar</Text>
+                )}
+              </Pressable>
+            </View>
 
-        <StatusBar style="auto" />
-      </ScrollView>
-    </KeyboardAvoidingView>
+            <View style={styles.linkView}>
+              <Text style={styles.txLink}>Ainda não possui conta?</Text>
+              <Pressable onPress={() => navigation.navigate("Passo1")}>
+                <Text style={styles.link}>Criar conta</Text>
+              </Pressable>
+            </View>
+
+            <StatusBar style="auto" />
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </View>
   );
 }

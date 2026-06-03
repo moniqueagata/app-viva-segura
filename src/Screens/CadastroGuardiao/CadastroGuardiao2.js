@@ -15,7 +15,6 @@ export default function CadastroGuardiao2() {
     const { nome, telefone, email, codUsu } = route.params || {};
 
     const [checked, setChecked] = useState(false);
-    const [modal, setModal] = useState(false);
 
     // Senha
     const [senha, setSenha] = useState("");
@@ -74,31 +73,11 @@ export default function CadastroGuardiao2() {
                 keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}
             >
-
-                <Portal>
-                    <Modal visible={modal} dismissable={false} contentContainerStyle={styles.modalContainer}>
-                        <View style={styles.modal}>
-                            <View style={styles.circleCheck}>
-                                <Image source={require('../../../assets/imgGuardiao/check.png')}
-                                    style={{ width: 90, height: 90 }}
-                                    resizeMode='contain'
-                                />
-                            </View>
-                            <Text style={styles.tituloModal}>Cadastro concluído</Text>
-                            <Text style={styles.subtitulo}>Faça login para começar!</Text>
-                            <Pressable style={styles.buttonModal}
-                                onPress={() => { setModal(false); navigation.replace('Login'); }}
-                            >
-                                <Text style={styles.txWhite}>Continuar</Text>
-                            </Pressable>
-                        </View>
-                    </Modal>
-                </Portal>
                 <View style={styles.header}>
                     <Pressable style={styles.btnExit} onPress={() => navigation.navigate('Passo1')}>
-                        <Image source={require('../../../assets/imgGuardiao/arrow_1.png')}
-                            style={{ width: 25, height: 25 }}
-                            tintColor='#aaa'
+                        <Image source={require('../../../assets/imgGuardiao/arrow_2.png')}
+                            style={{ width: 20, height: 20 }}
+                            tintColor='#ccc'
                             resizeMode='contain'
                         />
                     </Pressable>
@@ -124,13 +103,13 @@ export default function CadastroGuardiao2() {
 
                 <View style={styles.inputsContainer}>
                     <PaperInput
-                        label={<Text style={{ fontSize: 19, letterSpacing: 0.4 }}>Senha</Text>}
+                        label={<Text style={{ fontSize: 15, letterSpacing: 0.4 }}>Senha</Text>}
                         mode='outlined'
-                        style={{ backgroundColor: '#fff', height: 57, width: '95%' }}
+                        style={{ backgroundColor: '#fff', height: 50, width: '95%' }}
                         outlineColor='#ddd'
-                        activeOutlineColor='#6925b8'
+                        activeOutlineColor='#3fc8b3'
                         outlineStyle={{ borderRadius: 15 }}
-                        theme={{ colors: { primary: '#6925b8', onSurfaceVariant: '#ccc' } }}
+                        theme={{ colors: { primary: '#3fc8b3', onSurfaceVariant: '#ccc' } }}
                         value={senha}
                         onChangeText={setSenha}
                         secureTextEntry={!mostrarSenha}
@@ -138,19 +117,19 @@ export default function CadastroGuardiao2() {
                             <PaperInput.Icon
                                 onPress={() => setMostrarSenha(!mostrarSenha)}
                                 icon={mostrarSenha ? 'eye' : 'eye-off'}
-                                color={mostrarSenha ? '#bbb' : '#6925b8'}
+                                color={mostrarSenha ? '#bbb' : '#3fc8b3'}
                             />
                         }
                     />
 
                     <PaperInput
-                        label={<Text style={{ fontSize: 19, letterSpacing: 0.4 }}>Confirmar senha</Text>}
+                        label={<Text style={{ fontSize: 15, letterSpacing: 0.4 }}>Confirmar senha</Text>}
                         mode='outlined'
-                        style={{ backgroundColor: '#fff', height: 57, width: '95%' }}
+                        style={{ backgroundColor: '#fff', height: 50, width: '95%' }}
                         outlineColor='#ddd'
-                        activeOutlineColor='#6925b8'
+                        activeOutlineColor='#3fc8b3'
                         outlineStyle={{ borderRadius: 15 }}
-                        theme={{ colors: { primary: '#6925b8', onSurfaceVariant: '#ccc' } }}
+                        theme={{ colors: { primary: '#3fc8b3', onSurfaceVariant: '#ccc' } }}
                         value={confirmarSenha}
                         onChangeText={setConfirmarSenha}
                         secureTextEntry={!mostrarSenha}

@@ -54,7 +54,7 @@ import CentralAjuda from './src/Screens/CentralAjuda';
 import CentralGuardiao from './src/Screens/CentralGuardiao';
 import AcompanharRota from './src/Screens/AcompanharRota';
 import ChatGuardiao from './src/Screens/ChatGuardiao';
-import MensagensGuardiao from './src/Screens/MensagensGuardiao';
+import Mensagens from './src/Screens/Mensagens';
 import EditarPerfilGuardiao from './src/Screens/EditarPerfilGuardiao';
 
 
@@ -69,123 +69,21 @@ export default function App() {
     <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator>
-
-
-          <Stack.Screen name="Welcome" component={Welcome}
+          <Stack.Screen name="Mensagens" component={Mensagens}
             options={{
               headerShown: false
             }}
           />
-
-          
-          <Stack.Screen name="Mapa" component={Mapa}
-            options={{
-              headerShown: false
-            }}
-          />
-
-          <Stack.Screen name="PerfilGuardiao" component={PerfilGuardiao}
-            options={{
-              headerShown: false
-            }}
-          />
-
-          <Stack.Screen name="CentralAjuda" component={CentralAjuda}
-            options={{
-              headerShown: false
-            }}
-          />
-
-          <Stack.Screen name="CentralGuardiao" component={CentralGuardiao}
-            options={{
-              headerShown: false
-            }}
-          />
-
-          
-          <Stack.Screen name="NotificacoesGuardiao" component={NotificacoesGuardiao}
-            options={{
-              headerShown: false
-            }}
-          />
-
-          <Stack.Screen name="CentralEmergencia" component={CentralEmergencia}
-            options={{
-              headerShown: false
-            }}
-          />
-
-                   <Stack.Screen name="EditarPerfilGuardiao" component={EditarPerfilGuardiao}
-            options={{
-              headerShown: false
-            }}
-          />
-
-                    <Stack.Screen name="MensagensGuardiao" component={MensagensGuardiao}
-            options={{
-              headerShown: false
-            }}
-          />
-
-
-                    <Stack.Screen name="ChatGuardiao" component={ChatGuardiao}
-            options={{
-              headerShown: false
-            }}
-          />
-
-          <Stack.Screen name="AcompanharRota" component={AcompanharRota}
-            options={{
-            headerShown: false
-            }}
-            />
-
-
-          <Stack.Screen name="HomeGuardiao" component={HomeGuardiao}
-            options={{
-              headerShown: false
-            }}
-          />
-
-
-
-<Stack.Screen name="CadastroGuardiao3" component={CadastroGuardiao3}
-            options={{
-              headerShown: false
-            }}
-          />
-
-          <Stack.Screen name="CadastroGuardiao2" component={CadastroGuardiao2}
-            options={{
-              headerShown: false
-            }}
-          />
-
-          <Stack.Screen name="CadastroGuardiao1" component={CadastroGuardiao1}
-            options={{
-              headerShown: false
-            }}
-          />
-
-
-          <Stack.Screen name="Perfil" component={Perfil}
-            options={{
-              headerShown: false
-            }}
-          />
-
-          <Stack.Screen name="AddGuardiao" component={AddGuardiao}
-            options={{
-              headerShown: false
-            }}
-          />
-
           <Stack.Screen name="Splash" component={Splash}
             options={{
               headerShown: false
             }}
           />
-
+          <Stack.Screen name="Welcome" component={Welcome}
+            options={{
+              headerShown: false
+            }}
+          />
           <Stack.Screen name="Passo1" component={Passo1}
             options={{
               headerShown: false
@@ -206,44 +104,12 @@ export default function App() {
               headerShown: false
             }}
           />
-
           <Stack.Screen name="Login" component={Login}
             options={{
               headerShown: false
             }}
           />
-
           <Stack.Screen name="Home" component={Home}
-            options={{
-              headerShown: false
-            }}
-          />
-
-
-
-          <Stack.Screen name="MeusGuardioes" component={MeusGuardioes}
-            options={{
-              headerShown: false
-            }}
-          />
-
-          <Stack.Screen name="EditarPerfil" component={EditarPerfil}
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="Notificacoes" component={Notificacoes}
-            options={{
-              headerShown: false
-            }}
-          />
-
-          <Stack.Screen name="HelpChat" component={HelpChat}
-            options={{
-              headerShown: false
-            }}
-          />
-          <Stack.Screen name="Central" component={Central}
             options={{
               headerShown: false
             }}
@@ -273,6 +139,109 @@ export default function App() {
               headerShown: false
             }}
           />
+          <Stack.Screen name="Mapa" component={Mapa}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="MeusGuardioes" component={MeusGuardioes}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="AddGuardiao" component={AddGuardiao}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="Perfil" component={Perfil}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="EditarPerfil" component={EditarPerfil}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="Notificacoes" component={Notificacoes}
+            options={{
+              headerShown: false
+            }}
+          />
+
+          <Stack.Screen name="HelpChat" component={HelpChat}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="Central" component={Central}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="PerfilGuardiao" component={PerfilGuardiao}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="CentralAjuda" component={CentralAjuda}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="CentralGuardiao" component={CentralGuardiao}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="NotificacoesGuardiao" component={NotificacoesGuardiao}
+            options={{
+              headerShown: false
+            }}
+          />
+
+          <Stack.Screen name="CentralEmergencia" component={CentralEmergencia}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="EditarPerfilGuardiao" component={EditarPerfilGuardiao}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="ChatGuardiao" component={ChatGuardiao}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="AcompanharRota" component={AcompanharRota}
+            options={{
+            headerShown: false
+            }}
+            />
+          <Stack.Screen name="HomeGuardiao" component={HomeGuardiao}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="CadastroGuardiao3" component={CadastroGuardiao3}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="CadastroGuardiao2" component={CadastroGuardiao2}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="CadastroGuardiao1" component={CadastroGuardiao1}
+            options={{
+              headerShown: false
+            }}
+          />
+          
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

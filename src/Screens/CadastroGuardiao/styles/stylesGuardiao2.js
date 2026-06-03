@@ -5,7 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor:'#ffffff',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
@@ -13,6 +13,7 @@ export default StyleSheet.create({
   header: {
     width: '100%',
     alignItems: 'center',
+    height: 80,
     flexDirection: 'row',
   },
 
@@ -32,14 +33,6 @@ export default StyleSheet.create({
     borderRadius: 4
   },
 
-  btnExit: {
-    width: 30,
-    height: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 40,
-  },
-
   logo: {
     width: '100%',
     alignItems: 'center',
@@ -48,7 +41,7 @@ export default StyleSheet.create({
   },
 
   titulo: {
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: '500',
     color: '#3fc8b3', 
     textAlign: 'center',
@@ -116,7 +109,7 @@ export default StyleSheet.create({
   btnPurple: {
     backgroundColor: '#3fc8b3', 
     width: '80%',
-    height: 60,
+    height: 50,
     borderRadius: 35, 
     justifyContent: 'center',
     alignItems: 'center',
@@ -124,59 +117,8 @@ export default StyleSheet.create({
 
   txWhite: {
     color: '#fff',
-    fontSize: 22,
-    fontWeight: '500',
-  },
-
-  modalContainer: {
-    width: '100%',
-    height: 500,
-    backgroundColor: '#fff',
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
-    position: 'absolute',
-    bottom: 0,
-    margin: 0,
-  },
-
-  modal: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  circleCheck: {
-    width: 150,
-    height: 150,
-    backgroundColor: '#8e3deb',
-    borderRadius: '50%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 25,
-  },
-
-  tituloModal: {
-    fontSize: 30,
-    fontWeight: '500',
-    color: '#515151',
-    letterSpacing: 0.5,
-    marginBottom: 11
-  },
-
-  subtitulo: {
     fontSize: 18,
-    fontWeight: '400',
-    color: '#717171',
-    marginBottom: 60
-  },
-
-  buttonModal: {
-    backgroundColor: '#6925b8', 
-    width: '70%',
-    height: 54,
-    borderRadius: 35, 
-    justifyContent: 'center',
-    alignItems: 'center',
+    fontWeight: '500',
   },
 
 });

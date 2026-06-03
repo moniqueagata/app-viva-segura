@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
     backgroundColor:'#ffffff',
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -32,13 +32,11 @@ export default StyleSheet.create({
     borderRadius: 4
   },
 
-  btnExit: {
-    width: 30,
-    height: 30,
+  content: {
+    flex: 1,
+    width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 40,
-
+    justifyContent: 'space-around',
   },
 
   logo: {
@@ -48,30 +46,29 @@ export default StyleSheet.create({
     paddingVertical: 22
   },
 
-  titulo: {
-    fontSize: 28,
+  titulo:{
+    color: '#3f0088',
+    fontSize: 22,
     fontWeight: '500',
-    color: '#6925b8', 
-    textAlign: 'center',
-    letterSpacing: 0.7,
   },
 
   inputsContainer: {
-    gap: 33,
+    gap: 22,
     alignItems: 'center',
-    width: '95%',
-    marginTop: 9
+    width: '100%',
+    marginVertical: 5,
   },
 
   validacoesContainer: {
-    width: '85%',
+    width: '100%',
+    paddingHorizontal: 15,
     gap: 5
   },
 
   textValidar: {
-    fontSize: 15,
-    fontWeight: '400',
-    color: '#515151',
+    fontSize: 14,
+    fontWeight: '300',
+    color: '#808080',
   },
 
   termosContainer: {
@@ -79,7 +76,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 12
+    marginVertical: 12
   },
 
   boxContainer: {
@@ -111,13 +108,13 @@ export default StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 180,  
+    marginVertical: '10%'
   },
 
   btnPurple: {
     backgroundColor: '#6925b8', 
-    width: '80%',
-    height: 60,
+    width: '90%',
+    height: 50,
     borderRadius: 35, 
     justifyContent: 'center',
     alignItems: 'center',
@@ -125,8 +122,8 @@ export default StyleSheet.create({
 
   txWhite: {
     color: '#fff',
-    fontSize: 22,
-    fontWeight: '500',
+    fontSize: 18,
+    fontWeight: '400',
   },
 
   modalContainer: {
@@ -150,7 +147,7 @@ export default StyleSheet.create({
     width: 150,
     height: 150,
     backgroundColor: '#8e3deb',
-    borderRadius: 75,    
+    borderRadius: '50%',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 25,

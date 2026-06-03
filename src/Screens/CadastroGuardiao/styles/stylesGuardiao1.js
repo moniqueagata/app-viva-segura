@@ -5,13 +5,14 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
   
   header: {
     width: '100%',
+    height: 80,
     alignItems: 'center',
     flexDirection: 'row',
   },
@@ -33,40 +34,18 @@ export default StyleSheet.create({
     
   },
 
-  btnExit: {
-    width: 30,
-    height: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 30,
-  },
-
   logo: {
-    flex: 1,
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 22,
-    marginEnd: 20
-  },
-
-  texts: {
-    width: '100%',
-    gap: 12,
-    marginBottom: 33
-  },
-
-  titulo: {
-    fontSize: 25,
-    fontWeight: '500',
-    color: '#3fc8b3', 
-    textAlign: 'center',
-    letterSpacing: 0.7,
+    paddingVertical: 22
   },
 
   subtitulo: {
     fontSize: 16,
-    color: '#207a6c',
+    color: '#808080',
     textAlign: 'center',
+    marginBottom: 10,
   },
 
   inputsContainer: {
@@ -86,7 +65,7 @@ export default StyleSheet.create({
   btnPurple: {
     backgroundColor: '#3fc8b3', 
     width: '80%',
-    height: 60,
+    height: 50,
     borderRadius: 35, 
     justifyContent: 'center',
     alignItems: 'center',
@@ -94,7 +73,7 @@ export default StyleSheet.create({
 
   txWhite: {
     color: '#FFFFFF',
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: '500',
   },
 

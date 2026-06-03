@@ -101,7 +101,7 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.viewFlex}>
+        <View style={styles.viewFlex}>
         <Pressable onPress={() => navigation.navigate("Perfil")}>
           {fotoUsuario ? (
             <Image source={{ uri: fotoUsuario }} style={styles.iconiUsario} />
@@ -121,7 +121,7 @@ export default function Home() {
           />
         </Pressable>
       </View>
-
+      <View style={styles.content}>
       <Text style={styles.textoAjuda}>Precisando de ajuda? Use o SOS</Text>
 
       <Pressable
@@ -169,7 +169,9 @@ export default function Home() {
         <Text style={styles.texto}>Telefones públicos</Text>
       </Pressable>
 
-      <Pressable style={styles.botao}>
+      <Pressable style={styles.botao}
+        onPress={() => navigation.navigate("AdicionarPontoSeguro")}
+      >
         <Image
           source={require("../../../assets/img/Home/iconeBotao(3).jpeg")}
           style={styles.imagem}
@@ -177,6 +179,7 @@ export default function Home() {
         <Text style={styles.texto}>Pontos Seguros</Text>
       </Pressable>
 
+      </View>
       <BottomNav abaAtivaInicial={0} />
 
       <StatusBar style="auto" />

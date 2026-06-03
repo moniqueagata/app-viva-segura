@@ -5,6 +5,14 @@ export default StyleSheet.create({
     flex: 1,
    backgroundColor:'#ffffff'
   },
+
+  content: {
+      flex: 1,
+      width: '100%',
+      paddingHorizontal: 20,
+      alignItems: 'center',
+    },
+    
  fundoEmbaixo: {
  
  width: '100%',
@@ -22,12 +30,12 @@ export default StyleSheet.create({
 },
 botao: {
     backgroundColor: "#FAFAFA",
-    width: '70%',
+    width: '80%',
     borderRadius: 10,
     marginBottom: 27,
       height: 53,
-     marginLeft: '15%',
      alignItems: "center",
+     justifyContent: 'center',
    flexDirection:'row',
   },
 
@@ -45,7 +53,7 @@ botao: {
   },
   textoSosPequeno2:{
     color: "#5e5d5d",
-    fontSize: 16,
+    fontSize: 13,
         fontWeight:300,
   
      textAlign:'center',
@@ -53,9 +61,9 @@ botao: {
   },
     textoSosPequeno:{
     color: "#5e5d5d",
-    fontSize: 16,
+    fontSize: 13,
         fontWeight:300,
-     marginTop:5,
+     marginBottom:2,
      textAlign:'center',
   },
   textoEmergencia:{
@@ -63,15 +71,13 @@ botao: {
     fontSize: 18,
         fontWeight:600,
      marginTop:1,
-          marginBottom: 2,
+          marginBottom: 8,
      textAlign:'center',
   },
   imagemSos:{
      height: 178,
        width: 178,
-        marginBottom: 15,
-         marginLeft: '29%',
-         marginTop:9,
+        marginVertical: 15
   },
   textoAjuda:{
      color: "#653F8F",
@@ -83,12 +89,11 @@ botao: {
   },
   viewFlex:{
   flexDirection:'row',
-  marginTop:30,
+  marginVertical:30,
   },
   notificacao:{
     width:23,
     height:23,
-    marginBottom:50,
     marginTop:27,
     marginLeft:200,
   },
@@ -103,14 +108,26 @@ botao: {
   iconiUsario:{
     width:36,
     height:36,
-   borderRadius:'100%',
+   borderRadius: 50,
    marginLeft:15,
    marginTop:25,
   },
 
+  // Navegação
+  navegacao: {
+    width: '100%',
+    height: 80,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    backgroundColor: '#6925b8',
+    paddingBottom: 3,
+    paddingHorizontal: 10
+  },
+
   line: {
     height: 4,
-    backgroundColor: '#FF88A7',
+    backgroundColor: '#ff80aa',
     borderRadius: 2,
     top: 0,
     left: 0,
@@ -128,6 +145,6 @@ botao: {
   textNav: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#ccc'
+    color: '#fff'
   },
 });

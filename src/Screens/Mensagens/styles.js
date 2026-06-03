@@ -7,12 +7,14 @@ export default StyleSheet.create({
   },
   // Cabeçalho
   header: {
+    height: 88,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 12,
+    paddingTop: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#F0F0F0',
+    gap: 15
   },
   backArrow: {
     fontSize: 28,

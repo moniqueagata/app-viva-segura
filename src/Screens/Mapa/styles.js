@@ -101,24 +101,26 @@ export default StyleSheet.create({
   },
 
   circle: {
-    width: 35,
-    height: 35,
+    width: 36,
+    height: 36,
     backgroundColor: '#eee',
     overflow: 'hidden',
     borderRadius: 20,
-    borderWidth: 2,
-    borderColor: '#bb7cff'
+    borderWidth: 1,
+    borderColor: '#6925b8'
   },
 
   pin: {
     width: 34, 
     height: 34, 
-    borderRadius: 17,
-    backgroundColor: '#ffc5d9',
+    borderTopLeftRadius: 17,
+    borderTopRightRadius: 17,
+    borderBottomLeftRadius: 20,
+    backgroundColor: '#fff',
     alignItems: 'center', 
     justifyContent: 'center',
-    borderWidth: 2, 
-    borderColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#ddd'
   },
 
   scroll: {

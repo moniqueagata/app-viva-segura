@@ -29,7 +29,7 @@ export default StyleSheet.create({
   },
   
   headerTitle: {
-    fontSize: 25,
+    fontSize: 30,
     fontWeight: "bold",
     marginTop: 20,
     marginLeft: 16,
@@ -38,10 +38,10 @@ export default StyleSheet.create({
 
 
     subtitle: {
-    fontSize: 15,
+    fontSize: 18,
     marginLeft: 16,
-    marginTop: 4,
-    color: "#777",
+    marginTop: 5,
+    color: "#6f6f6f",
   },
   
   chatCard: {
@@ -74,10 +74,10 @@ export default StyleSheet.create({
     paddingRight: 45, 
   },
   userName: {
-    fontSize: 18,
+    fontSize: 19,
     fontWeight: 'bold',
     color: '#4B0082', 
-    marginBottom: 5,
+    marginBottom: 7,
   },
   lastMessage: {
     fontSize: 14,

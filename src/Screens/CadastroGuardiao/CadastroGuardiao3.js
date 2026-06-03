@@ -100,7 +100,7 @@ export default function Passo3Guardiao() {
         telefone: telefone.replace(/\D/g, ""),
         id_role: 2,
         codigo_convite: codigo_convite,
-                foto: fotoPerfil || null,
+        foto: fotoPerfil || null,
       };
 
       console.log("ENVIANDO:", usuario);

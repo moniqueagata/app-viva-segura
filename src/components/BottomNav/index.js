@@ -1,51 +1,77 @@
-import { View, Image, Pressable, Text, Animated } from "react-native";
+import { View, Image, Pressable, Text, Animated, useWindowDimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useRef, useState, useEffect } from "react";
+import styles from "../../Screens/Mapa/styles";
 
 export default function BottomNav({ abaAtivaInicial = 0 }) {
   const navigation = useNavigation();
 
-  const [abaAtiva, setAbaAtiva] = useState(abaAtivaInicial);
-
-  const abas = [
-    { rota: "Home", imagem: require("../../../assets/img/home.png"), index: 0 },
-    { rota: "Mapa", imagem: require("../../../assets/img/map.png"), index: 1 },
-    { rota: "MeusGuardioes", imagem: require("../../../assets/img/angel.png"), index: 2 },
-    { rota: "Perfil", imagem: require("../../../assets/img/profile.png"), index: 3 },
-  ];
+  // Animação na navegação
+    const { width } = useWindowDimensions();
+    const [medidas, setMedidas] = useState({});
+    const [abaAtiva, setAbaAtiva] = useState(abaAtivaInicial);
+    const larguraAba = 60;
+    const posicaoX = useRef(new Animated.Value(0)).current;
+  
+    useEffect(() => {
+      const medidaAtual = medidas[abaAtiva];
+  
+      if (medidaAtual) {
+        const { x, width } = medidaAtual;
+  
+        const destinoX = x + (width / 2) - (larguraAba / 2);
+  
+        Animated.spring(posicaoX, {
+          toValue: destinoX,
+          useNativeDriver: true,
+          bounciness: 4,
+        }).start();
+      }
+    }, [abaAtiva, medidas]);
+  
+    const abaLayout = (index, event) => {
+      const { x, width } = event.nativeEvent.layout;
+      setMedidas(prev => ({
+        ...prev, [index]: { x, width }
+      }));
+    };
+  
+    const abas = [
+      { label: 'Home', rota: "Home", imagem: require('../../../assets/img/home.png'), index: 0 },
+      { label: 'Mapa', rota: "Mapa", imagem: require('../../../assets/img/map.png'), index: 1 },
+      { label: 'Guardião', rota: "MeusGuardioes", imagem: require('../../../assets/img/angel.png'), index: 2 },
+      { label: 'Você', rota: "Perfil", imagem: require('../../../assets/img/profile.png'), index: 3 }
+    ];
+    //----------
 
   return (
-    <View
-  style={{
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-
-    height: 80,
-    width: "100%",
-
-    flexDirection: "row",
-    backgroundColor: "#550FA4",
-    justifyContent: "space-around",
-    alignItems: "center",
-  }}
->
-      {abas.map((aba) => (
-        <Pressable
-          key={aba.index}
-          onPress={() => {
-            setAbaAtiva(aba.index);
-            if (aba.rota) navigation.navigate(aba.rota);
-          }}
-        >
-          <Image
-            source={aba.imagem}
-            style={{ width: 28, height: 28 }}
-            tintColor={abaAtiva === aba.index ? "#FF88A7" : "#fff"}
+    <View style={styles.navegacao}>
+          <Animated.View
+            style={[styles.line,
+            { width: larguraAba, transform: [{ translateX: posicaoX }] }
+            ]}
           />
-        </Pressable>
-      ))}
-    </View>
+          {abas.map((aba) => (
+            <Pressable
+              key={aba.index}
+              style={styles.buttonNav}
+              onPress={() => {
+                setAbaAtiva(aba.index);
+
+                if (aba.rota) {
+                  navigation.navigate(aba.rota);
+                }
+              }}
+              onLayout={(event) => abaLayout(aba.index, event)}
+            >
+              <Image source={aba.imagem}
+                style={{ width: 22, height: 22 }}
+                tintColor={abaAtiva === aba.index ? '#ff80aa' : '#fff'}
+                resizeMode='contain'
+              />
+              <Text style={[styles.textNav, abaAtiva === aba.index && { color: '#ff80aa' }]}>{aba.label}</Text>
+            </Pressable>
+          ))}
+        </View>
   );
 }

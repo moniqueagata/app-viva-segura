@@ -13,14 +13,18 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const SNAP_BOTTOM = (SCREEN_HEIGHT * 0.65) - 120;
 const SNAP_TOP = 0;
 
+// Icones - Locais Seguros
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+
 const ICONE_TIPO = {
-  delegacia: '🚨',
-  estacao: '🚉',
-  saude: '🏥',
-  apoio: '♀️',
-  terminal: '🚍',
-  policia: '👮🏻‍♀️',
-  default: '📌',
+  delegacia: <MaterialCommunityIcons name="police-station" size={18} color="#6925b8" />,
+  estacao: <FontAwesome6 name="train-subway" size={15} color="#6925b8" />,
+  apoio: <AntDesign name="woman" size={17} color="#6925b8" />,
+  terminal: <FontAwesome5 name="bus" size={15} color="#6925b8" />,
+  policia:  <MaterialCommunityIcons name="police-station" size={18} color="#6925b8" />,
 };
 
 export default function Mapa() {
@@ -420,8 +424,6 @@ export default function Mapa() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.content}>
-
-
           <MapView
             ref={mapRef}
             style={StyleSheet.absoluteFillObject}
@@ -463,11 +465,7 @@ export default function Mapa() {
                 coordinate={rotaAtiva[rotaAtiva.length - 1]}
                 title={enderecoDestino}
               >
-                <Image
-                  source={require('../../../assets/img/map.png')}
-                  style={{ width: 25, height: 25 }}
-                  tintColor='#a262e6'
-                />
+                <FontAwesome5 name="map-marker" size={25} color="#a262e6" />
               </Marker>
             )}
             {pontosRota.map((ponto, index) => {
@@ -482,16 +480,8 @@ export default function Mapa() {
                   description={ponto.endereco}
                   onCalloutPress={() => selecionarSugestao(ponto)}
                 >
-                  <View style={[
-                    styles.pin,
-                    ponto.tipo === 'delegacia',
-                    ponto.tipo === 'saude',
-                    ponto.tipo === 'apoio',
-                    ponto.tipo === 'estacao',
-                    ponto.tipo === 'terminal',
-                    ponto.tipo === 'policia',
-                  ]}>
-                    <Text style={{ fontSize: 14 }}>{ICONE_TIPO[ponto.tipo] || ICONE_TIPO.default}</Text>
+                  <View style={styles.pin}>
+                    {ICONE_TIPO[ponto.tipo]}
                   </View>
                 </Marker>
               );
@@ -624,9 +614,10 @@ export default function Mapa() {
                       {sugestoes.length > 0 ? (
                         sugestoes.map((item, index) => (
                           <Pressable key={`sugestao-${item.id ?? item.id_localSeguro ?? index}`} style={styles.card} onPress={() => selecionarSugestao(item)} >
-                            <Text style={styles.nomeLocal}>
-                              {ICONE_TIPO[item.tipo] || ICONE_TIPO.default} {item.nome}
-                            </Text>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                              {ICONE_TIPO[item.tipo]}
+                              <Text style={styles.nomeLocal}>{item.nome}</Text>
+                            </View>
                             <Text style={{ fontSize: 14, fontWeight: '400', color: '#808080' }}>{item.endereco}</Text>
                           </Pressable>
                         ))

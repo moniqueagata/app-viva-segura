@@ -69,11 +69,7 @@ export default function App() {
     <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Mensagens" component={Mensagens}
-            options={{
-              headerShown: false
-            }}
-          />
+          
           <Stack.Screen name="Splash" component={Splash}
             options={{
               headerShown: false
@@ -237,6 +233,11 @@ export default function App() {
             }}
           />
           <Stack.Screen name="CadastroGuardiao1" component={CadastroGuardiao1}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="Mensagens" component={Mensagens}
             options={{
               headerShown: false
             }}

@@ -1,12 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  View,
-  Image,
-  Text,
-  Pressable,
-  useWindowDimensions,
-  Animated,
-} from "react-native";
+import {View,Image,Text,Pressable,useWindowDimensions,Animated,} from "react-native";
 import styles from "./styles";
 import { useState, useEffect, useRef } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -16,6 +9,15 @@ import BottomNav from "../../components/BottomNav";
 import * as Location from "expo-location";
 import api from "../../services/api";
 import { Alert } from "react-native";
+import * as Notifications from "expo-notifications"; 
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function Home() {
   const navigation = useNavigation();
@@ -34,6 +36,53 @@ export default function Home() {
         const usuarioConvertido = JSON.parse(user);
         setNomeUsuario(usuarioConvertido.nome);
         setFotoUsuario(usuarioConvertido.foto);
+
+        const idUsuario = usuarioConvertido.id_usuaria || usuarioConvertido.id;
+
+        // 1. >>> SISTEMA DE REGISTRO DO PUSH TOKEN <<<
+        try {
+          const { status: statusExistente } = await Notifications.getPermissionsAsync();
+          let statusFinal = statusExistente;
+          
+          if (statusExistente !== "granted") {
+            const { status } = await Notifications.requestPermissionsAsync();
+            statusFinal = status;
+          }
+          
+          if (statusFinal === "granted") {
+            const tokenData = await Notifications.getExpoPushTokenAsync();
+            const tokenObtido = tokenData.data;
+
+            await api.post(`/usuaria/${idUsuario}/salvar-token`, {
+              push_token: tokenObtido,
+            });
+
+            console.log("Push Token salvo com sucesso:", tokenObtido);
+          }
+        } catch (error) {
+          console.log("Erro ao gerenciar notificações:", error);
+        }
+        
+        // 2. >>> NOVA ADIÇÃO: VERIFICAR SE HÁ GUARDIÕES AGUARDANDO ACEITE <<<
+        try {
+          // Faz a requisição para a sua rota de listar guardiões da usuária
+          const response = await api.get(`/guardioes/${idUsuario}`);
+          const listaGuardioes = response.data;
+
+          // Procura na lista se existe algum guardião que ainda está com o status de pendente
+          // (Estou assumindo que o campo se chama 'status' e o valor inicial é 'pendente' ou vazio)
+          const temPendente = listaGuardioes.some(guardiao => guardiao.status === "pendente" || !guardiao.status);
+
+          if (temPendente) {
+            Alert.alert(
+              "⏳ Guardiões Pendentes",
+              "Você possui convites de guardiões que ainda estão aguardando o aceite."
+            );
+          }
+        } catch (error) {
+          console.log("Erro ao verificar guardiões pendentes:", error);
+        }
+        // >>> FIM DA NOVA ADIÇÃO <<<
       }
     };
 
@@ -79,8 +128,6 @@ export default function Home() {
       Alert.alert("Erro ao enviar SOS");
     }
   };
-
-
 
   const iniciarHold = () => {
     setHolding(true);
@@ -141,7 +188,7 @@ export default function Home() {
       <Text style={styles.textoEmergencia}>EMERGÊNCIA</Text>
 
       <Text style={styles.textoSosPequeno}>
-        Pressione o botão por 3 segundos para{" "}
+        Pressione o botão por 3 seconds para{" "}
       </Text>
       <Text style={styles.textoSosPequeno2}>
         mandar sua geolocalização ao seu guardião

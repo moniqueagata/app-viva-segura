@@ -1,6 +1,7 @@
 import { View, Text, Pressable, Image, Dimensions, StyleSheet, useWindowDimensions, TextInput, Animated, ScrollView, Alert, Share } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GestureHandlerRootView, PanGestureHandler, State } from 'react-native-gesture-handler';
+import { Modal, Portal } from "react-native-paper";
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect, useRef, useCallback } from 'react';
@@ -9,6 +10,7 @@ import * as Location from 'expo-location';
 import { getDistance } from 'geolib';
 import api from '../../services/api'
 
+// Painel
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const SNAP_BOTTOM = (SCREEN_HEIGHT * 0.65) - 120;
 const SNAP_TOP = 0;
@@ -18,6 +20,7 @@ import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Entypo from '@expo/vector-icons/Entypo';
 
 const ICONE_TIPO = {
   delegacia: <MaterialCommunityIcons name="police-station" size={18} color="#6925b8" />,
@@ -108,8 +111,6 @@ export default function Mapa() {
         setEndereco('Permissão de localização negada');
         return;
       }
-
-      // ✅ Localização exata na abertura
       const primeiraPosicao = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.High,
       });
@@ -465,27 +466,9 @@ export default function Mapa() {
                 coordinate={rotaAtiva[rotaAtiva.length - 1]}
                 title={enderecoDestino}
               >
-                <FontAwesome5 name="map-marker" size={25} color="#a262e6" />
+                <FontAwesome5 name="map-marker" size={20} color="#ff88a7" />
               </Marker>
             )}
-            {pontosRota.map((ponto, index) => {
-              const pLat = Number(ponto.latitude);
-              const pLng = Number(ponto.longitude);
-              if (isNaN(pLat) || isNaN(pLng)) return null;
-              return (
-                <Marker
-                  key={`ponto-${ponto.id ?? ponto.id_localSeguro ?? index}`}
-                  coordinate={{ latitude: Number(ponto.latitude), longitude: Number(ponto.longitude) }}
-                  title={ponto.nome}
-                  description={ponto.endereco}
-                  onCalloutPress={() => selecionarSugestao(ponto)}
-                >
-                  <View style={styles.pin}>
-                    {ICONE_TIPO[ponto.tipo]}
-                  </View>
-                </Marker>
-              );
-            })}
             {/* {alertas.map((alerta) => {
               const aLat = Number(alerta.latitude);
               const aLng = Number(alerta.longitude);
@@ -502,7 +485,7 @@ export default function Mapa() {
               );
             })} */}
             {rotaAtiva && rotaAtiva.length > 0 && (
-              <Polyline coordinates={rotaAtiva} strokeColor="#a262e6" strokeWidth={4} lineDashPattern={[0]} />
+              <Polyline coordinates={rotaAtiva} strokeColor="#ff88a7" strokeWidth={2} lineDashPattern={[0]} />
             )}
           </MapView>
 
@@ -523,12 +506,12 @@ export default function Mapa() {
                     <Image
                       source={require('../../../imgMapa/pin.png')}
                       style={{ width: 22, height: 22 }}
-                      tintColor='#9539ff'
+                      tintColor='#ff88a7'
                     />
                     <Text style={styles.endereço} numberOfLines={2}>{enderecoDestino}</Text>
                   </View>
                   <View style={styles.footer}>
-                    <Text style={styles.km}>Distância de </Text>
+                    <Text style={styles.km}>Distância de</Text>
                     {distanciaAtual !== null && (
                       <Text style={styles.km}>
                         {distanciaAtual >= 1000 ? `${(distanciaAtual / 1000).toFixed(1)} km` : `${distanciaAtual} metros`}
@@ -631,13 +614,8 @@ export default function Mapa() {
                     <Pressable
                       style={styles.button}
                       onPress={compartilharLocalizacao}
-                      disabled={compartilhando}
                     >
-                      <Text style={styles.txWhite}>{compartilhando ? 'Compartilhando...' : 'Compartilhar'}</Text>
-                      <Image source={require('../../../imgMapa/share_1.png')}
-                        style={{ width: 14, height: 14 }}
-                        tintColor='#fff'
-                      />
+                      <Text style={styles.txWhite}>Compartilhar agora</Text>
                     </Pressable>
                   </View>
                 </View>

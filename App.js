@@ -69,7 +69,11 @@ export default function App() {
     <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          
+          <Stack.Screen name="Mapa" component={Mapa}
+            options={{
+              headerShown: false
+            }}
+          />
           <Stack.Screen name="Splash" component={Splash}
             options={{
               headerShown: false
@@ -135,11 +139,6 @@ export default function App() {
               headerShown: false
             }}
           />
-          <Stack.Screen name="Mapa" component={Mapa}
-            options={{
-              headerShown: false
-            }}
-          />
           <Stack.Screen name="MeusGuardioes" component={MeusGuardioes}
             options={{
               headerShown: false
@@ -165,13 +164,12 @@ export default function App() {
               headerShown: false
             }}
           />
-
-          <Stack.Screen name="HelpChat" component={HelpChat}
+          <Stack.Screen name="Central" component={Central}
             options={{
               headerShown: false
             }}
           />
-          <Stack.Screen name="Central" component={Central}
+          <Stack.Screen name="HelpChat" component={HelpChat}
             options={{
               headerShown: false
             }}

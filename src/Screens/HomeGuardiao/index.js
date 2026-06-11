@@ -113,7 +113,7 @@ const [quantidadeAlertas, setQuantidadeAlertas] = useState(0);
         console.log("USER COMPLETO:", usuarioConvertido);
         const idGuardiao = usuarioConvertido.id_usuaria;
 
-        fetch(`http://192.168.0.60:8000/api/guardiao/home/${idGuardiao}`)
+        fetch(`http://192.168.1.19:8000/api/guardiao/home/${idGuardiao}`)
           .then((res) => res.json())
           .then((json) => {
             console.log("RESPOSTA JSON:", json);
@@ -142,7 +142,7 @@ const [quantidadeAlertas, setQuantidadeAlertas] = useState(0);
       try {
         // LOCALIZAÇÃO DA USUÁRIA
         const response = await axios.get(
-          "http://192.168.0.60:8000/api/localizacao/1",
+          "http://192.168.1.19:8000/api/localizacao/1",
         );
 
 const dados = response.data;

@@ -66,7 +66,7 @@ export default StyleSheet.create({
   endereço: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#9539ff',
+    color: '#ff88a7',
     paddingVertical: 3,
     paddingLeft: 8
   },
@@ -107,20 +107,7 @@ export default StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#6925b8'
-  },
-
-  pin: {
-    width: 34, 
-    height: 34, 
-    borderTopLeftRadius: 17,
-    borderTopRightRadius: 17,
-    borderBottomLeftRadius: 20,
-    backgroundColor: '#fff',
-    alignItems: 'center', 
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#ddd'
+    borderColor: '#ff88a7'
   },
 
   scroll: {
@@ -150,7 +137,7 @@ export default StyleSheet.create({
   },
 
   puxador: {
-    width: '20%',
+    width: '10%',
     height: 4,
     backgroundColor: '#e0e0e0',
     borderRadius: 2,
@@ -243,23 +230,23 @@ export default StyleSheet.create({
 
   subtitulo: {
     fontSize: 15,
-    fontWeight: '400',
-    color: '#653f8f',
+    fontWeight: '500',
+    color: '#6925b8',
   },
 
   button: {
-    width: 160,
-    height: 40,
+    width: 190,
+    height: 47,
     backgroundColor: '#6925b8',
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30,
+    marginVertical: '2%',
     gap: 10
   },
 
   txWhite: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '500',
     color: '#fff'
   },
@@ -269,7 +256,6 @@ export default StyleSheet.create({
     fontWeight: '500',
     color: '#6925b8',
   },
-
 
   // Navegação
   navegacao: {

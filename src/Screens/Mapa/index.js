@@ -51,6 +51,11 @@ export default function Mapa() {
   const [coordenadasDestino, setCoordenadasDestino] = useState(null);
   const [distanciaAtual, setDistanciaAtual] = useState(null);
 
+  // Modal seleção de guardiões - Compartilhar Localização
+  const [modalGuardioes, setModalGuardioes] = useState(true);;
+  const [guardioes, setGuardioes] = useState([]);
+  const [selecionados, setSelecionados] = useState([]);
+
   // Animação do Painel
   const posicaoY = useRef(new Animated.Value(SNAP_BOTTOM)).current;
   const posicaoPainel = useRef(SNAP_BOTTOM);
@@ -353,10 +358,12 @@ export default function Mapa() {
   const compartilharLocalizacao = async () => {
     if (!location) { Alert.alert('Localização indisponível', 'Aguarde a localização ser obtida.'); return; }
     setCompartilhando(true);
+    setModalGuardioes(true);
+
     const { latitude, longitude } = location;
-    const mensagem = `🚨 Preciso de ajuda!\n📍 ${endereco}\n\nhttps://maps.google.com/?q=${latitude},${longitude}`;
+    // const mensagem = `🚨 Preciso de ajuda!\n📍 ${endereco}\n\nhttps://maps.google.com/?q=${latitude},${longitude}`;
     try {
-      await Share.share({ message: mensagem });
+      // await Share.share({ message: mensagem });
       await api.post('/localizacao', {
         id_usuaria: usuario?.id,
         latitude,
@@ -409,7 +416,6 @@ export default function Mapa() {
 
   const abrirPainel = () => {
     posicaoPainel.current = SNAP_TOP;
-
     posicaoY.setOffset(SNAP_TOP);
     posicaoY.setValue(0);
 
@@ -566,7 +572,6 @@ export default function Mapa() {
                       onSubmitEditing={buscarEndereco}
                       returnKeyType="search"
                       onFocus={abrirPainel}
-
                     />
                     {pesquisa.length > 0 && (
                       <Pressable style={styles.btnSearch} onPress={buscarEndereco}>
@@ -651,6 +656,31 @@ export default function Mapa() {
             </Pressable>
           ))}
         </View>
+        <Modal
+          visible={modalGuardioes}
+          onDismiss={() => setModalGuardioes(false)}
+          contentContainerStyle={styles.overlayModal}
+        >
+          <View style={styles.modal}>
+            <Text style={styles.modalSubtitulo}>Escolha com quem você deseja compartilhar sua localização</Text>
+            <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
+              <View style={styles.cardGuardiao}>
+                <View style={styles.upload} />
+
+              </View>
+              <View style={styles.cardGuardiao}>
+                
+              </View>
+              <View style={styles.cardGuardiao}>
+
+              </View>
+
+              <Pressable style={styles.btnConcluir}>
+                <Text>Concluir</Text>
+              </Pressable>
+            </ScrollView>
+          </View>
+        </Modal>
       </View>
     </GestureHandlerRootView>
   );

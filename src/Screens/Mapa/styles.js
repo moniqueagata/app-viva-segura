@@ -242,7 +242,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 30,
     marginVertical: '2%',
-    gap: 10
   },
 
   txWhite: {
@@ -291,5 +290,55 @@ export default StyleSheet.create({
     fontWeight: '400',
     color: '#fff'
   },
+
+  // Modal seleção de guardiões
+  overlayModal: {
+    width: '100%',
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    position: 'absolute',
+    bottom: 0,
+    margin: 0,
+  },
+
+  modal: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 30,
+    paddingVertical: 30,
+  },
+
+  cardGuardiao: {
+    width: '100%',
+    height: 66,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderRadius: 10,
+    marginVertical: 5,
+  },
+
+  modalSubtitulo: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: '#6925b8',
+    paddingHorizontal: 10,
+    textAlign: 'center',
+    marginBottom: '7%'
+  },
+
+  btnConcluir: {
+    width: 190,
+    height: 47,
+    backgroundColor: '#6925b8',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 30,
+    marginVertical: '7%',
+  },
+
 
 });
